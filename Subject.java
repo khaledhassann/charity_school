@@ -6,9 +6,11 @@ public abstract class Subject {
     private String name = "Default subject";
     private int credits = 0;
     private List<Assessment> assessments = new ArrayList<>();
+    private IGradingBehavior gradeBehavior;
 
     public String getDetails() {
-        return "This is " + this.getCode() + ":" + this.getName() + " with credit hours " + getCredits();
+        return "This is " + this.getCode() + ":" + this.getName() + " with credit hours " + this.getCredits()
+                + "\nTeaching method: " + this.getBehavior() + "\nGrading: " + this.getGradeBehavior().defineGrading();
     };
 
     public abstract String getBehavior();
@@ -51,6 +53,10 @@ public abstract class Subject {
         return code;
     }
 
+    public IGradingBehavior getGradeBehavior() {
+        return gradeBehavior;
+    }
+
     public void setAssessments(List<Assessment> assessments) {
         this.assessments = assessments;
     }
@@ -65,6 +71,10 @@ public abstract class Subject {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public void setGradeBehavior(IGradingBehavior gradeBehavior) {
+        this.gradeBehavior = gradeBehavior;
     }
 
 }

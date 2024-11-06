@@ -4,6 +4,7 @@ public class Science extends Subject {
         setCode("ENRG200");
         setName("Science");
         setCredits(3);
+        setGradeBehavior(new LetterGrading());
     }
 
     @Override

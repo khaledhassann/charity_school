@@ -3,6 +3,7 @@ public class Math extends Subject {
         setCode("PHM100");
         setName("Mathematics");
         setCredits(4);
+        setGradeBehavior(new LetterGrading());
     }
 
     @Override

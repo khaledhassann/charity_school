@@ -3,7 +3,7 @@ public class LetterGrading implements IGradingBehavior {
     @Override
     public String defineGrading() {
         // TODO Define Letter Grading Behavior
-        throw new UnsupportedOperationException("Unimplemented method 'defineGrading'");
+        return "This system of grading is based upon Letters";
     }
 
 }

@@ -4,6 +4,7 @@ public class History extends Subject {
         setCode("ASU300");
         setName("History");
         setCredits(2);
+        setGradeBehavior(new PassFailGrading());
     }
 
     @Override

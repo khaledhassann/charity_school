@@ -3,7 +3,7 @@ public class PassFailGrading implements IGradingBehavior {
     @Override
     public String defineGrading() {
         // TODO Define Pass Fail Grading Behavior
-        throw new UnsupportedOperationException("Unimplemented method 'defineGrading'");
+        return "This system of grading is based upon passing or failing";
     }
 
 }
