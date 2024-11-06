@@ -5,6 +5,7 @@ public class Science extends Subject {
         setName("Science");
         setCredits(3);
         setGradeBehavior(new LetterGrading());
+        setFinalExam(new PracticalExam());
     }
 
     @Override

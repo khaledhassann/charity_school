@@ -4,12 +4,7 @@ public class Math extends Subject {
         setName("Mathematics");
         setCredits(4);
         setGradeBehavior(new LetterGrading());
-    }
-
-    @Override
-    public String getDetails() {
-        // TODO Define Math details
-        return "This is " + this.getCode() + ":" + this.getName() + " with credit hours " + getCredits();
+        setFinalExam(new WrittenExam());
     }
 
     @Override

@@ -5,6 +5,7 @@ public class History extends Subject {
         setName("History");
         setCredits(2);
         setGradeBehavior(new PassFailGrading());
+        setFinalExam(new WrittenExam());
     }
 
     @Override

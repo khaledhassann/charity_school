@@ -7,10 +7,12 @@ public abstract class Subject {
     private int credits = 0;
     private List<Assessment> assessments = new ArrayList<>();
     private IGradingBehavior gradeBehavior;
+    private IExamBehavior finalExam;
 
     public String getDetails() {
         return "This is " + this.getCode() + ":" + this.getName() + " with credit hours " + this.getCredits()
-                + "\nTeaching method: " + this.getBehavior() + "\nGrading: " + this.getGradeBehavior().defineGrading();
+                + "\nTeaching method: " + this.getBehavior() + "\nGrading: " + this.getGradeBehavior().defineGrading()
+                + "\nFinal Exam: " + this.getFinalExam().defineExamType();
     };
 
     public abstract String getBehavior();
@@ -57,6 +59,10 @@ public abstract class Subject {
         return gradeBehavior;
     }
 
+    public IExamBehavior getFinalExam() {
+        return finalExam;
+    }
+
     public void setAssessments(List<Assessment> assessments) {
         this.assessments = assessments;
     }
@@ -75,6 +81,10 @@ public abstract class Subject {
 
     public void setGradeBehavior(IGradingBehavior gradeBehavior) {
         this.gradeBehavior = gradeBehavior;
+    }
+
+    public void setFinalExam(IExamBehavior finalExam) {
+        this.finalExam = finalExam;
     }
 
 }
