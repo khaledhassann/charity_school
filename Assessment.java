@@ -1,14 +1,25 @@
 import java.util.Date;
 
 public class Assessment {
-    private String assessmentName;
-    private double weight;
-    private int maxScore;
+    private String assessmentName = "Default assessment";
+    private double weight = 0.1;
+    private int maxScore = 10;
     private Date deadline;
+
+    public Assessment(String assessmentName, double weight, int maxScore) {
+        this.assessmentName = assessmentName;
+        this.weight = weight;
+        this.maxScore = maxScore;
+    }
 
     public double calculateScore(int obtainedMark) {
         // TODO: Define Assessment calculateScore code
         return 0;
+    }
+
+    public String getDetails() {
+        return "This is " + this.getAssessmentName() + " with max mark: " + this.getMaxScore() + " and weight: "
+                + this.getWeight();
     }
 
     // SETTERS AND GETTERS

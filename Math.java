@@ -1,5 +1,6 @@
 public class Math extends Subject {
     public Math() {
+        setCode("PHM100");
         setName("Mathematics");
         setCredits(4);
     }
@@ -7,12 +8,12 @@ public class Math extends Subject {
     @Override
     public String getDetails() {
         // TODO Define Math details
-        throw new UnsupportedOperationException("Unimplemented method 'getDetails'");
+        return "This is " + this.getCode() + ":" + this.getName() + " with credit hours " + getCredits();
     }
 
     @Override
     public String getBehavior() {
         // TODO Define Math behavior
-        throw new UnsupportedOperationException("Unimplemented method 'getBehavior'");
+        return "Math behavior is more about solving examples and seeing ahead";
     }
 }
