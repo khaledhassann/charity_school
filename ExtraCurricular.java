@@ -8,13 +8,24 @@ public class ExtraCurricular extends SubjectDecorator {
     @Override
     public String getDetails() {
         // TODO Define Extra Curricular details
-        throw new UnsupportedOperationException("Unimplemented method 'getDetails'");
+        return subject.getDetails()
+                + "\n* This subject contains a large part of extracurricular activities aimed to make you market ready!";
     }
 
     @Override
     public String getBehavior() {
         // TODO Define Extra Curricular behavior
-        throw new UnsupportedOperationException("Unimplemented method 'getBehavior'");
+        return subject.getBehavior() + ", with an added layer of extracurricular activites";
+    }
+
+    @Override
+    public String getName() {
+        return subject.getName(); // Delegate to the wrapped subject (Math)
+    }
+
+    @Override
+    public String getCode() {
+        return subject.getCode(); // Delegate to the wrapped subject (Math)
     }
 
 }

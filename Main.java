@@ -7,9 +7,9 @@ public class Main {
     public static void main(String[] args) {
         List<Subject> subjects = new ArrayList<Subject>() {
             {
-                add(new Math());
+                add(new AdvancedModule(new Math()));
                 add(new Science());
-                add(new History());
+                add(new ExtraCurricular(new History()));
             }
         };
 
