@@ -27,7 +27,7 @@ public abstract class Student extends User {
 
 
     public abstract void register();
-    public abstract void viewProfile();
+
 
 
     public Schedule getSchedule() {
