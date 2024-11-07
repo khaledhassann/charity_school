@@ -1,10 +1,52 @@
+import java.util.List;
 import java.util.Optional;
 
 public class SchoolController {
     private School school;
+    private VolunteerController volunteerController;
+    private EventController eventController;
+    private DonationController donationController;
 
     public SchoolController(School school) {
         this.school = school;
+    }
+
+    // CLASS DIAGRAM FUNCTIONS
+    // TODO: Implement School controller class diagram functions
+
+    public boolean enrollStudent(Student student) {
+        return true;
+    }
+
+    public boolean registerNewDonor(Donor donor) {
+        return true;
+    }
+
+    public boolean initiateDonation(DonationRequest donationRequest) {
+        return true;
+    }
+
+    public boolean assignVolunteerToEvent(Volunteer volunteer, Event event) {
+        return true;
+    }
+
+    public boolean scheduleEvent(Event event) {
+        return true;
+    }
+
+    public boolean manageRoomAssignment(Student student, Room room) {
+        return true;
+    }
+
+    public void sendEventUpdate() {
+    }
+
+    public boolean updateAvailableSubjects(List<Subject> subjects) {
+        return true;
+    }
+
+    public int trackVolunteerHours(Volunteer volunteer) {
+        return 0;
     }
 
     public void displaySubjects() {

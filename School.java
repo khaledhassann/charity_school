@@ -15,6 +15,37 @@ public class School {
         this.availableSubjects = subjects;
     }
 
+    // CLASS DIAGRAM FUNCTIONS
+    // TODO: Implement School model class diagram functions
+    public boolean addUser(User user) {
+        return true;
+    }
+
+    public User getUserByID(String userID) {
+        // ! WRONG DUMMY DATA
+        return new User(userID, userID, userID, userID, userID, userID, false);
+    }
+
+    public boolean removeUser(User user) {
+        return true;
+    }
+
+    public boolean addSubject(Subject subject) {
+        return true;
+    }
+
+    public boolean removeSubject(Subject subject) {
+        return true;
+    }
+
+    public boolean addRoom(Room room) {
+        return true;
+    }
+
+    public boolean addEvent(Event event) {
+        return true;
+    }
+
     public void displaySubjects() {
         for (Subject subject : availableSubjects) {
             System.out.println(subject.getName() + ": " + subject.getCode());

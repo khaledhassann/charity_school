@@ -6,6 +6,7 @@ public class Science extends Subject {
         setCredits(3);
         setGradeBehavior(new LetterGrading());
         setFinalExam(new PracticalExam());
+        setTimeslot(2);
     }
 
     @Override

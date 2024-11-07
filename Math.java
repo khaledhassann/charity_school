@@ -5,6 +5,7 @@ public class Math extends Subject {
         setCredits(4);
         setGradeBehavior(new LetterGrading());
         setFinalExam(new WrittenExam());
+        setTimeslot(1);
     }
 
     @Override
