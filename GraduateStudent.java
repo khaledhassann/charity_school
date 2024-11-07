@@ -1,10 +1,10 @@
 import java.util.List;
 import java.util.Date;
 
-public abstract class GraduateStudent extends Student {
+public  class GraduateStudent extends Student {
     private String thesisTopic;
     private String advisorName;
-    private boolean hasAppliedForResearchAid = false;
+    private boolean hasAppliedForResearchAid ;
     private float grad_gpa;
 
     // Constructor
@@ -12,13 +12,30 @@ public abstract class GraduateStudent extends Student {
                            String phone, String address, boolean beneficiaryStatus,
                            String dateOfBirth, String nationality, String major, Date enrollmentYear,
                            List<Donor> donors, List<Subject> subjects,
-                           String thesisTopic, String advisorName,float grad_gpa) {
-        super(userID, name, contactInfo, email, phone, address, beneficiaryStatus,
-                dateOfBirth, nationality, major, enrollmentYear, donors, subjects);
-        this.thesisTopic = thesisTopic;
-        this.advisorName = advisorName;
-        this.grad_gpa=grad_gpa;
+                           String thesisTopic, String advisorName, float grad_gpa, boolean hasAppliedForResearchAid) {
+        super(
+                userID != null ? userID : StudentConfig.DEFAULT_USER_ID,
+                name != null ? name : StudentConfig.DEFAULT_NAME,
+                contactInfo != null ? contactInfo : StudentConfig.DEFAULT_CONTACT_INFO,
+                email != null ? email : StudentConfig.DEFAULT_EMAIL,
+                phone != null ? phone : StudentConfig.DEFAULT_PHONE,
+                address != null ? address : StudentConfig.DEFAULT_ADDRESS,
+                beneficiaryStatus,
+                dateOfBirth != null ? dateOfBirth : StudentConfig.DEFAULT_DATE_OF_BIRTH,
+                nationality != null ? nationality : StudentConfig.DEFAULT_NATIONALITY,
+                major != null ? major : StudentConfig.DEFAULT_MAJOR,
+                enrollmentYear != null ? enrollmentYear : StudentConfig.DEFAULT_ENROLLMENT_YEAR,
+                (donors != null && !donors.isEmpty()) ? donors : StudentConfig.DEFAULT_DONORS,
+                (subjects != null && !subjects.isEmpty()) ? subjects : StudentConfig.DEFAULT_SUBJECTS
+        );
+
+        this.thesisTopic = thesisTopic != null ? thesisTopic : StudentConfig.DEFAULT_THESIS_TOPIC;
+        this.advisorName = advisorName != null ? advisorName : StudentConfig.DEFAULT_ADVISOR_NAME;
+        this.grad_gpa = grad_gpa > 0 ? grad_gpa : StudentConfig.DEFAULT_Grad_GPA;
+        boolean defaultResearchAidStatus = StudentConfig.DEFAULT_RESEARCH_AID_STATUS;
+
     }
+
 
 
     public void applyForResearchAid() {
@@ -80,7 +97,7 @@ public abstract class GraduateStudent extends Student {
         return grad_gpa;
     }
 
-    // Setter for GPA (if needed)
+
     public void setGpa(float grad_gpa) {
         this.grad_gpa = grad_gpa;
     }

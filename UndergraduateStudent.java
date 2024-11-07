@@ -1,7 +1,8 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
-public abstract class UndergraduateStudent extends Student {
+public class UndergraduateStudent extends Student {
     private int year;
     private float gpa;
     private String internshipStatus;
@@ -12,11 +13,26 @@ public abstract class UndergraduateStudent extends Student {
                                 String dateOfBirth, String nationality, String major, Date enrollmentYear,
                                 List<Donor> donors, List<Subject> subjects,
                                 int year, float gpa, String internshipStatus) {
-        super(userID, name, contactInfo, email, phone, address, beneficiaryStatus,
-                dateOfBirth, nationality, major, enrollmentYear, donors, subjects);
-        this.year = year;
-        this.gpa = gpa;
-        this.internshipStatus = internshipStatus;
+        super(
+                userID != null ? userID : StudentConfig.DEFAULT_USER_ID,
+                name != null ? name : StudentConfig.DEFAULT_NAME,
+                contactInfo != null ? contactInfo : StudentConfig.DEFAULT_CONTACT_INFO,
+                email != null ? email : StudentConfig.DEFAULT_EMAIL,
+                phone != null ? phone : StudentConfig.DEFAULT_PHONE,
+                address != null ? address : StudentConfig.DEFAULT_ADDRESS,
+                beneficiaryStatus,
+                dateOfBirth  != null ? dateOfBirth : StudentConfig.DEFAULT_DATE_OF_BIRTH,
+                nationality  != null ? nationality : StudentConfig.DEFAULT_NATIONALITY,
+                major != null ? major : StudentConfig.DEFAULT_MAJOR,
+                enrollmentYear  != null ? enrollmentYear : StudentConfig.DEFAULT_ENROLLMENT_YEAR,
+                (donors != null && !donors.isEmpty()) ? donors : StudentConfig.DEFAULT_DONORS,
+                (subjects != null && !subjects.isEmpty()) ? subjects : StudentConfig.DEFAULT_SUBJECTS
+
+        );
+
+        this.year = year > 0 ? year : StudentConfig.DEFAULT_YEAR;
+        this.gpa = gpa > 0 ? gpa : StudentConfig.DEFAULT_GPA;
+        this.internshipStatus = internshipStatus != null ? internshipStatus : StudentConfig.DEFAULT_INTERNSHIP_STATUS;
     }
 
 

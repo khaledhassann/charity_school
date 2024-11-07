@@ -1,9 +1,8 @@
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class Student extends User {
+public  class Student extends User {
     private Schedule schedule;
     private String dateOfBirth;
     private String nationality;
@@ -12,24 +11,36 @@ public abstract class Student extends User {
     private List<Donor> donors;
     private List<Subject> subjects;
 
+    // Updated Constructor using StudentConfig for defaults
     public Student(String userID, String name, String contactInfo, String email,
                    String phone, String address, boolean beneficiaryStatus,
                    String dateOfBirth, String nationality, String major, Date enrollmentYear,
                    List<Donor> donors, List<Subject> subjects) {
-        super(userID, name, contactInfo, email, phone, address, beneficiaryStatus);
-        this.dateOfBirth = dateOfBirth;
-        this.nationality = nationality;
-        this.major = major;
-        this.enrollmentYear = enrollmentYear;
-        this.donors = (donors != null) ? donors : new ArrayList<>();
-        this.subjects = (subjects != null) ? subjects : new ArrayList<>();
+        super(
+                userID != null ? userID : StudentConfig.DEFAULT_USER_ID,
+                name != null ? name : StudentConfig.DEFAULT_NAME,
+                contactInfo != null ? contactInfo : StudentConfig.DEFAULT_CONTACT_INFO,
+                email != null ? email : StudentConfig.DEFAULT_EMAIL,
+                phone != null ? phone : StudentConfig.DEFAULT_PHONE,
+                address != null ? address : StudentConfig.DEFAULT_ADDRESS,
+                beneficiaryStatus
+        );
+
+        this.dateOfBirth = dateOfBirth != null ? dateOfBirth : StudentConfig.DEFAULT_DATE_OF_BIRTH;
+        this.nationality = nationality != null ? nationality : StudentConfig.DEFAULT_NATIONALITY;
+        this.major = major != null ? major : StudentConfig.DEFAULT_MAJOR;
+        this.enrollmentYear = enrollmentYear != null ? enrollmentYear : StudentConfig.DEFAULT_ENROLLMENT_YEAR;
+        this.donors = (donors != null && !donors.isEmpty()) ? donors : new ArrayList<>(StudentConfig.DEFAULT_DONORS);
+        this.subjects = (subjects != null && !subjects.isEmpty()) ? subjects : new ArrayList<>(StudentConfig.DEFAULT_SUBJECTS);
+    }
+
+    // Abstract method that must be implemented by subclasses
+    public void register() {
+        System.out.println(getName() + " has successfully registered for the semester.");
     }
 
 
-    public abstract void register();
-
-
-
+    // Getter and Setter methods
     public Schedule getSchedule() {
         return schedule;
     }
