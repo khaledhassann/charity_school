@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,31 +12,23 @@ public abstract class Student extends User {
     private List<Donor> donors;
     private List<Subject> subjects;
 
-    public Student(String name, String email, String password, String dateOfBirth, String nationality,
-                   String major, Date enrollmentYear, Schedule schedule, List<Donor> donors, List<Subject> subjects) {
-        super(name, email, password);
+    public Student(String userID, String name, String contactInfo, String email,
+                   String phone, String address, boolean beneficiaryStatus,
+                   String dateOfBirth, String nationality, String major, Date enrollmentYear,
+                   List<Donor> donors, List<Subject> subjects) {
+        super(userID, name, contactInfo, email, phone, address, beneficiaryStatus);
         this.dateOfBirth = dateOfBirth;
         this.nationality = nationality;
         this.major = major;
         this.enrollmentYear = enrollmentYear;
-        this.schedule = schedule;
-        this.donors = donors;
-        this.subjects = subjects;
+        this.donors = (donors != null) ? donors : new ArrayList<>();
+        this.subjects = (subjects != null) ? subjects : new ArrayList<>();
     }
+
 
     public abstract void register();
     public abstract void viewProfile();
 
-
-
-    // Add a subject to the subjects list with null check
-    // Method to view donor list
-    //public void viewDonors() {
-       // System.out.println("Viewing donors...");
-        //for (Donor donor : donors) {
-          //  System.out.println("Donor: " + donor.getName() + " - Email: " + donor.getEmail());
-       // }
-   // }
 
     public Schedule getSchedule() {
         return schedule;
