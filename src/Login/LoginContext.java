@@ -9,8 +9,8 @@ public class LoginContext {
     }
 
     // Method to perform login using the chosen strategy
-    public void executeLogin() {
-        loginStrategy.login();
+    public boolean executeLogin(String username, String password) {
+        return loginStrategy.login(username, password);
     }
 
     // Method to change the login strategy if needed

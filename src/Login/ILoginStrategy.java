@@ -1,5 +1,5 @@
 package Login;
 
 public interface ILoginStrategy {
-    public void login();
+    public boolean login(String username, String password);
 }
