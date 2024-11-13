@@ -4,8 +4,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         // Initialize the school and schedule for teaching donations
-        School school = new School();
-        Schedule schedule = new Schedule();
         
 
         // Create some subjects for teaching
@@ -14,13 +12,14 @@ public class Main {
         subjects.add(new Subject("Science", 12));
         subjects.add(new Subject("History", 14));
 
-        // Add subjects to the school
-        school.addSubjects(subjects);
+        School school = new School(subjects);
+        Schedule schedule = new Schedule(subjects);
+
 
         // Testing Monetary Donor
         System.out.println("Monetary Donor Test:");
-        MonetaryDonor monetaryDonor = new MonetaryDonor("John Doe", "john@example.com");
         IDonationStrategy moneyDonation = new MoneyDonation(100.0, "Credit Card");
+        MonetaryDonor monetaryDonor = new MonetaryDonor("John Doe", "john@example.com",moneyDonation);
         monetaryDonor.setDonationStrategy(moneyDonation);
         
         monetaryDonor.donate(); // This should print details of the monetary donation
