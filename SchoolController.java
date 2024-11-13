@@ -1,3 +1,4 @@
+import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,12 +15,16 @@ public class SchoolController {
     // CLASS DIAGRAM FUNCTIONS
     // TODO: Implement School controller class diagram functions
 
+    public Optional<User> findUserByID(String userID) {
+        return school.getUserByID(userID);
+    }
+
     public boolean enrollStudent(Student student) {
-        return true;
+        return school.getUserList().add(config.EXAMPLE_STUDENT);
     }
 
     public boolean registerNewDonor(Donor donor) {
-        return true;
+        return school.getUserList().add(config.EXAMPLE_DONOR);
     }
 
     public boolean initiateDonation(DonationRequest donationRequest) {
@@ -27,7 +32,7 @@ public class SchoolController {
     }
 
     public boolean assignVolunteerToEvent(Volunteer volunteer, Event event) {
-        return true;
+        return event.getAttendees().add(volunteer);
     }
 
     public boolean scheduleEvent(Event event) {
@@ -42,7 +47,8 @@ public class SchoolController {
     }
 
     public boolean updateAvailableSubjects(List<Subject> subjects) {
-        return true;
+        school.setAvailableSubjects(subjects);
+        return !school.getAvailableSubjects().isEmpty();
     }
 
     public int trackVolunteerHours(Volunteer volunteer) {

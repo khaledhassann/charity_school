@@ -9,6 +9,7 @@ public abstract class Subject {
     private IGradingBehavior gradeBehavior;
     private IExamBehavior finalExam;
     private int timeslot;
+    private List<Student> registeredStudents = new ArrayList<Student>();
 
     public String getDetails() {
         return "This is " + this.getCode() + ":" + this.getName() + " with credit hours " + this.getCredits()
@@ -38,7 +39,21 @@ public abstract class Subject {
         }
     }
 
+    public boolean registerStudent(Student student) {
+        if (!registeredStudents.contains(student)) {
+            registeredStudents.add(student);
+            return true;
+        } else {
+            System.out.println("Student: " + student.getName() + " is already registered!");
+            return false;
+        }
+    }
+
     // SETTERS AND GETTERS
+
+    public List<Student> getRegisteredStudents() {
+        return registeredStudents;
+    }
 
     public List<Assessment> getAssessments() {
         return assessments;
@@ -66,6 +81,10 @@ public abstract class Subject {
 
     public int getTimeslot() {
         return timeslot;
+    }
+
+    public void setRegisteredStudents(List<Student> registeredStudents) {
+        this.registeredStudents = registeredStudents;
     }
 
     public void setAssessments(List<Assessment> assessments) {

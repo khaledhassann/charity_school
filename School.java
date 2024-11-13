@@ -13,20 +13,26 @@ public class School {
         this.schoolName = schoolName;
         this.location = location;
         this.availableSubjects = subjects;
+        this.userList = config.schoolUsersList;
     }
 
     // CLASS DIAGRAM FUNCTIONS
     // TODO: Implement School model class diagram functions
     public boolean addUser(User user) {
-        return true;
+        return userList.add(user);
     }
 
-    public User getUserByID(String userID) {
-        // ! WRONG DUMMY DATA
-        return new User(userID, userID, userID, userID, userID, userID, false);
+    public Optional<User> getUserByID(String userID) {
+        // ! DUMMY DATA
+        return this.userList.stream().filter(user -> user.getUserID().equals(userID)).findFirst();
     }
 
     public boolean removeUser(User user) {
+        Optional<User> result = getUserByID(user.getUserID());
+        result.ifPresentOrElse(foundUser -> {
+            userList.remove(user);
+            System.out.println("User '" + user.getName() + "' has been removed ✅");
+        }, () -> System.out.println("User not found!"));
         return true;
     }
 
