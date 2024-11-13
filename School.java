@@ -5,7 +5,7 @@ public class School {
     private String schoolName;
     private String location;
     private List<User> userList;
-    private List<Room> rooms;
+    private List<Room> rooms; // get them from database not in RAM
     private List<Event> events;
     private List<Subject> availableSubjects;
 

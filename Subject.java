@@ -10,6 +10,7 @@ public abstract class Subject {
     private IExamBehavior finalExam;
     private int timeslot;
     private List<Student> registeredStudents = new ArrayList<Student>();
+    private Donor teacher;
 
     public String getDetails() {
         return "This is " + this.getCode() + ":" + this.getName() + " with credit hours " + this.getCredits()
@@ -51,6 +52,10 @@ public abstract class Subject {
 
     // SETTERS AND GETTERS
 
+    public Donor getTeacher() {
+        return teacher;
+    }
+
     public List<Student> getRegisteredStudents() {
         return registeredStudents;
     }
@@ -81,6 +86,10 @@ public abstract class Subject {
 
     public int getTimeslot() {
         return timeslot;
+    }
+
+    public void setTeacher(Donor teacher) {
+        this.teacher = teacher;
     }
 
     public void setRegisteredStudents(List<Student> registeredStudents) {
