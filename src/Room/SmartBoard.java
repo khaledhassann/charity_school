@@ -1,3 +1,5 @@
+package Room;
+
 public class SmartBoard extends RoomAddOn {
     public  SmartBoard(Room room) {
         super(room);

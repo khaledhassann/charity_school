@@ -1,3 +1,4 @@
+package Room;
 public interface Room {
     public int getCapacity();
     public float getTotalValue();

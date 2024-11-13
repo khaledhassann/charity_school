@@ -1,3 +1,4 @@
+package Room;
 public class Bench extends RoomAddOn {
     public Bench(Room room) {
         super(room);

@@ -1,3 +1,4 @@
+package Room;
 public abstract class RoomAddOn implements Room {
     protected Room room;
 

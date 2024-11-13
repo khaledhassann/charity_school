@@ -1,3 +1,4 @@
+package Room;
 public class config {
     public static final int CHAIR_CAPACITY = 1;
     public static final float CHAIR_VALUE = 200;

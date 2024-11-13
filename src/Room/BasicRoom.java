@@ -1,3 +1,4 @@
+package Room;
 public class BasicRoom implements Room {
     private int capacity = 30;
     

@@ -1,3 +1,4 @@
+package Room;
 public class Chair extends RoomAddOn {
 
     public Chair(Room room) {

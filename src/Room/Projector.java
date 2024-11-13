@@ -1,3 +1,4 @@
+package Room;
 public class Projector extends RoomAddOn {
     public  Projector(Room room) {
         super(room);
