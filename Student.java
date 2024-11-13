@@ -1,8 +1,6 @@
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-public  class Student extends User {
+public class Student extends User {
     private Schedule schedule;
     private String dateOfBirth;
     private String nationality;
@@ -11,7 +9,7 @@ public  class Student extends User {
     private List<Donor> donors;
     private List<Subject> subjects;
 
-    // Updated Constructor using StudentConfig for defaults
+    // Constructor using StudentConfig for defaults
     public Student(String userID, String name, String contactInfo, String email,
                    String phone, String address, boolean beneficiaryStatus,
                    String dateOfBirth, String nationality, String major, Date enrollmentYear,
@@ -34,11 +32,10 @@ public  class Student extends User {
         this.subjects = (subjects != null && !subjects.isEmpty()) ? subjects : new ArrayList<>(StudentConfig.DEFAULT_SUBJECTS);
     }
 
-    // Abstract method that must be implemented by subclasses
+    // Method to register the student
     public void register() {
         System.out.println(getName() + " has successfully registered for the semester.");
     }
-
 
     // Getter and Setter methods
     public Schedule getSchedule() {
@@ -96,4 +93,27 @@ public  class Student extends User {
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
     }
+
+    // Additional utility methods for controller functionality
+
+    // Adds a subject to the student's list of subjects
+    public void addSubject(Subject subject) {
+        if (subjects == null) {
+            subjects = new ArrayList<>();
+        }
+        subjects.add(subject);
+    }
+
+    // Retrieves the subject names and credit hours as a map for easy scheduling
+    public Map<String, Integer> getSubjectSchedule() {
+        Map<String, Integer> scheduleMap = new HashMap<>();
+        for (Subject subject : subjects) {
+            Integer timeSlot = subject.getTimeSlot(); // Assuming Subject has a getTimeSlot method
+            if (timeSlot != null) {
+                scheduleMap.put(subject.getName(), timeSlot); // Map subject names to their time slots
+            }
+        }
+        return scheduleMap;
+    }
+
 }

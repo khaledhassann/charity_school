@@ -15,8 +15,8 @@ public class StudentConfig {
     );
 
     public static final List<Subject> DEFAULT_SUBJECTS = Arrays.asList(
-            new Subject("Math", "MTH101"),
-            new Subject("Computer Science ", "CS101")
+            new Subject("Math", "MTH101",10),
+            new Subject("Computer Science ", "CS101",9)
     );
 
 
