@@ -8,9 +8,9 @@ public class Main {
 
         // Create some subjects for teaching
         List<Subject> subjects = new ArrayList<>();
-        subjects.add(new Subject("Math", 10));
-        subjects.add(new Subject("Science", 12));
-        subjects.add(new Subject("History", 14));
+        subjects.add(new Subject("Math", 1));
+        subjects.add(new Subject("Science", 2));
+        subjects.add(new Subject("History", 3));
 
         School school = new School(subjects);
         Schedule schedule = new Schedule(subjects);
@@ -18,9 +18,9 @@ public class Main {
 
         // Testing Monetary Donor
         System.out.println("Monetary Donor Test:");
-        IDonationStrategy moneyDonation = new MoneyDonation(100.0, "Credit Card");
-        MonetaryDonor monetaryDonor = new MonetaryDonor("John Doe", "john@example.com",moneyDonation);
-        monetaryDonor.setDonationStrategy(moneyDonation);
+        // IDonationStrategy moneyDonation = new MoneyDonation(100.0, "Credit Card");
+        MonetaryDonor monetaryDonor = new MonetaryDonor("John Doe", "john@example.com",new MoneyDonation(100.0, "Credit Card"));
+        // monetaryDonor.setDonationStrategy(moneyDonation);
         
         monetaryDonor.donate(); // This should print details of the monetary donation
 
@@ -29,12 +29,13 @@ public class Main {
 
         System.out.println("\nTeacher Donor Test:");
         // Testing Teacher Donor
-        TeacherDonor teacherDonor = new TeacherDonor("Jane Smith", "jane@example.com");
+        
         List<Subject> selectedSubjects = new ArrayList<>();
         selectedSubjects.add(subjects.get(0)); // Math
         selectedSubjects.add(subjects.get(1)); // Science
-        IDonationStrategy teachingDonation = new TeachingDonation(schedule, selectedSubjects);
-        teacherDonor.setDonationStrategy(teachingDonation);
+        TeacherDonor teacherDonor = new TeacherDonor("Jane Smith", "jane@example.com",new TeachingDonation(schedule, selectedSubjects));
+        // IDonationStrategy teachingDonation = new TeachingDonation(schedule, selectedSubjects);
+        // teacherDonor.setDonationStrategy(teachingDonation);
 
         // Teacher views available subjects in the school
         teacherDonor.viewAvailableSubjects(school);

@@ -1,33 +1,33 @@
 import java.util.List;
 import java.util.Map;
 
-public class TeacherDonor extends Donor {
+public class TeachingDonation implements IDonationStrategy {
+    private Schedule schedule;
+    private List<Subject> selectedSubjects;
 
-    private School school;
-
-    public TeacherDonor(String contactInfo, String name, TeachingDonation donationStrategy, School school) {
-        super(contactInfo, name, donationStrategy);
-        this.school = school;
+    public TeachingDonation(Schedule schedule, List<Subject> selectedSubjects) {
+        this.schedule = schedule;
+        this.selectedSubjects = selectedSubjects;
     }
 
-    public void viewAvailableSubjects() {
-        List<Subject> subjects = school.getAllSubjects();
-        System.out.println("Available Subjects:");
-        for (Subject subject : subjects) {
-            System.out.println("Subject: " + subject.getName() + ", Time Slot: " + subject.getTimeSlot());
+    @Override
+    public boolean donate() {
+        System.out.println("Creating schedule for teaching donation:");
+        Map<String, Integer> createdSchedule = schedule.createSchedule(selectedSubjects);
+
+        System.out.println("Teaching Donation Schedule:");
+        for (Map.Entry<String, Integer> entry : createdSchedule.entrySet()) {
+            System.out.println("Subject: " + entry.getKey() + " - Time Slot: " + entry.getValue());
         }
+        System.out.println("Teaching donation scheduled successfully.");
+        return true;
     }
 
-    public void viewSchedule() {
-        if (getDonationStrategy() instanceof TeachingDonation) {
-            TeachingDonation teachingDonation = (TeachingDonation) getDonationStrategy();
-            Map<String, Integer> schedule = teachingDonation.getSchedule().createSchedule(teachingDonation.getSelectedSubjects());
-            System.out.println("Your Teaching Donation Schedule:");
-            for (Map.Entry<String, Integer> entry : schedule.entrySet()) {
-                System.out.println("Subject: " + entry.getKey() + " - Time Slot: " + entry.getValue());
-            }
-        } else {
-            System.out.println("No teaching schedule available for this donation type.");
-        }
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public List<Subject> getSelectedSubjects() {
+        return selectedSubjects;
     }
 }

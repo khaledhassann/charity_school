@@ -4,13 +4,14 @@ import java.util.Map;
 public class TeacherDonor extends Donor {
     private IDonationStrategy donationStrategy;
     private School school;
+    private Schedule schedule;
 
-    public TeacherDonor(){
-        super(getContactInfo(), getName());
+    public TeacherDonor(String contactInfo, String name, TeachingDonation donationStrategy) {
+        super(contactInfo, name, donationStrategy);
     }
 
     public void viewAvailableSubjects(School school) {
-        List<Subject> subjects = school.getAllSubjects();
+        List<Subject> subjects = school.getAvailableSubjects();
         System.out.println("Available Subjects:");
         for (Subject subject : subjects) {
             System.out.println("Subject: " + subject.getName() + ", Time Slot: " + subject.getTimeSlot());
@@ -30,15 +31,12 @@ public class TeacherDonor extends Donor {
         }
     }
 
-    public boolean donate(){
-        return donationStrategy.donate();
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
-    public IDonationStrategy getDonationStrategy() {
-        return donationStrategy;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
-    public void setDonationStrategy(IDonationStrategy donationStrategy) {
-        this.donationStrategy = donationStrategy;
-    }
 }
