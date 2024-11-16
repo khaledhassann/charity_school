@@ -23,48 +23,81 @@ public class EventTest {
 
         // Initialize the EventView and EventController
         EventView eventView = new EventView();
-        EventController controller = new EventController(events, eventView);
+        User loggedInUser = new User(
+                Config.DEFAULT_USER_ID,
+                Config.DEFAULT_NAME,
+                Config.DEFAULT_CONTACT_INFO,
+                Config.DEFAULT_EMAIL,
+                Config.DEFAULT_PHONE,
+                Config.DEFAULT_ADDRESS
+        );
+        EventController controller = new EventController(events, loggedInUser);
 
         boolean running = true;
 
         while (running) {
-            eventView.showEventOptions();
-            int choice = eventView.getOption();
+            eventView.showMainMenu();
+            int choice = new java.util.Scanner(System.in).nextInt();
 
             switch (choice) {
-                case 1: // Register Attendee
-                    controller.registerAttendee();
-                    break;
-
-                case 2: // Remove Attendee
-                    controller.removeAttendee();
-                    break;
-
-                case 3: // Display Attendees
-                    controller.displayAttendees();
-                    break;
-
-                case 4: // Add Event
-                    controller.addEvent();
-                    break;
-
-                case 5: // Remove Event
-                    controller.removeEvent();
-                    break;
-
-                case 6: // Display Events
-                    controller.displayEvents();
-                    break;
-
-                case 7: // Exit
-                    running = false;
-                    break;
-
-                default:
-                    eventView.displayMessage("Invalid option. Please try again.");
+                case 1 -> { // Admin View
+                    boolean adminRunning = true;
+                    while (adminRunning) {
+                        eventView.showAdminOptions();
+                        int adminChoice = new java.util.Scanner(System.in).nextInt();
+                        switch (adminChoice) {
+                            case 1 -> controller.addEvent(eventView.getEventDetails(events.size() + 1));
+                            case 2 -> {
+                                int eventIndex = eventView.getEventNumber(controller.getEvents());
+                                if (controller.removeEvent(eventIndex)) {
+                                    eventView.displayMessage("Event removed successfully.");
+                                } else {
+                                    eventView.displayMessage("Invalid event number.");
+                                }
+                            }
+                            case 3 -> eventView.displayEvents(controller);
+                            case 4 -> {
+                                int eventIndex = eventView.getEventNumber(controller.getEvents());
+                                eventView.displayAttendees(controller.getAttendees(eventIndex));
+                            }
+                            case 5 -> adminRunning = false; // Exit Admin View
+                            default -> eventView.displayMessage("Invalid option. Please try again.");
+                        }
+                    }
+                }
+                case 2 -> { // User View
+                    boolean userRunning = true;
+                    while (userRunning) {
+                        eventView.showUserOptions();
+                        int userChoice = new java.util.Scanner(System.in).nextInt();
+                        switch (userChoice) {
+                            case 1 -> {
+                                int eventIndex = eventView.getEventNumber(controller.getEvents());
+                                if (controller.registerAttendee(eventIndex)) {
+                                    eventView.displayMessage("Successfully registered for the event.");
+                                } else {
+                                    eventView.displayMessage("Already registered or invalid event.");
+                                }
+                            }
+                            case 2 -> {
+                                int eventIndex = eventView.getEventNumber(controller.getEvents());
+                                if (controller.removeAttendee(eventIndex)) {
+                                    eventView.displayMessage("Successfully removed from the event.");
+                                } else {
+                                    eventView.displayMessage("You are not registered or invalid event.");
+                                }
+                            }
+                            case 3 -> eventView.displayEvents(controller);
+                            case 4 -> userRunning = false; // Exit User View
+                            default -> eventView.displayMessage("Invalid option. Please try again.");
+                        }
+                    }
+                }
+                case 3 -> running = false; // Exit Program
+                default -> eventView.displayMessage("Invalid option. Please try again.");
             }
         }
 
-        System.out.println("Program ended.");
+        eventView.displayMessage("Program ended.");
     }
 }

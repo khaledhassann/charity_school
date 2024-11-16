@@ -2,83 +2,52 @@ import java.util.List;
 
 public class EventController {
     private List<Event> events;
-    private EventView view;
+    private User loggedInUser;
 
     // Constructor
-    public EventController(List<Event> events, EventView view) {
+    public EventController(List<Event> events, User loggedInUser) {
         this.events = events;
-        this.view = view;
+        this.loggedInUser = loggedInUser;
     }
 
-    // Register an attendee for an event
-    public void registerAttendee() {
-        int eventNumber = view.getEventNumber(events);
+    // Admin functionalities
+    public void addEvent(Event event) {
+        events.add(event);
+    }
 
-        if (eventNumber > 0 && eventNumber <= events.size()) {
-            Event selectedEvent = events.get(eventNumber - 1);
-            User attendee = view.getAttendeeDetails();
-
-            if (selectedEvent.registerAttendee(attendee)) {
-                view.displayMessage("Successfully registered " + attendee.getName() + " for the event: " + selectedEvent.getEventName());
-            } else {
-                view.displayMessage("User is already registered for this event.");
-            }
-        } else {
-            view.displayMessage("Invalid event number. Please try again.");
+    public boolean removeEvent(int eventIndex) {
+        if (eventIndex >= 0 && eventIndex < events.size()) {
+            events.remove(eventIndex);
+            return true;
         }
+        return false;
     }
 
-    // Remove an attendee from an event
-    public void removeAttendee() {
-        int eventNumber = view.getEventNumber(events);
+    public List<Event> getEvents() {
+        return events;
+    }
 
-        if (eventNumber > 0 && eventNumber <= events.size()) {
-            Event selectedEvent = events.get(eventNumber - 1);
-            User attendee = view.getAttendeeDetails();
-
-            if (selectedEvent.removeAttendee(attendee)) {
-                view.displayMessage("Successfully removed " + attendee.getName() + " from the event: " + selectedEvent.getEventName());
-            } else {
-                view.displayMessage("User is not registered for this event.");
-            }
-        } else {
-            view.displayMessage("Invalid event number. Please try again.");
+    public List<User> getAttendees(int eventIndex) {
+        if (eventIndex >= 0 && eventIndex < events.size()) {
+            return events.get(eventIndex).displayAttendees();
         }
+        return null;
     }
 
-    // Display attendees of an event
-    public void displayAttendees() {
-        int eventNumber = view.getEventNumber(events);
-
-        if (eventNumber > 0 && eventNumber <= events.size()) {
-            Event selectedEvent = events.get(eventNumber - 1);
-            view.displayAttendees(selectedEvent.displayAttendees());
-        } else {
-            view.displayMessage("Invalid event number. Please try again.");
+    // User functionalities
+    public boolean registerAttendee(int eventIndex) {
+        if (eventIndex >= 0 && eventIndex < events.size()) {
+            Event selectedEvent = events.get(eventIndex);
+            return selectedEvent.registerAttendee(loggedInUser);
         }
+        return false;
     }
 
-    // Add a new event
-    public void addEvent() {
-        Event newEvent = view.getEventDetails(events.size() + 1);
-        events.add(newEvent);
-        view.displayMessage("Event added successfully: " + newEvent.getEventName());
-    }
-
-    // Remove an event
-    public void removeEvent() {
-        int eventNumber = view.getEventNumber(events);
-
-        if (eventNumber > 0 && eventNumber <= events.size()) {
-            Event removedEvent = events.remove(eventNumber - 1);
-            view.displayMessage("Successfully removed event: " + removedEvent.getEventName());
-        } else {
-            view.displayMessage("Invalid event number. Please try again.");
+    public boolean removeAttendee(int eventIndex) {
+        if (eventIndex >= 0 && eventIndex < events.size()) {
+            Event selectedEvent = events.get(eventIndex);
+            return selectedEvent.removeAttendee(loggedInUser);
         }
-    }
-
-    // Display all events
-    public void displayEvents() {
-        view.displayEvents(events);
+        return false;
     }
 }
