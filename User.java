@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.List;
 public class User {
     protected String userID;
     protected String name;
@@ -9,6 +10,17 @@ public class User {
     protected String phone;
     protected String address;
     protected boolean beneficiaryStatus;
+    private List<Event> events;
+
+
+
+    public boolean isBeneficiaryStatus() {
+        return beneficiaryStatus;
+    }
+
+    public void setBeneficiaryStatus(boolean beneficiaryStatus) {
+        this.beneficiaryStatus = beneficiaryStatus;
+    }
 
     // Constructor
     public User(String userID, String name, String contactInfo, String email,
@@ -19,6 +31,10 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.address = address;
+        this.beneficiaryStatus = beneficiaryStatus;
+        this.events = new ArrayList<>();
+
+
     }
     // Getter and Setter methods for User class attributes
     public String getUserID() {
@@ -67,8 +83,31 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
+    // Register event
+    public boolean registerEvent(Event event) {
+        if (!events.contains(event)) {
+            events.add(event);
+            return true;
+        }
+        return false;
+    }
 
+    // Withdraw from event
+    public boolean withdrawEvent(Event event) {
+        return events.remove(event);
+    }
 
+    // Display registered events
+    public List<String> displayEvents() {
+        List<String> eventDetails = new ArrayList<>();
+        for (Event event : events) {
+            eventDetails.add(name + ", Type: Registered event - " + event.getEventName());
+        }
+        return eventDetails;
+    }
+    public List<Event> getEvents() {
+        return events;
+    }
 
 
 

@@ -1,36 +1,49 @@
-public class VolunteerView {
-    private VolunteerController controller;
-
-    public VolunteerView(VolunteerController controller) {
-        this.controller = controller;
-    }
-
-    // Show volunteer details
-    public void showVolunteerDetails(Volunteer volunteer) {
-        System.out.println("Volunteer Details:");
-        System.out.println("ID: " + volunteer.getUserID());
-        System.out.println("Name: " + volunteer.getName());
-        System.out.println("Available: " + volunteer.isAvailable());
-        System.out.println("Max Assignments: " + volunteer.getMaxAssignments());
-        System.out.println("Assigned Tasks: " + volunteer.getAssignedTasks().size());
-        System.out.println("Skills: " + volunteer.getSkills());
-    }
-
-    // Show task details
-    public void showTaskDetails(Task task) {
-        System.out.println("Task Details:");
-        System.out.println("Task ID: " + task.getTaskID());
-        System.out.println("Name: " + task.getTaskName());
-        System.out.println("Minimum Rating Required: " + task.getMinRatingRequired());
-        System.out.println("Capacity: " + Config.TASK_CAPACITY);
-        System.out.println("Assigned Volunteers: " + task.getAssignedVolunteersCount());
-    }
-
-    // Display all volunteers
-    public void displayAllVolunteers() {
-        System.out.println("List of All Volunteers:");
-        for (Volunteer volunteer : controller.getAllVolunteers()) {
-            showVolunteerDetails(volunteer);
-        }
-    }
-}
+//import java.util.Arrays;
+//import java.util.Date;
+//import java.util.List;
+//
+//public class VolunteerView {
+//    public void showVolunteerOptions() {
+//        System.out.println("\nVolunteer Options:");
+//        System.out.println("1. Add Skill");
+//        System.out.println("2. View Skills");
+//        System.out.println("3. Choose Task");
+//        System.out.println("4. Change Availability");
+//        System.out.println("5. View My Assigned Tasks");
+//        System.out.println("6. View Profile");
+//        System.out.println("7. Change Rating");
+//        System.out.println("8. End Program");
+//    }
+//
+//    public void displayMessage(String message) {
+//        System.out.println(message);
+//    }
+//
+//    public void displaySkills(List<String> skills) {
+//        System.out.println("Skills:");
+//        for (String skill : skills) {
+//            System.out.println("- " + skill);
+//        }
+//    }
+//
+//    public void displayAssignedTasks(List<Task> tasks) {
+//        System.out.println("Assigned Tasks:");
+//        for (Task task : tasks) {
+//            System.out.println("- " + task.getTaskName());
+//        }
+//    }
+//
+//    public void displayAvailableTasks(List<Task> tasks) {
+//        System.out.println("Available Tasks:");
+//        for (int i = 0; i < tasks.size(); i++) {
+//            Task task = tasks.get(i);
+//            System.out.println((i + 1) + ". " + task.getTaskName() + ": " + task.getDescription() +
+//                    " (Required Skills: " + task.getRequiredSkills() + ")");
+//        }
+//    }
+//
+//    // Display profile details
+//    public void displayProfile(String profile) {
+//        System.out.println("Profile Information:\n" + profile);
+//    }
+//}
