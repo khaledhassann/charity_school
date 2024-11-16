@@ -10,11 +10,7 @@ public class SocialMediaHandler extends StudentDecorator {
         System.out.println(decoratorStudent.getName() + " linked to " + socialMedia + " using handle: " + socialMediaHandle);
     }
 
-    @Override
-    public void register() {
-        super.register();
-        System.out.println(decoratorStudent.getName() + " registered with a social media handle: " + socialMediaHandle);
-    }
+
 
     public void shareEvent(String eventName, String eventDate) {
         System.out.println(decoratorStudent.getName() + " shared the event '" + eventName + "' scheduled for " + eventDate + " on social media.");

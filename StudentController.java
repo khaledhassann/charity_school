@@ -10,93 +10,115 @@ public class StudentController {
     private StudentView studentView;
 
     public StudentController(Student student, List<Student> students, StudentView studentView) {
-        this.student = student;  // Assigning a specific student instance to the controller
+        this.student = student;  // Assigning a generic Student instance to the controller
         this.students = students;
         this.studentView = studentView;
     }
 
+    // Method to register the student
     public void registerStudent() {
-        student.register();
+        if (student != null) {
+            student.register();
+            System.out.println("Student " + student.getName() + " has been registered successfully.");
+        } else {
+            System.out.println("No student to register.");
+        }
     }
 
+    // Method to view the student's profile by their ID
     public void viewStudentProfile(String studentID) {
         // Search for the student with the given ID
-        Student student = findStudentByID(studentID);
+        Student foundStudent = findStudentByID(studentID);
 
         // Use StudentView to display the profile
-        studentView.displayStudentProfile(student);
+        if (foundStudent != null) {
+            studentView.displayStudentProfile(foundStudent);
+        } else {
+            System.out.println("Student with ID " + studentID + " not found.");
+        }
     }
 
+    // Helper method to find a student by their ID
     private Student findStudentByID(String studentID) {
+        if (studentID == null || students == null) return null;
+
         for (Student student : students) {
-            if (student.getUserID().equals(studentID)) {
+            if (studentID.equals(student.getUserID())) {
                 return student;
             }
         }
         return null;
     }
-    public boolean login (String userName, String passWord){
-        LoginContext loginContext = new LoginContext(new StudentLoginStrategy());
-        return loginContext.executeLogin("userName", "passWord");
 
-    }
+    // Method to update the student's profile with new details
+//    public void updateStudentProfile(String name, String email, String phone, String address) {
+//        if (student != null) {
+//            student.setName(name);
+//            student.setEmail(email);
+//            student.setPhone(phone);
+//            student.setAddress(address);
+//
+//            // Confirm the profile update using the view
+//            studentView.displayProfileUpdateConfirmation(student.getName());
+//        } else {
+//            System.out.println("No student to update.");
+//        }
+//    }
 
-    public void updateStudentProfile(String name, String email, String phone, String address) {
-        // Update each field using the setters in the User (parent) class
-        student.setName(name);
-        student.setEmail(email);
-        student.setPhone(phone);
-        student.setAddress(address);
-
-        // Confirm the profile update using the view
-        studentView.displayProfileUpdateConfirmation(student.getName());
-    }
-
-    public void addSubject(Subject subject) {
-        // First, check if the student is registered by calling registerStudent
-        if (subject.registerStudent(student)) { // registerStudent returns true if the student was newly registered
-            System.out.println("Student " + student.getName() + " has been successfully registered.");
+    // Method to add a subject to the student's list of subjects
+    public void addSubject(SubjectModel subject) {
+        if (student == null) {
+            System.out.println("No student is selected.");
+            return;
         }
 
-        // Display subjects the student already has
-        studentView.displayAddedSubjects(student.getSubjects());
+        List<SubjectModel> currentSubjects = student.getSubjects();
+        studentView.displayAddedSubjects(currentSubjects);
 
-        // Now proceed to add the subject if it is not already present
-        if (!student.getSubjects().contains(subject)) {
-            student.getSubjects().add(subject);
-            studentView.displaySubjects(student.getSubjects()); // Display updated subjects list
+        if (subject == null) {
+            System.out.println("Invalid subject.");
+            return;
+        }
+
+        if (!currentSubjects.contains(subject)) {
+            currentSubjects.add(subject);
+            studentView.displaySubjects(currentSubjects); // Display updated subjects list
             System.out.println("Subject " + subject.getName() + " has been added for " + student.getName());
         } else {
             System.out.println("Subject " + subject.getName() + " is already added for " + student.getName());
         }
     }
 
+    // Method to apply for aid
+//    public void applyForAid() {
+//        if (availableAids == null || availableAids.isEmpty()) {
+//            System.out.println("No aid options available.");
+//            return;
+//        }
+//
+//        studentView.displayAidOptions(availableAids); // Display available aids
+//
+//        // Simulate aid application process
+//        Aid aidToApply = availableAids.get(0); // Example: apply for the first available aid
+//        if (aidToApply.isAvailable()) {
+//            aidToApply.setAvailable(false); // Mark as applied
+//            studentView.displayAidApplicationStatus(student.getName(), aidToApply); // Display aid application status
+//        } else {
+//            System.out.println("No available aid to apply for.");
+//        }
+//    }
 
-    // Assuming the registerStudent method is implemented as shown in the image
-
-
-
-
-    public void applyForAid() {
-        studentView.displayAidOptions(availableAids); // Display available aids
-
-        // Simulate aid application process
-        if (!availableAids.isEmpty()) {
-            Aid aidToApply = availableAids.get(0); // Applying for the first available aid as an example
-            if (aidToApply.isAvailable()) {
-                aidToApply.setAvailable(false); // Mark as applied
-                studentView.displayAidApplicationStatus(student.getName(), aidToApply); // Display aid application status
-            } else {
-                System.out.println("No available aid to apply for.");
-            }
-        }
-    }
-
+    // Method to create a schedule from a list of selected subjects
     public Map<String, Integer> createSchedule(List<Subject> selectedSubjects) {
-        Map<String, Integer> scheduleMap = new HashMap<>();
+        if (selectedSubjects == null || selectedSubjects.isEmpty()) {
+            System.out.println("No subjects provided to create a schedule.");
+            return new HashMap<>();
+        }
 
+        Map<String, Integer> scheduleMap = new HashMap<>();
         System.out.println("Creating schedule:");
-        for (Subject subject : selectedSubjects) {
+
+        for (SubjectModel subject : selectedSubjects) {
             Integer timeSlot = subject.getTimeSlot();
             String name = subject.getName();
             if (timeSlot != null) {
@@ -108,4 +130,15 @@ public class StudentController {
         return scheduleMap;
     }
 
+    // Method to display the schedule
+    public void displaySchedule() {
+        Map<String, Integer> schedule = createSchedule(student.getSubjects());
+        studentView.displaySchedule(schedule);
+    }
+
+
+
+    public Student getStudent() {
+        return student;
+    }
 }

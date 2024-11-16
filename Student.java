@@ -7,13 +7,13 @@ public class Student extends User {
     private String major;
     private Date enrollmentYear;
     private List<Donor> donors;
-    private List<Subject> subjects;
+    private List<SubjectModel> subjects;
 
     // Constructor using StudentConfig for defaults
     public Student(String userID, String name, String contactInfo, String email,
                    String phone, String address, boolean beneficiaryStatus,
                    String dateOfBirth, String nationality, String major, Date enrollmentYear,
-                   List<Donor> donors, List<Subject> subjects) {
+                   List<Donor> donors, List<SubjectModel> subjects) {
         super(
                 userID != null ? userID : StudentConfig.DEFAULT_USER_ID,
                 name != null ? name : StudentConfig.DEFAULT_NAME,
@@ -86,18 +86,18 @@ public class Student extends User {
         this.donors = donors;
     }
 
-    public List<Subject> getSubjects() {
+    public List<SubjectModel> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(List<Subject> subjects) {
+    public void setSubjects(List<SubjectModel> subjects) {
         this.subjects = subjects;
     }
 
     // Additional utility methods for controller functionality
 
     // Adds a subject to the student's list of subjects
-    public void addSubject(Subject subject) {
+    public void addSubject(SubjectModel subject) {
         if (subjects == null) {
             subjects = new ArrayList<>();
         }
@@ -107,13 +107,21 @@ public class Student extends User {
     // Retrieves the subject names and credit hours as a map for easy scheduling
     public Map<String, Integer> getSubjectSchedule() {
         Map<String, Integer> scheduleMap = new HashMap<>();
-        for (Subject subject : subjects) {
+        for (SubjectModel subject : subjects) {
             Integer timeSlot = subject.getTimeSlot(); // Assuming Subject has a getTimeSlot method
             if (timeSlot != null) {
                 scheduleMap.put(subject.getName(), timeSlot); // Map subject names to their time slots
             }
         }
         return scheduleMap;
+    }
+
+    public List<SubjectModel> getAvailableSubjects() {
+        return new ArrayList<>(StudentConfig.DEFAULT_SUBJECTS);
+
+    }
+    public String getUserID() {
+        return userID;
     }
 
 }
