@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+import java.util.List;
+
+// Concrete Subject for Charity (Donation Tracker)
+class DonationTracker implements Subject {
+    private List<Observer> observers = new ArrayList<>();
+    private double totalDonations;
+
+    public DonationTracker() {
+        this.totalDonations = 0.0;
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update(totalDonations);
+        }
+    }
+
+    // Method to make a donation and notify observers
+    public void donate(double amount) {
+        totalDonations += amount;
+        System.out.println(Colors.GREEN + "Donation of " + amount + " received. Total donations are now: " + totalDonations + Colors.RESET);
+        notifyObservers();
+    }
+
+    // Method to get the total donations (used to show the current amount)
+    public double getTotalDonations() {
+        return totalDonations;
+    }
+}
