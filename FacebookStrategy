@@ -1,0 +1,12 @@
+// Concrete Strategy for Facebook
+class FacebookStrategy implements SocialMediaStrategy {
+    @Override
+    public void createAdCampaign(String content) {
+        System.out.println("Running Facebook Ad Campaign: " + content);
+    }
+
+    @Override
+    public void interactWithUsers() {
+        System.out.println("Interacting with users on Facebook.");
+    }
+}
