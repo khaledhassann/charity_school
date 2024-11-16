@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -10,46 +11,51 @@ public class SchoolView {
         this.scanner = new Scanner(System.in);
     }
 
-    public void showMenu() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            int choice;
-            do {
-                System.out.println("\nWelcome to the Masr El Kheir charity!");
-                System.out.println("***************************************");
-                System.out.println("Please choose an option:");
-                System.out.println("1. Display available courses");
-                System.out.println("2. Select specific course");
-                System.out.println("0. Exit");
+    private void handleAddingCourse() {
+        scanner.nextLine(); // Clear buffer
+        System.out.print("Enter the name of the new course: ");
+        String courseName = scanner.nextLine();
+        System.out.print("Enter the code of the new course: ");
+        String courseCode = scanner.nextLine();
+        System.out.print("Enter the credits of the new course: ");
+        int courseCredits = scanner.nextInt();
 
-                System.out.print("Your choice: ");
-                choice = scanner.nextInt();
+        SubjectModel newSubject = new SubjectModel(courseName, courseCode, courseCredits, null, null, courseCredits,
+                null); // Assuming SubjectModel has
+        // a constructor
+        boolean isAdded = schoolController.updateAvailableSubjects(List.of(newSubject));
 
-                switch (choice) {
-                    case 1:
-                        schoolController.displaySubjects();
-                        break;
-
-                    case 2:
-                        handleCourseSelection();
-                        break;
-
-                    case 0:
-                        System.out.println("Exiting the program. Goodbye!");
-                        break;
-
-                    default:
-                        System.out.println("Invalid choice, please try again.");
-                        break;
-                }
-            } while (choice != 0);
+        if (isAdded) {
+            System.out.println("Course \"" + courseName + "\" has been successfully added!");
+        } else {
+            System.out.println("Failed to add the course. It might already exist.");
         }
+    }
 
+    private void handleRemovingCourse() {
+        scanner.nextLine(); // Clear buffer
+        System.out.print("Enter the code of the course to remove: ");
+        String courseCode = scanner.nextLine();
+
+        Optional<SubjectModel> subjectToRemove = schoolController.selectCourseByCode(courseCode);
+
+        subjectToRemove.ifPresentOrElse(subject -> {
+            boolean isRemoved = schoolController.removeSubject(subject);
+            if (isRemoved) {
+                System.out.println("Course \"" + subject.getSubjectName() + "\" has been successfully removed!");
+            } else {
+                System.out.println("Failed to remove the course.");
+            }
+        }, () -> {
+            System.out.println("Course with code \"" + courseCode + "\" not found.");
+        });
     }
 
     private void handleCourseSelection() {
+        scanner.nextLine(); // Clear buffer
         System.out.println("Enter course code to select: ");
         String courseCode = scanner.nextLine();
-        Optional<Subject> result = schoolController.selectCourseByCode(courseCode);
+        Optional<SubjectModel> result = schoolController.selectCourseByCode(courseCode);
 
         result.ifPresentOrElse(
                 subject -> {
@@ -67,8 +73,8 @@ public class SchoolView {
 
                         switch (subChoice) {
                             case 21:
-                                System.out.println("Adding an assessment for " + subject.getCode());
-                                schoolController.addAssessmentToSubject(subject.getCode(),
+                                System.out.println("Adding an assessment for " + subject.getSubjectCode());
+                                schoolController.addAssessmentToSubject(subject.getSubjectCode(),
                                         new Assessment("Assessment 1", 0.1, 10));
                                 break;
 
@@ -92,6 +98,49 @@ public class SchoolView {
                     } while (subChoice != 0);
                 },
                 () -> System.out.println("Subject with code " + courseCode + " not found!"));
+    }
+
+    public void showMenu() {
+        int choice = 0;
+        do {
+            System.out.println("\nWelcome to the Masr El Kheir charity!");
+            System.out.println("***************************************");
+            System.out.println("Please choose an option:");
+            System.out.println("1. Display available courses");
+            System.out.println("2. Select specific course");
+            System.out.println("3. Add course");
+            System.out.println("4. Remove course");
+            System.out.println("0. Exit");
+
+            System.out.print("Your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    schoolController.displaySubjects();
+                    break;
+
+                case 2:
+                    handleCourseSelection();
+                    break;
+
+                case 3:
+                    handleAddingCourse();
+                    break;
+
+                case 4:
+                    handleRemovingCourse();
+                    break;
+
+                case 0:
+                    System.out.println("Exiting the program. Goodbye!");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice, please try again.");
+                    break;
+            }
+        } while (choice != 0);
     }
 
 }

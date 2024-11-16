@@ -1,15 +1,15 @@
 import java.util.List;
 import java.util.Optional;
 
-public class School {
+public class SchoolModel {
     private String schoolName;
     private String location;
     private List<User> userList;
     private List<Room> rooms; // get them from database not in RAM
     private List<Event> events;
-    private List<Subject> availableSubjects;
+    private List<SubjectModel> availableSubjects;
 
-    public School(String schoolName, String location, List<Subject> subjects) {
+    public SchoolModel(String schoolName, String location, List<SubjectModel> subjects) {
         this.schoolName = schoolName;
         this.location = location;
         this.availableSubjects = subjects;
@@ -40,8 +40,14 @@ public class School {
         return true;
     }
 
-    public boolean removeSubject(Subject subject) {
-        return true;
+    public boolean removeSubject(SubjectModel subject) {
+        try {
+            availableSubjects.remove(subject);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Failed to remove subject");
+            return false;
+        }
     }
 
     public boolean addRoom(Room room) {
@@ -53,29 +59,38 @@ public class School {
     }
 
     public void displaySubjects() {
-        for (Subject subject : availableSubjects) {
-            System.out.println(subject.getName() + ": " + subject.getCode());
+        for (SubjectModel subject : availableSubjects) {
+            System.out.println(subject.getSubjectName() + ": " + subject.getSubjectCode());
         }
     }
 
-    public Optional<Subject> findSubjectByCode(String code) {
+    public Optional<SubjectModel> findSubjectByCode(String code) {
         return this.availableSubjects.stream()
-                .filter(subject -> subject.getCode().equals(code))
+                .filter(subject -> subject.getSubjectCode().equals(code))
                 .findFirst();
     }
 
+    public boolean checkForSubject(SubjectModel passedSubject) {
+        for (SubjectModel subject : availableSubjects) {
+            if (subject.getSubjectCode().equals(passedSubject.getSubjectCode())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addAssessmentForSubject(String courseCode, Assessment assessment) {
-        Optional<Subject> result = findSubjectByCode(courseCode);
+        Optional<SubjectModel> result = findSubjectByCode(courseCode);
         result.ifPresentOrElse(
                 subject -> {
                     subject.addAssessment(assessment);
-                    System.out.println("Assessment added for subject " + subject.getName());
+                    System.out.println("Assessment added for subject " + subject.getSubjectName());
                 },
                 () -> System.out.println("Subject with code " + courseCode + " not found"));
     }
 
     // SETTERS AND GETTERS
-    public void setAvailableSubjects(List<Subject> subjects) {
+    public void setAvailableSubjects(List<SubjectModel> subjects) {
         this.availableSubjects = subjects;
     }
 
@@ -99,7 +114,7 @@ public class School {
         this.userList = userList;
     }
 
-    public List<Subject> getAvailableSubjects() {
+    public List<SubjectModel> getAvailableSubjects() {
         return availableSubjects;
     }
 

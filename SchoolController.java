@@ -1,30 +1,33 @@
-import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
 
 public class SchoolController {
-    private School school;
+    private SchoolModel schoolModel;
     private VolunteerController volunteerController;
     private EventController eventController;
     private DonationController donationController;
 
-    public SchoolController(School school) {
-        this.school = school;
+    public SchoolController(SchoolModel school) {
+        this.schoolModel = school;
     }
 
     // CLASS DIAGRAM FUNCTIONS
     // TODO: Implement School controller class diagram functions
 
+    public boolean subjectExists(SubjectModel subject) {
+        return schoolModel.checkForSubject(subject);
+    }
+
     public Optional<User> findUserByID(String userID) {
-        return school.getUserByID(userID);
+        return schoolModel.getUserByID(userID);
     }
 
     public boolean enrollStudent(Student student) {
-        return school.getUserList().add(config.EXAMPLE_STUDENT);
+        return schoolModel.getUserList().add(config.EXAMPLE_STUDENT);
     }
 
     public boolean registerNewDonor(Donor donor) {
-        return school.getUserList().add(config.EXAMPLE_DONOR);
+        return schoolModel.getUserList().add(config.EXAMPLE_DONOR);
     }
 
     public boolean initiateDonation(DonationRequest donationRequest) {
@@ -46,9 +49,9 @@ public class SchoolController {
     public void sendEventUpdate() {
     }
 
-    public boolean updateAvailableSubjects(List<Subject> subjects) {
-        school.setAvailableSubjects(subjects);
-        return !school.getAvailableSubjects().isEmpty();
+    public boolean updateAvailableSubjects(List<SubjectModel> subjects) {
+        schoolModel.setAvailableSubjects(subjects);
+        return !schoolModel.getAvailableSubjects().isEmpty();
     }
 
     public int trackVolunteerHours(Volunteer volunteer) {
@@ -56,19 +59,27 @@ public class SchoolController {
     }
 
     public void displaySubjects() {
-        school.getAvailableSubjects()
-                .forEach(subject -> System.out.println(subject.getName() + ": " + subject.getCode()));
+        schoolModel.getAvailableSubjects()
+                .forEach(subject -> System.out.println(subject.getSubjectName() + ": " + subject.getSubjectCode()));
     }
 
-    public Optional<Subject> selectCourseByCode(String code) {
-        return school.findSubjectByCode(code);
+    public List<SubjectModel> getAllSubjects() {
+        return schoolModel.getAvailableSubjects();
+    }
+
+    public Optional<SubjectModel> selectCourseByCode(String code) {
+        return schoolModel.findSubjectByCode(code);
+    }
+
+    public boolean removeSubject(SubjectModel subjectToRemove) {
+        return schoolModel.removeSubject(subjectToRemove);
     }
 
     public void addAssessmentToSubject(String courseCode, Assessment assessment) {
-        school.addAssessmentForSubject(courseCode, assessment);
+        schoolModel.addAssessmentForSubject(courseCode, assessment);
     }
 
-    public void removeAssessmentFromSubject(Subject subject, String assessmentName) {
+    public void removeAssessmentFromSubject(SubjectModel subject, String assessmentName) {
         Optional<Assessment> assessmentToRemove = subject.getAssessments().stream()
                 .filter(a -> a.getAssessmentName().equals(assessmentName)).findFirst();
         assessmentToRemove.ifPresentOrElse(assessment -> {
@@ -79,10 +90,10 @@ public class SchoolController {
     }
 
     public void updateSchoolName(String name) {
-        school.setSchoolName(name);
+        schoolModel.setSchoolName(name);
     }
 
     public void updateLocation(String location) {
-        school.setLocation(location);
+        schoolModel.setLocation(location);
     }
 }

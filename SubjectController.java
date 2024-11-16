@@ -21,8 +21,9 @@ public class SubjectController {
 
     // Existing methods...
     public void updateView() {
-        view.printSubjectDetails(model.getSubjectName(), model.getSubjectCode(), model.getSubjectCredit(),
-                model.getStudents());
+        view.printSubjectDetails(model.getCode(), model.getName(), model.getCredits(),
+                model.getBehavior(), model.getGradeBehavior().defineGrading(),
+                model.getFinalExam().defineExamType(), model.getTimeslot());
     }
 
     // Getters and setters for the new fields

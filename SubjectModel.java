@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SubjectModel {
+public class SubjectModel {
     protected String subjectName;
     protected String subjectCode;
     protected int subjectCredit;
     protected List<Student> students;
-    protected String code;
-    protected String name = "Default subject";
-    protected int credits = 0;
+    // protected String code;
+    // protected String name = "Default subject";
+    // protected int credits = 0;
     protected List<Assessment> assessments = new ArrayList<>();
     protected IGradingBehavior gradeBehavior;
     protected IExamBehavior finalExam;
@@ -16,14 +16,21 @@ public abstract class SubjectModel {
     protected List<Student> registeredStudents = new ArrayList<Student>();
     protected Donor teacher;
 
-    public SubjectModel(String subjectName, String subjectCode, int subjectCredit) {
+    public SubjectModel(String subjectName, String subjectCode, int subjectCredit, IGradingBehavior gradingBehavior,
+            IExamBehavior examBehavior, int timeslot, Donor teacher) {
         this.subjectName = subjectName;
         this.subjectCode = subjectCode;
         this.subjectCredit = subjectCredit;
+        this.gradeBehavior = gradingBehavior;
+        this.finalExam = examBehavior;
+        this.timeslot = timeslot;
+        this.teacher = teacher;
         this.students = new ArrayList<>();
     }
 
-    public abstract String getBehavior();
+    public String getBehavior() {
+        return "Default behavior";
+    };
 
     public boolean addStudent(Student student) {
         if (!students.contains(student)) {
@@ -58,7 +65,8 @@ public abstract class SubjectModel {
     public boolean removeAssessment(Assessment assessment) {
         if (!assessments.contains(assessment)) {
             System.out
-                    .println("Assessment: '" + assessment.getAssessmentName() + "' is not registered to " + this.name);
+                    .println("Assessment: '" + assessment.getAssessmentName() + "' is not registered to "
+                            + this.subjectName);
             return false;
         } else {
             assessments.remove(assessment);
@@ -66,8 +74,20 @@ public abstract class SubjectModel {
         }
     }
 
+    public void displayAllAssessments() {
+        if (assessments.isEmpty()) {
+            System.out.println("No assessments available.");
+        } else {
+            System.out.println("Assessments for " + getSubjectName() + ":");
+            for (Assessment assessment : assessments) {
+                System.out.println(assessment.getDetails());
+            }
+        }
+    }
+
     public String getDetails() {
-        return "This is " + this.getCode() + ":" + this.getName() + " with credit hours " + this.getCredits()
+        return this.getSubjectCode() + ":" + this.getSubjectName() + " with credit hours "
+                + this.getSubjectCredit()
                 + "\nTeaching method: " + this.getBehavior() + "\nGrading: "
                 + this.getGradeBehavior().defineGrading()
                 + "\nFinal Exam: " + this.getFinalExam().defineExamType() + "\nTime Slot: " + this.getTimeslot();
@@ -79,24 +99,12 @@ public abstract class SubjectModel {
         return assessments;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public int getCredits() {
-        return credits;
-    }
-
     public IExamBehavior getFinalExam() {
         return finalExam;
     }
 
     public IGradingBehavior getGradeBehavior() {
         return gradeBehavior;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public List<Student> getRegisteredStudents() {
@@ -123,24 +131,12 @@ public abstract class SubjectModel {
         this.assessments = assessments;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setCredits(int credits) {
-        this.credits = credits;
-    }
-
     public void setFinalExam(IExamBehavior finalExam) {
         this.finalExam = finalExam;
     }
 
     public void setGradeBehavior(IGradingBehavior gradeBehavior) {
         this.gradeBehavior = gradeBehavior;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setRegisteredStudents(List<Student> registeredStudents) {
