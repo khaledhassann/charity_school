@@ -29,20 +29,20 @@ public class Schedule {
         return scheduleMap;
     }
 
-    public Map<String, Integer> scheduleSubjects(List<Subject> subjects) {
-        Map<String, Integer> scheduleMap = new HashMap<>();
+    // public Map<String, Integer> scheduleSubjects(List<Subject> subjects) {
+    //     Map<String, Integer> scheduleMap = new HashMap<>();
 
-        System.out.println("Creating schedule:");
-        for (Subject subject : subjects) {
-            Integer timeSlot = subjectTimeSlots.get(subject);
-            String name = subjectNames.get(subject);
-            if (timeSlot != null) {
-                scheduleMap.put(name, timeSlot);
-                System.out.println("Subject: " + name + " - Time Slot: " + timeSlot);
-            }
-        }
+    //     System.out.println("Creating schedule:");
+    //     for (Subject subject : subjects) {
+    //         Integer timeSlot = subjectTimeSlots.get(subject);
+    //         String name = subjectNames.get(subject);
+    //         if (timeSlot != null) {
+    //             scheduleMap.put(name, timeSlot);
+    //             System.out.println("Subject: " + name + " - Time Slot: " + timeSlot);
+    //         }
+    //     }
 
-        return scheduleMap;
-    }
+    //     return scheduleMap;
+    // }
     
 }
