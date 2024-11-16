@@ -76,4 +76,18 @@ public class StudentView {
             System.out.println("No available aid to apply for.");
         }
     }
+
+    public void displayAddedSubjects(List<Subject> addedSubjects) {
+        if (addedSubjects == null || addedSubjects.isEmpty()) {
+            System.out.println("No subjects have been added previously.");
+            return;
+        }
+
+        System.out.println("------ Previously Added Subjects ------");
+        for (Subject subject : addedSubjects) {
+            System.out.println("Name: " + subject.getName());
+            System.out.println("Code: " + subject.getCode());
+            System.out.println("---------------------------------------");
+        }
+    }
 }

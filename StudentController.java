@@ -58,7 +58,10 @@ public class StudentController {
             System.out.println("Student " + student.getName() + " has been successfully registered.");
         }
 
-        // Now proceed to add the subject if not already present
+        // Display subjects the student already has
+        studentView.displayAddedSubjects(student.getSubjects());
+
+        // Now proceed to add the subject if it is not already present
         if (!student.getSubjects().contains(subject)) {
             student.getSubjects().add(subject);
             studentView.displaySubjects(student.getSubjects()); // Display updated subjects list
@@ -67,6 +70,7 @@ public class StudentController {
             System.out.println("Subject " + subject.getName() + " is already added for " + student.getName());
         }
     }
+
 
     // Assuming the registerStudent method is implemented as shown in the image
 
