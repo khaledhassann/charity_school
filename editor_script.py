@@ -1,7 +1,7 @@
 import os
 
 # Directory containing the Java files
-directory = "D:/ASU/sem 9/SDP/PROJ/ITER1/src/Donor"
+directory = "D:/ASU/sem 9/SDP/PROJ/ITER1/src/VolunteerPackage"
 
 # Iterate over all Java files in the directory
 for filename in os.listdir(directory):
@@ -10,6 +10,6 @@ for filename in os.listdir(directory):
         with open(filepath, "r+") as file:
             content = file.read()
             file.seek(0, 0)  # Move to the beginning of the file
-            file.write("package Donor;\n\n" + content)
+            file.write("package VolunteerPackage;\n\n" + content)
             print(filename)
     

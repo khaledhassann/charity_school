@@ -1,5 +1,6 @@
 package Login;
 
+import VolunteerPackage.VolunteerTest;
 public class VolunteerLoginStrategy extends ILoginStrategy {
     private final String filePath = "./src/Data/Volunteers.txt";
     @Override
@@ -13,7 +14,7 @@ public class VolunteerLoginStrategy extends ILoginStrategy {
         System.out.println("Forward to volunteer menu.");
 
         // Route to relevant page
-
+        VolunteerTest.showMenu();
         return true;
     }
 }
