@@ -54,7 +54,7 @@ public abstract class Donor {
                 if (donationDetails != null) {
                     donationHistory.add(donationDetails);
                     didDonate = donationStrategy.donate();
-                    return donationStrategy.donate();
+                    return didDonate;
                 }
             }
             System.out.println("No donation strategy set for " + name);
