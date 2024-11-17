@@ -6,8 +6,14 @@ public class SchoolView {
     private SchoolController schoolController;
     private Scanner scanner;
 
-    public SchoolView(SchoolController controller) {
-        this.schoolController = controller;
+    public SchoolView() {
+        this.schoolController = new SchoolController(new SchoolModel(
+                "Test School",
+                "Test Location",
+                List.of(new SubjectModel("Math 101", "MATH101", 3, new LetterGrading(), new WrittenExam(), 4,
+                        config.EXAMPLE_DONOR),
+                        new SubjectModel("History101", "ASU300", 2,
+                                new PassFailGrading(), new PracticalExam(), 3, config.EXAMPLE_DONOR))));
         this.scanner = new Scanner(System.in);
     }
 

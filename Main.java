@@ -23,14 +23,7 @@ import Room.RoomView;
 public class Main {
     public static void main(String[] args) {
         // Create a mock SchoolView to pass into AdminView
-        SchoolView mockSchoolView = new SchoolView(new SchoolController(new SchoolModel(
-                "Test School",
-                "Test Location",
-                List.of(new SubjectModel("Math 101", "MATH101", 3, new LetterGrading(), new WrittenExam(), 4,
-                        config.EXAMPLE_DONOR),
-                        new SubjectModel("History101", "ASU300", 2,
-                                new PassFailGrading(), new PracticalExam(), 3, config.EXAMPLE_DONOR)))));
-
+        SchoolView mockSchoolView = new SchoolView();
         RoomView roomView = new RoomView();
         DonationView donationView = new DonationView();
         EventView eventView = new EventView();

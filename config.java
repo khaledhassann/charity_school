@@ -5,8 +5,8 @@ public class config {
             "Madinet Nasr", false);
     public static final DonationRequest EXAMPLE_DONATION_REQUEST = new DonationRequest();
     public static final Donor EXAMPLE_DONOR = new Donor("3", "Omar", "omar@email.com", "0200300100", "Egypt", false);
-    public static final Student EXAMPLE_STUDENT = new Student("1", "Khaled", "khaled@email.com", "0100200300", "Maadi",
-            true);
+    public static final Student EXAMPLE_STUDENT = new Student("9595", "Habiba", "habiba@email.com", false, null, null,
+            null, null, null, null);
     public static final DonationController EXAPMLE_DONATION_CONTROLLER = new DonationController();
     public static final VolunteerController EXAMPLE_VOLUNTEER_CONTROLLER = new VolunteerController();
     public static final ArrayList<User> schoolUsersList = new ArrayList<User>() {

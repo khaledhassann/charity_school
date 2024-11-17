@@ -24,8 +24,8 @@ public class DonationView {
 
     public void Adview() {
         // Create the system with initial users
-        users.add(new AdminModel("9978", "khaledASU", "khaled@email.com", "0100200300", null, false));
-        users.add(new AdminModel("9978", "khaledASU", "khaled@email.com", "0100200300", null, false));
+        users.add(new AdminModel("9978", "khaledASU", "khaled@email.com", false));
+        users.add(new AdminModel("9978", "khaledASU", "khaled@email.com", false));
         observers.add(config.EXAMPLE_DONOR);
         observers.add(config.EXAMPLE_DONOR);
 

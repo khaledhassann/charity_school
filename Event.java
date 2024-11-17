@@ -52,4 +52,8 @@ public class Event {
     public List<User> displayAttendees() {
         return new ArrayList<>(attendees);
     }
+
+    public List<User> getAttendees() {
+        return attendees;
+    }
 }
