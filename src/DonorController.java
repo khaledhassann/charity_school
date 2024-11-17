@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-public class DonationController {
+public class DonorController {
     private Donor donor;
     private DonationScreen donorView;
     private School school;
     private Scanner scanner = new Scanner(System.in); // Class-level scanner
 
-    public DonationController(Donor donor, DonationScreen donorView, School school) {
+    public DonorController(Donor donor, DonationScreen donorView, School school) {
         this.donor = donor;
         this.donorView = donorView;
         this.school = school;
@@ -45,19 +45,40 @@ public class DonationController {
                 System.out.print("Enter amount to donate: ");
                 double amount = scanner.nextDouble();
                 scanner.nextLine();
-                System.out.print("Enter payment method: ");
+                System.out.println("Select payment method:");
+            System.out.println("1. PayPal");
+            System.out.println("2. Credit Card");
+            System.out.println("3. Bank Transfer");
+            int paymentChoice = scanner.nextInt();
+            scanner.nextLine();
+
+            Payment payment = null;
+            switch (paymentChoice) {
+                case 1:
+                    payment = new Payment(new PayPalPayment());
+                    break;
+                case 2:
+                    payment = new Payment(new CreditCardPayment());
+                    break;
+                case 3:
+                    payment = new Payment(new BankTransferPayment());
+                    break;
+                default:
+                    System.out.println("Invalid payment option.");
+                    return;
+            }
                 String paymentMethod = scanner.nextLine();
                 System.out.print("Would you like to proceed with payment? Y/N: ");
                 String proceed = scanner.nextLine();
                 if (proceed.equalsIgnoreCase("Y")) {
-                    MoneyDonation moneyDonation = new MoneyDonation(amount, paymentMethod);
+                    MoneyDonation moneyDonation = new MoneyDonation(amount, payment);
                     donor.setDonationStrategy(moneyDonation);
                     if (donor.donate()) {
                         System.out.println("Money donation successful.");
                     }
-                } else {
-                    donorView.displayDonorMainMenu();
-                }
+                 }// else {
+                //     donorView.displayDonorMainMenu();
+                // }
                 break;
     
             case 2: // Teaching Donation (only for TeacherDonor)
@@ -97,13 +118,18 @@ public class DonationController {
     }
 
     public void viewHistory() {
-        donorView.displayDonationHistory(donor.getDonationHistory());
+        if (donor.getDonationHistory().isEmpty()) {
+            System.out.println("No donation history available.");
+        } else {
+            donorView.displayDonationHistory(donor.getDonationHistory());
+        }
         System.out.print("Back to main menu? Y/N: ");
         String back = scanner.nextLine();
         if (back.equalsIgnoreCase("Y")) {
             donorView.displayDonorMainMenu();
         }
     }
+    
 
     public boolean addDonor(Donor donor) {
         Donor.addDonor(donor);

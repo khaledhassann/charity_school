@@ -162,7 +162,7 @@ public class Main {
         School school = new School(subjects, "school1");
         Donor donor = null; // Start with no donor
         DonationScreen donorView = new DonationScreen();
-        DonationController donorController = new DonationController(donor, donorView, school);
+        DonorController donorController = new DonorController(donor, donorView, school);
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
 
@@ -220,7 +220,7 @@ public class Main {
         scanner.close();
     }
 
-    private static void showMainMenu(Scanner scanner, DonationController donorController, DonationScreen donorView) {
+    private static void showMainMenu(Scanner scanner, DonorController donorController, DonationScreen donorView) {
         int choice;
         do {
             donorView.displayDonorMainMenu();
