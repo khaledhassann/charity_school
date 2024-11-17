@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class StudentConfig {
@@ -8,17 +7,15 @@ public class StudentConfig {
     public static final String DEFAULT_DATE_OF_BIRTH = "15-11-2002";
     public static final String DEFAULT_NATIONALITY = "Egyptian";
     public static final String DEFAULT_MAJOR = "Computer Engineering";
-    public static final Date DEFAULT_ENROLLMENT_YEAR = new Date();
+    public static final int DEFAULT_ENROLLMENT_YEAR = 2024;
 
     public static final List<Donor> DEFAULT_DONORS = Arrays.asList(
-            new Donor("Donor 1", "donor1@example.com"),
-            new Donor("Donor 2", "donor2@example.com")
-    );
+            config.EXAMPLE_DONOR,
+            config.EXAMPLE_DONOR);
 
-    public static final List<Subject> DEFAULT_SUBJECTS = Arrays.asList(
-            new Subject("Math", "MTH101",10),
-            new Subject("Computer Science ", "CS101",9)
-    );
+    public static final List<SubjectModel> DEFAULT_SUBJECTS = Arrays.asList(
+            new SubjectModel("Math", "MTH101", 10, null, null, 0, null),
+            new SubjectModel("Computer Science ", "CS101", 9, null, null, 0, null));
 
     public static final String DEFAULT_USER_ID = "S0001";
     public static final String DEFAULT_NAME = "Mariam";

@@ -2,14 +2,21 @@ import java.util.*;
 
 public class StudentView {
     private final Scanner scanner = new Scanner(System.in);
-    private static List<Student> students = initializeStudents();
-    private static StudentController studentController;
-    private static SchoolController schoolController;
+    private List<Student> students;
+    private StudentController studentController;
+    private SchoolController schoolController;
     private static EventOrganizerStudent eventOrganizerStudent;
     private static SocialMediaHandler socialMediaHandler;
 
+    public StudentView(Student student, SchoolController schoolController, boolean isEventOrganizer,
+                       boolean isSocialMediaHandler, String socialMediaHandle) {
+        this.schoolController = schoolController;
+        this.students = schoolController.getAllStudents();
+        this.studentController = new StudentController(student, students, this);
+    }
+
     public void showMainMenu() {
-        Student student = loginStudent();
+        // Student student = loginStudent();
         boolean running = true;
 
         while (running) {
@@ -32,7 +39,7 @@ public class StudentView {
 
             switch (choice) {
                 case 1:
-                    displayStudentProfile(student);
+                    displayStudentProfile(config.EXAMPLE_STUDENT);
                     break;
                 case 2:
                     viewSchedule();
@@ -47,12 +54,16 @@ public class StudentView {
                     addCourse();
                     break;
                 case 6:
-                    if (eventOrganizerStudent != null) showEventOrganizerOptions();
-                    else displayMessage("Invalid option.");
+                    if (eventOrganizerStudent != null)
+                        showEventOrganizerOptions();
+                    else
+                        displayMessage("Invalid option.");
                     break;
                 case 7:
-                    if (socialMediaHandler != null) showSocialMediaHandlerOptions();
-                    else displayMessage("Invalid option.");
+                    if (socialMediaHandler != null)
+                        showSocialMediaHandlerOptions();
+                    else
+                        displayMessage("Invalid option.");
                     break;
                 case 8:
                     running = false;
@@ -81,7 +92,8 @@ public class StudentView {
             System.out.print("Enter social media handle: ");
             String socialMediaHandle = scanner.nextLine();
             socialMediaHandler = new SocialMediaHandler(student, socialMediaHandle);
-            displayMessage(student.getName() + " is now set as a Social Media Handler with handle: " + socialMediaHandle);
+            displayMessage(
+                    student.getName() + " is now set as a Social Media Handler with handle: " + socialMediaHandle);
         }
 
         displayStudentProfile(student);
@@ -195,7 +207,8 @@ public class StudentView {
         System.out.print("Enter feedback (type 'done' to finish): ");
         while (true) {
             String fb = scanner.nextLine();
-            if (fb.equalsIgnoreCase("done")) break;
+            if (fb.equalsIgnoreCase("done"))
+                break;
             feedback.add(fb);
         }
         eventOrganizerStudent.collectFeedback(eventName, feedback);
@@ -230,13 +243,11 @@ public class StudentView {
         System.out.println("ID: " + student.getUserID());
         System.out.println("Name: " + student.getName());
         System.out.println("Email: " + student.getEmail());
-        System.out.println("Phone: " + student.getPhone());
-        System.out.println("Address: " + student.getAddress());
         System.out.println("Date of Birth: " + student.getDateOfBirth());
         System.out.println("Nationality: " + student.getNationality());
         System.out.println("Major: " + student.getMajor());
         System.out.println("Enrollment Year: " + student.getEnrollmentYear());
-        System.out.println("Beneficiary Status: " + (student.isBeneficiaryStatus() ? "Yes" : "No"));
+        System.out.println("Beneficiary Status: " + (student.getBeneficiaryStatus() ? "Yes" : "No"));
         System.out.println("------ End of Profile ------");
     }
 
@@ -263,7 +274,7 @@ public class StudentView {
         for (SubjectModel subject : schoolController.getAllSubjects()) {
             if (schoolController.subjectExists(subject)) {
                 studentController.addSubject(subject);
-                System.out.println("Course " + subject.getName() + " added successfully.");
+                System.out.println("Course " + subject.getSubjectName() + " added successfully.");
                 return;
             }
         }
@@ -278,16 +289,15 @@ public class StudentView {
     private static List<Student> initializeStudents() {
         List<Student> students = new ArrayList<>();
         students.add(new Student(
-                StudentConfig.DEFAULT_USER_ID, StudentConfig.DEFAULT_NAME, StudentConfig.DEFAULT_CONTACT_INFO,
-                StudentConfig.DEFAULT_EMAIL, StudentConfig.DEFAULT_PHONE, StudentConfig.DEFAULT_ADDRESS,
+                StudentConfig.DEFAULT_USER_ID, StudentConfig.DEFAULT_NAME,
+                StudentConfig.DEFAULT_EMAIL,
                 StudentConfig.DEFAULT_BENEFICIARY_STATUS, StudentConfig.DEFAULT_DATE_OF_BIRTH,
                 StudentConfig.DEFAULT_NATIONALITY, StudentConfig.DEFAULT_MAJOR, StudentConfig.DEFAULT_ENROLLMENT_YEAR,
-                new ArrayList<>(StudentConfig.DEFAULT_DONORS), new ArrayList<>(StudentConfig.DEFAULT_SUBJECTS)
-        ));
+                new ArrayList<>(StudentConfig.DEFAULT_DONORS), new ArrayList<>(StudentConfig.DEFAULT_SUBJECTS)));
         return students;
     }
 
-    private void displaySchedule(Map<String, Integer> schedule) {
+    public void displaySchedule(Map<String, Integer> schedule) {
         if (schedule == null || schedule.isEmpty()) {
             System.out.println("No schedule available.");
             return;
@@ -298,15 +308,15 @@ public class StudentView {
         }
     }
 
-    private void displaySubjects(List<SubjectModel> subjects) {
+    public void displaySubjects(List<SubjectModel> subjects) {
         if (subjects == null || subjects.isEmpty()) {
             System.out.println("No subjects to display.");
             return;
         }
         System.out.println("------ List of Subjects ------");
         for (SubjectModel subject : subjects) {
-            System.out.println("Name: " + subject.getName());
-            System.out.println("Code: " + subject.getCode());
+            System.out.println("Name: " + subject.getSubjectName());
+            System.out.println("Code: " + subject.getSubjectCode());
             System.out.println("-----------------------------");
         }
     }
@@ -323,8 +333,8 @@ public class StudentView {
 
         System.out.println("------ Previously Added Subjects ------");
         for (SubjectModel subject : addedSubjects) {
-            System.out.println("Name: " + subject.getName());
-            System.out.println("Code: " + subject.getCode());
+            System.out.println("Name: " + subject.getSubjectName());
+            System.out.println("Code: " + subject.getSubjectCode());
             System.out.println("---------------------------------------");
         }
     }

@@ -5,31 +5,28 @@ public class Student extends User {
     private String dateOfBirth;
     private String nationality;
     private String major;
-    private Date enrollmentYear;
+    private int enrollmentYear = -1;
     private List<Donor> donors;
     private List<SubjectModel> subjects;
 
     // Constructor using StudentConfig for defaults
-    public Student(String userID, String name, String contactInfo, String email,
-                   String phone, String address, boolean beneficiaryStatus,
-                   String dateOfBirth, String nationality, String major, Date enrollmentYear,
+    public Student(String userID, String name, String email,
+                   boolean beneficiaryStatus,
+                   String dateOfBirth, String nationality, String major, int enrollmentYear,
                    List<Donor> donors, List<SubjectModel> subjects) {
         super(
                 userID != null ? userID : StudentConfig.DEFAULT_USER_ID,
                 name != null ? name : StudentConfig.DEFAULT_NAME,
-                contactInfo != null ? contactInfo : StudentConfig.DEFAULT_CONTACT_INFO,
                 email != null ? email : StudentConfig.DEFAULT_EMAIL,
-                phone != null ? phone : StudentConfig.DEFAULT_PHONE,
-                address != null ? address : StudentConfig.DEFAULT_ADDRESS,
-                beneficiaryStatus
-        );
+                beneficiaryStatus);
 
         this.dateOfBirth = dateOfBirth != null ? dateOfBirth : StudentConfig.DEFAULT_DATE_OF_BIRTH;
         this.nationality = nationality != null ? nationality : StudentConfig.DEFAULT_NATIONALITY;
         this.major = major != null ? major : StudentConfig.DEFAULT_MAJOR;
-        this.enrollmentYear = enrollmentYear != null ? enrollmentYear : StudentConfig.DEFAULT_ENROLLMENT_YEAR;
+        this.enrollmentYear = enrollmentYear != -1 ? enrollmentYear : StudentConfig.DEFAULT_ENROLLMENT_YEAR;
         this.donors = (donors != null && !donors.isEmpty()) ? donors : new ArrayList<>(StudentConfig.DEFAULT_DONORS);
-        this.subjects = (subjects != null && !subjects.isEmpty()) ? subjects : new ArrayList<>(StudentConfig.DEFAULT_SUBJECTS);
+        this.subjects = (subjects != null) ? subjects
+                : new ArrayList<>(StudentConfig.DEFAULT_SUBJECTS);
     }
 
     // Method to register the student
@@ -70,11 +67,11 @@ public class Student extends User {
         this.major = major;
     }
 
-    public Date getEnrollmentYear() {
+    public int getEnrollmentYear() {
         return enrollmentYear;
     }
 
-    public void setEnrollmentYear(Date enrollmentYear) {
+    public void setEnrollmentYear(int enrollmentYear) {
         this.enrollmentYear = enrollmentYear;
     }
 
@@ -108,20 +105,21 @@ public class Student extends User {
     public Map<String, Integer> getSubjectSchedule() {
         Map<String, Integer> scheduleMap = new HashMap<>();
         for (SubjectModel subject : subjects) {
-            Integer timeSlot = subject.getTimeSlot(); // Assuming Subject has a getTimeSlot method
+            Integer timeSlot = subject.getTimeslot(); // Assuming Subject has a getTimeSlot method
             if (timeSlot != null) {
-                scheduleMap.put(subject.getName(), timeSlot); // Map subject names to their time slots
+                scheduleMap.put(subject.getSubjectName(), timeSlot); // Map subject names to their time slots
             }
         }
         return scheduleMap;
     }
 
     public List<SubjectModel> getAvailableSubjects() {
-        return new ArrayList<>(StudentConfig.DEFAULT_SUBJECTS);
+        return subjects;
 
     }
+
     public String getUserID() {
-        return userID;
+        return super.getUserID();
     }
 
 }

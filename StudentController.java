@@ -1,16 +1,14 @@
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class StudentController {
     private Student student;
-    private List<Aid> availableAids;
     private List<Student> students;
     private StudentView studentView;
 
     public StudentController(Student student, List<Student> students, StudentView studentView) {
-        this.student = student;  // Assigning a generic Student instance to the controller
+        this.student = student; // Assigning a generic Student instance to the controller
         this.students = students;
         this.studentView = studentView;
     }
@@ -40,7 +38,8 @@ public class StudentController {
 
     // Helper method to find a student by their ID
     private Student findStudentByID(String studentID) {
-        if (studentID == null || students == null) return null;
+        if (studentID == null || students == null)
+            return null;
 
         for (Student student : students) {
             if (studentID.equals(student.getUserID())) {
@@ -51,19 +50,20 @@ public class StudentController {
     }
 
     // Method to update the student's profile with new details
-//    public void updateStudentProfile(String name, String email, String phone, String address) {
-//        if (student != null) {
-//            student.setName(name);
-//            student.setEmail(email);
-//            student.setPhone(phone);
-//            student.setAddress(address);
-//
-//            // Confirm the profile update using the view
-//            studentView.displayProfileUpdateConfirmation(student.getName());
-//        } else {
-//            System.out.println("No student to update.");
-//        }
-//    }
+    // public void updateStudentProfile(String name, String email, String phone,
+    // String address) {
+    // if (student != null) {
+    // student.setName(name);
+    // student.setEmail(email);
+    // student.setPhone(phone);
+    // student.setAddress(address);
+    //
+    // // Confirm the profile update using the view
+    // studentView.displayProfileUpdateConfirmation(student.getName());
+    // } else {
+    // System.out.println("No student to update.");
+    // }
+    // }
 
     // Method to add a subject to the student's list of subjects
     public void addSubject(SubjectModel subject) {
@@ -83,47 +83,28 @@ public class StudentController {
         if (!currentSubjects.contains(subject)) {
             currentSubjects.add(subject);
             studentView.displaySubjects(currentSubjects); // Display updated subjects list
-            System.out.println("Subject " + subject.getName() + " has been added for " + student.getName());
+            System.out.println("Subject " + subject.getSubjectName() + " has been added for " + student.getName());
         } else {
-            System.out.println("Subject " + subject.getName() + " is already added for " + student.getName());
+            System.out.println("Subject " + subject.getSubjectName() + " is already added for " + student.getName());
         }
     }
 
-    // Method to apply for aid
-//    public void applyForAid() {
-//        if (availableAids == null || availableAids.isEmpty()) {
-//            System.out.println("No aid options available.");
-//            return;
-//        }
-//
-//        studentView.displayAidOptions(availableAids); // Display available aids
-//
-//        // Simulate aid application process
-//        Aid aidToApply = availableAids.get(0); // Example: apply for the first available aid
-//        if (aidToApply.isAvailable()) {
-//            aidToApply.setAvailable(false); // Mark as applied
-//            studentView.displayAidApplicationStatus(student.getName(), aidToApply); // Display aid application status
-//        } else {
-//            System.out.println("No available aid to apply for.");
-//        }
-//    }
-
     // Method to create a schedule from a list of selected subjects
-    public Map<String, Integer> createSchedule(List<Subject> selectedSubjects) {
+    public Map<String, Integer> createSchedule(List<SubjectModel> selectedSubjects) {
         if (selectedSubjects == null || selectedSubjects.isEmpty()) {
             System.out.println("No subjects provided to create a schedule.");
             return new HashMap<>();
         }
 
         Map<String, Integer> scheduleMap = new HashMap<>();
-        System.out.println("Creating schedule:");
+        System.out.println("Creating schedule...");
 
         for (SubjectModel subject : selectedSubjects) {
-            Integer timeSlot = subject.getTimeSlot();
-            String name = subject.getName();
+            Integer timeSlot = subject.getTimeslot();
+            String name = subject.getSubjectName();
             if (timeSlot != null) {
                 scheduleMap.put(name, timeSlot);
-                System.out.println("Subject: " + name + " - Time Slot: " + timeSlot);
+                // System.out.println("Subject: " + name + " - Time Slot: " + timeSlot);
             }
         }
 
@@ -135,8 +116,6 @@ public class StudentController {
         Map<String, Integer> schedule = createSchedule(student.getSubjects());
         studentView.displaySchedule(schedule);
     }
-
-
 
     public Student getStudent() {
         return student;
