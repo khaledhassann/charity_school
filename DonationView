@@ -1,0 +1,350 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+// Color Helper Class for Text Formatting
+//class Colors {
+//    public static final String RESET = "\u001B[0m";
+//    public static final String GREEN = "\u001B[32m";
+//    public static final String BLUE = "\u001B[34m";
+//    public static final String CYAN = "\u001B[36m";
+//    public static final String YELLOW = "\u001B[33m";
+//    public static final String RED = "\u001B[31m";
+//}
+//
+//// Observer Interface
+//interface Observer {
+//    void update(double donationAmount);
+//}
+//
+//// Concrete Observer for Donor
+//class Donor implements Observer {
+//    private String donorName;
+//
+//    public Donor(String name) {
+//        this.donorName = name;
+//    }
+//
+//    @Override
+//    public void update(double donationAmount) {
+//        System.out.println(Colors.BLUE + donorName + " logged in! The total donation amount is: " + donationAmount + Colors.RESET);
+//    }
+//}
+//
+//// Concrete Observer for School
+//class School implements Observer {
+//    private String schoolName;
+//
+//    public School(String name) {
+//        this.schoolName = name;
+//    }
+//
+//    @Override
+//    public void update(double donationAmount) {
+//        System.out.println(Colors.CYAN + schoolName + " logged in! The total donation amount is now: " + donationAmount + Colors.RESET);
+//    }
+//}
+//
+//// Subject Interface
+//interface Subject {
+//    void addObserver(Observer observer);
+//    void removeObserver(Observer observer);
+//    void notifyObservers();
+//}
+//
+//// Concrete Subject for Charity (Donation Tracker)
+//class DonationTracker implements Subject {
+//    private List<Observer> observers = new ArrayList<>();
+//    private double totalDonations;
+//
+//    public DonationTracker() {
+//        this.totalDonations = 0.0;
+//    }
+//
+//    @Override
+//    public void addObserver(Observer observer) {
+//        observers.add(observer);
+//    }
+//
+//    @Override
+//    public void removeObserver(Observer observer) {
+//        observers.remove(observer);
+//    }
+//
+//    @Override
+//    public void notifyObservers() {
+//        for (Observer observer : observers) {
+//            observer.update(totalDonations);
+//        }
+//    }
+//
+//    // Method to make a donation and notify observers
+//    public void donate(double amount) {
+//        totalDonations += amount;
+//        System.out.println(Colors.GREEN + "Donation of " + amount + " received. Total donations are now: " + totalDonations + Colors.RESET);
+//        notifyObservers();
+//    }
+//
+//    // Method to get the total donations (used to show the current amount)
+//    public double getTotalDonations() {
+//        return totalDonations;
+//    }
+//}
+//
+//// Strategy Interface for Social Media
+//interface SocialMediaStrategy {
+//    void createAdCampaign(String content);
+//    void interactWithUsers();
+//}
+//
+//// Concrete Strategy for Twitter
+//class TwitterStrategy implements SocialMediaStrategy {
+//    @Override
+//    public void createAdCampaign(String content) {
+//        System.out.println("Running Twitter Ad Campaign: " + content);
+//    }
+//
+//    @Override
+//    public void interactWithUsers() {
+//        System.out.println("Interacting with users on Twitter.");
+//    }
+//}
+//
+//// Concrete Strategy for Facebook
+//class FacebookStrategy implements SocialMediaStrategy {
+//    @Override
+//    public void createAdCampaign(String content) {
+//        System.out.println("Running Facebook Ad Campaign: " + content);
+//    }
+//
+//    @Override
+//    public void interactWithUsers() {
+//        System.out.println("Interacting with users on Facebook.");
+//    }
+//}
+//
+//// Concrete Strategy for Instagram
+//class InstagramStrategy implements SocialMediaStrategy {
+//    @Override
+//    public void createAdCampaign(String content) {
+//        System.out.println("Running Instagram Ad Campaign: " + content);
+//    }
+//
+//    @Override
+//    public void interactWithUsers() {
+//        System.out.println("Interacting with users on Instagram.");
+//    }
+//}
+//
+//// Context Class to use the Strategy
+//class SocialMediaContext {
+//    private SocialMediaStrategy strategy;
+//
+//    // Set the current strategy dynamically
+//    public void setStrategy(SocialMediaStrategy strategy) {
+//        this.strategy = strategy;
+//    }
+//
+//    // Execute the strategy
+//    public void executeAdCampaign(String content) {
+//        if (strategy != null) {
+//            strategy.createAdCampaign(content);
+//        } else {
+//            System.out.println("No strategy selected.");
+//        }
+//    }
+//
+//    // Execute user interaction action
+//    public void executeUserInteraction() {
+//        if (strategy != null) {
+//            strategy.interactWithUsers();
+//        } else {
+//            System.out.println("No strategy selected.");
+//        }
+//    }
+//}
+//
+//// User Class
+//class User {
+//    private String username;
+//    private String password;
+//    private boolean isLoggedIn;
+//
+//    public User(String username, String password) {
+//        this.username = username;
+//        this.password = password;
+//        this.isLoggedIn = false;
+//    }
+//
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public boolean login(String username, String password) {
+//        if (this.username.equals(username) && this.password.equals(password)) {
+//            isLoggedIn = true;
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public void logout() {
+//        isLoggedIn = false;
+//    }
+//
+//    public boolean isLoggedIn() {
+//        return isLoggedIn;
+//    }
+//}
+
+public class DonationView {
+    private static void displayAllAds() {
+        if (adsList.isEmpty()) {
+            System.out.println(Colors.YELLOW + "No ads have been created yet." + Colors.RESET);
+        } else {
+            System.out.println(Colors.CYAN + "Displaying All Ads:" + Colors.RESET);
+            for (String ad : adsList) {
+                System.out.println(ad);
+            }
+        }
+    }
+
+    private static Scanner scanner = new Scanner(System.in);
+    private static DonationTracker donationTracker = new DonationTracker();
+    private static List<User> users = new ArrayList<>();
+    private static List<Observer> observers = new ArrayList<>();
+    private static SocialMediaContext socialMediaContext = new SocialMediaContext();
+    static List<String> adsList = new ArrayList<>();
+
+    public static void main(String[] args) {
+        // Create the system with initial users
+        users.add(new User("khaled", "password123"));
+        users.add(new User("adham", "password456"));
+        observers.add(new Donor("Khaled"));
+        observers.add(new Donor("Adham"));
+        observers.add(new School("Ain Shams University"));
+
+        // Add observers to donation tracker
+        for (Observer observer : observers) {
+            donationTracker.addObserver(observer);
+        }
+
+        while (true) {
+            System.out.println("\nWelcome to the School Charity Donation System!");
+            System.out.println("1. Login");
+            System.out.println("2. Logout");
+            System.out.println("3. Make a Donation");
+            System.out.println("4. Choose Social Media Platform for Ad");
+            System.out.println("5. Display All Ads");
+            System.out.println("6. Exit");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume the newline
+
+            switch (choice) {
+                case 1:
+                    login();
+                    break;
+                case 2:
+                    logout();
+                    break;
+                case 3:
+                    donate();
+                    break;
+                case 4:
+                    chooseSocialMediaPlatform();
+                    break;
+                case 5:
+                    displayAllAds();
+                    break;
+                case 6:
+                    System.out.println(Colors.RED + "Exiting the system." + Colors.RESET);
+                    return;
+                default:
+                    System.out.println(Colors.YELLOW + "Invalid choice! Please try again." + Colors.RESET);
+            }
+        }
+    }
+
+    private static void login() {
+        System.out.print("Enter username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+
+        boolean loggedIn = false;
+        for (User user : users) {
+            if (user.login(username, password)) {
+                loggedIn = true;
+                System.out.println(Colors.GREEN + username + " logged in successfully!" + Colors.RESET);
+                userLoggedIn(user);
+                break;
+            }
+        }
+
+        if (!loggedIn) {
+            System.out.println(Colors.RED + "Invalid username or password!" + Colors.RESET);
+        }
+    }
+
+    private static void logout() {
+        System.out.print("Enter username to logout: ");
+        String username = scanner.nextLine();
+        boolean loggedOut = false;
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.isLoggedIn()) {
+                user.logout();
+                loggedOut = true;
+                System.out.println(Colors.YELLOW + username + " logged out successfully!" + Colors.RESET);
+                break;
+            }
+        }
+
+        if (!loggedOut) {
+            System.out.println(Colors.RED + "User is not logged in or doesn't exist." + Colors.RESET);
+        }
+    }
+
+    private static void donate() {
+        System.out.print("Enter your donation amount: ");
+        double amount = scanner.nextDouble();
+        donationTracker.donate(amount);
+    }
+
+    private static void userLoggedIn(User user) {
+        if (user.isLoggedIn()) {
+            donationTracker.notifyObservers();  // Notify the user when they log in
+        }
+    }
+
+    private static void chooseSocialMediaPlatform() {
+        System.out.println("Choose a social media platform to run your ad campaign: ");
+        System.out.println("1. Twitter");
+        System.out.println("2. Facebook");
+        System.out.println("3. Instagram");
+
+        int platformChoice = scanner.nextInt();
+        scanner.nextLine();  // Consume newline character
+
+        switch (platformChoice) {
+            case 1:
+                socialMediaContext.setStrategy(new TwitterStrategy());
+                break;
+            case 2:
+                socialMediaContext.setStrategy(new FacebookStrategy());
+                break;
+            case 3:
+                socialMediaContext.setStrategy(new InstagramStrategy());
+                break;
+            default:
+                System.out.println(Colors.RED + "Invalid choice!" + Colors.RESET);
+                return;
+        }
+
+        System.out.print("Enter the content for your ad campaign: ");
+        String content = scanner.nextLine();
+        socialMediaContext.executeAdCampaign(content);
+
+        socialMediaContext.executeUserInteraction();  // Example of user interaction after ad campaign
+    }
+}
