@@ -2,9 +2,9 @@ package Room;
 
 public class RoomController {
     
-    public Room createRoom() {
+    public Room createRoom(boolean doPrint) {
         Room room = new BasicRoom(); 
-        System.out.println("New room created with room number: " + room.getRoomNumber());
+        if(doPrint) System.out.println("New room created with room number: " + room.getRoomNumber());
         return room;
     }
 

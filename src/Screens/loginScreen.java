@@ -1,6 +1,5 @@
 package Screens;
 
-import Student.Student;
 import java.util.Scanner;
 
 import Login.*;
@@ -24,8 +23,19 @@ public class loginScreen {
 
         switch (choice) {
             case 1:
-                System.out.println("Admin login selected.");
+                System.out.println("\nAdmin login selected.\n");
                 // Call admin-specific methods or controllers
+                while(!isAuthorized){
+                    loginContext = new LoginContext(new AdminLoginStrategy()); 
+                    String[] credentiaLoginUtil = LoginUtil.requestCredentials();
+                    isAuthorized = loginContext.executeLogin(credentiaLoginUtil[0], credentiaLoginUtil[1]);
+                   
+                    if (!isAuthorized){ // If not authorized, give the option to exit
+                        System.out.print("\nDo you want to exit (Type 1 to exit)?\n");
+                        int exit = scanner.nextInt();
+                        if(exit == 1) displayLoginScreen();
+                    }
+                }
                 break;
             case 2:
                 System.out.println("\nDonor login selected.\n");

@@ -11,10 +11,13 @@ public class RoomView {
     private Scanner scanner = new Scanner(System.in); // Scanner for user input
 
     public void showMenu() {
+
         int choice;
+
+        // Pre initialize 5 tooms
+        initializeRooms();
         do {
-            // Pre initialize 5 tooms
-            initializeRooms();
+
 
             // Display menu
             System.out.println("\n==== Room Management System ====");
@@ -71,7 +74,7 @@ public class RoomView {
 
 
     private void createRoom() {
-        Room newRoom = controller.createRoom();
+        Room newRoom = controller.createRoom(true);
         rooms.add(newRoom); // Add the new room to the list
         System.out.println("Room created and added to the list.");
     }
@@ -135,7 +138,7 @@ public class RoomView {
 
     public void initializeRooms() {
         for (int i = 0; i < 5; i++) {
-            Room room = controller.createRoom();
+            Room room = controller.createRoom(false);
             room = new Chair(room);
             room = new Bench(room);
             rooms.add(room);
