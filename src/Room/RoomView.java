@@ -10,7 +10,7 @@ public class RoomView {
     private RoomController controller = new RoomController(); // RoomController instance
     private Scanner scanner = new Scanner(System.in); // Scanner for user input
 
-    public void displayMenu() {
+    public void showMenu() {
         int choice;
         do {
             // Pre initialize 5 tooms
