@@ -3,7 +3,7 @@ import java.util.*;
 public class StudentView {
     private final Scanner scanner = new Scanner(System.in);
     private List<Student> students;
-    private static StudentController studentController;
+    private StudentController studentController;
     private SchoolController schoolController;
     private static EventOrganizerStudent eventOrganizerStudent;
     private static SocialMediaHandler socialMediaHandler;
@@ -12,6 +12,7 @@ public class StudentView {
             boolean isSocialMediaHandler, String socialMediaHandle) {
         this.schoolController = schoolController;
         this.students = schoolController.getAllStudents();
+        this.studentController = new StudentController(student, students, this);
     }
 
     public void showMainMenu() {
