@@ -5,4 +5,5 @@ public interface Room {
     public float getDailyRunningCost();
     public boolean hasProjector();
     public boolean hasSmartBoard();
+    public int getRoomNumber();
 }

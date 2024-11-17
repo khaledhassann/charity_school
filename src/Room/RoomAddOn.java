@@ -2,6 +2,10 @@ package Room;
 public abstract class RoomAddOn implements Room {
     protected Room room;
 
+    public int getRoomNumber() {
+        return this.room.getRoomNumber();
+    }
+
     public RoomAddOn(Room room) {   
         this.room = room;   
     }

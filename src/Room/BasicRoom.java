@@ -1,7 +1,16 @@
 package Room;
 public class BasicRoom implements Room {
     private int capacity = 30;
+    private static int iterator = 0;
+    private int roomNumber;
     
+    public BasicRoom() {
+        this.roomNumber = iterator++;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
     
     @Override
     public int getCapacity() {
