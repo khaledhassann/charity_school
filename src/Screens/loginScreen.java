@@ -1,7 +1,6 @@
 package Screens;
 
 import java.util.Scanner;
-
 import Login.*;
 
 public class loginScreen {
@@ -12,7 +11,7 @@ public class loginScreen {
         LoginContext loginContext; // The login context
         boolean isAuthorized;
 
-        do{
+        do {
             isAuthorized = false;
             choice = "";
             tryAgain = "";
@@ -28,71 +27,71 @@ public class loginScreen {
             switch (choice) {
                 case "1":
                     System.out.println("\nAdmin login selected.\n");
-                    // Call admin-specific methods or controllers
-                    while(!isAuthorized){
-                        loginContext = new LoginContext(new AdminLoginStrategy()); 
+                    while (!isAuthorized) {
+                        loginContext = new LoginContext(new AdminLoginStrategy());
                         String[] credentiaLoginUtil = LoginUtil.requestCredentials();
                         isAuthorized = loginContext.executeLogin(credentiaLoginUtil[0], credentiaLoginUtil[1]);
-                       
-                        if (!isAuthorized){ // If not authorized, give the option to exit
-                            System.out.print("\nDo you want to exit (Type 1 to exit)?\n");
-                            int exit = scanner.nextInt();
-                            if(exit == 1) displayLoginScreen();
+
+                        if (!isAuthorized) { // If not authorized, give the option to retry
+                            System.out.print("\nDo you want to try again? (Y/N): ");
+                            tryAgain = scanner.nextLine().trim();
+                            if (tryAgain.equalsIgnoreCase("N")) break; // Exit loop on "N"
                         }
                     }
                     break;
+
                 case "2":
                     System.out.println("\nDonor login selected.\n");
-                    // Call teacher-specific methods or controllers
-                    while(!isAuthorized && tryAgain != "Y"){
+                    while (!isAuthorized) {
                         loginContext = new LoginContext(new DonorLoginStrategy());
                         String[] credentiaLoginUtil = LoginUtil.requestCredentials();
                         isAuthorized = loginContext.executeLogin(credentiaLoginUtil[0], credentiaLoginUtil[1]);
-                       
-                        if (!isAuthorized){ // If not authorized, give the option to exit
-                            System.out.print("\nDo you want to try again ? (Y/N)\n");
-                            tryAgain = scanner.nextLine();
+
+                        if (!isAuthorized) { // If not authorized, give the option to retry
+                            System.out.print("\nDo you want to try again? (Y/N): ");
+                            tryAgain = scanner.nextLine().trim();
+                            if (tryAgain.equalsIgnoreCase("N")) break; // Exit loop on "N"
                         }
                     }
                     break;
-    
+
                 case "3":
                     System.out.println("\nStudent login selected.\n");
-                    // Call login function with studentLogin strategy
-                    while(!isAuthorized){
+                    while (!isAuthorized) {
                         loginContext = new LoginContext(new StudentLoginStrategy());
                         String[] credentiaLoginUtil = LoginUtil.requestCredentials();
                         isAuthorized = loginContext.executeLogin(credentiaLoginUtil[0], credentiaLoginUtil[1]);
-                       
-                        if (!isAuthorized){ // If not authorized, give the option to exit
-                            System.out.print("\nDo you want to exit (Type 1 to exit)?\n");
-                            int exit = scanner.nextInt();
-                            if(exit == 1) displayLoginScreen();
+
+                        if (!isAuthorized) { // If not authorized, give the option to retry
+                            System.out.print("\nDo you want to try again? (Y/N): ");
+                            tryAgain = scanner.nextLine().trim();
+                            if (tryAgain.equalsIgnoreCase("N")) break; // Exit loop on "N"
                         }
                     }
-    
                     break;
+
                 case "4":
                     System.out.println("Volunteer login selected.");
-                    // Call volunteer-specific methods or controllers
-                    while(!isAuthorized){
+                    while (!isAuthorized) {
                         loginContext = new LoginContext(new VolunteerLoginStrategy());
                         String[] credentiaLoginUtil = LoginUtil.requestCredentials();
                         isAuthorized = loginContext.executeLogin(credentiaLoginUtil[0], credentiaLoginUtil[1]);
-                       
-                        if (!isAuthorized){ // If not authorized, give the option to exit
-                            System.out.print("\nDo you want to exit (Type 1 to exit)?\n");
-                            String exit = scanner.nextLine();
-                            if(exit == "1") displayLoginScreen();
+
+                        if (!isAuthorized) { // If not authorized, give the option to retry
+                            System.out.print("\nDo you want to try again? (Y/N): ");
+                            tryAgain = scanner.nextLine().trim();
+                            if (tryAgain.equalsIgnoreCase("N")) break; // Exit loop on "N"
                         }
                     }
                     break;
-    
+                case "5":
+                    System.out.println("Exiting....Goodbye!");
+                    break;
                 default:
                     System.out.println("Invalid choice! Please try again.");
             }
 
-        }while(choice != "5");
+        } while (!choice.equals("5"));
 
         scanner.close();
     }
