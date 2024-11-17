@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class VolunteerView {
     private final Scanner scanner = new Scanner(System.in);
     private VolunteerController controller;
+    private EventTest eventTest;
 
     // Setter for the controller
     public void setController(VolunteerController controller) {
@@ -22,7 +23,9 @@ public class VolunteerView {
             System.out.println("5. View My Assigned Tasks");
             System.out.println("6. View Profile");
             System.out.println("7. Change Rating");
-            System.out.println("8. End Program");
+            System.out.println("8. Show Event Details");
+            System.out.println("9. End Program");
+
 
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
@@ -51,6 +54,8 @@ public class VolunteerView {
                     changeRating();
                     break;
                 case 8:
+                    EventTest.showEventOptions();
+                case 9:
                     running = false;
                     displayMessage("Program ended.");
                     break;
