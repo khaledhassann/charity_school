@@ -13,6 +13,9 @@ public class SchoolController {
     }
 
     // CLASS DIAGRAM FUNCTIONS
+    public List<Student> getAllStudents() {
+        return schoolModel.getAllStudents();
+    }
 
     public boolean subjectExists(SubjectModel subject) {
         return schoolModel.checkForSubject(subject);

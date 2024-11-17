@@ -4,14 +4,21 @@ import java.util.*;
 
 public class StudentView {
     private final Scanner scanner = new Scanner(System.in);
-    private static List<Student> students = initializeStudents();
-    private static StudentController studentController;
-    private static SchoolController schoolController;
+    private List<Student> students;
+    private StudentController studentController;
+    private SchoolController schoolController;
     private static EventOrganizerStudent eventOrganizerStudent;
     private static SocialMediaHandler socialMediaHandler;
 
+    public StudentView(Student student, SchoolController schoolController, boolean isEventOrganizer,
+            boolean isSocialMediaHandler, String socialMediaHandle) {
+        this.schoolController = schoolController;
+        this.students = schoolController.getAllStudents();
+        this.studentController = new StudentController(student, students, this);
+    }
+
     public void showMainMenu() {
-        Student student = loginStudent();
+        // Student student = loginStudent();
         boolean running = true;
 
         while (running) {
@@ -34,7 +41,7 @@ public class StudentView {
 
             switch (choice) {
                 case 1:
-                    displayStudentProfile(student);
+                    displayStudentProfile(config.EXAMPLE_STUDENT);
                     break;
                 case 2:
                     viewSchedule();

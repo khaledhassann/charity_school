@@ -1,6 +1,7 @@
 package Login;
 
-import School.AdminMain;
+import Room.RoomView;
+import School.*;
 public class AdminLoginStrategy extends ILoginStrategy {
     private final String filePath = "./src/Data/Admins.txt";
     @Override
@@ -14,7 +15,15 @@ public class AdminLoginStrategy extends ILoginStrategy {
         System.out.println("Forward to Admin menu");
 
         // Route to relevant page
-        AdminMain.showMenu();
+        SchoolView mockSchoolView = new SchoolView();
+        RoomView roomView = new RoomView();
+        DonationView donationView = new DonationView();
+        EventView eventView = new EventView();
+        // Create the AdminView and set the SchoolView
+        AdminView adminView = new AdminView(mockSchoolView, roomView, donationView,
+        eventView);
+        adminView.showMainMenu();
+        
         return true;
     }
 }
