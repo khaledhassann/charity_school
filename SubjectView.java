@@ -3,10 +3,10 @@
 import java.util.List;
 
 public class SubjectView {
-    public void printSubjectDetails(String subjectCode, String subjectName, int subjectCredits, String subjectBehavior,
+    public void printSubjectDetails(String subjectCode, String subjectName, int subjectCredits,
             String gradingBehavior, String examType, int timeslot) {
         System.out.println("This is " + subjectCode + ":" + subjectName + " with credit hours " + subjectCredits
-                + "\nTeaching method: " + subjectBehavior + "\nGrading: "
+                + "\nGrading: "
                 + gradingBehavior + "\nFinal Exam: " + examType + "\nTime Slot: " + timeslot);
     }
 

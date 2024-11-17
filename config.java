@@ -8,7 +8,6 @@ public class config {
     public static final Student EXAMPLE_STUDENT = new Student("1", "Khaled", "khaled@email.com", "0100200300", "Maadi",
             true);
     public static final DonationController EXAPMLE_DONATION_CONTROLLER = new DonationController();
-    public static final EventController EXAPMLE_EVENT_CONTROLLER = new EventController();
     public static final VolunteerController EXAMPLE_VOLUNTEER_CONTROLLER = new VolunteerController();
     public static final ArrayList<User> schoolUsersList = new ArrayList<User>() {
         {

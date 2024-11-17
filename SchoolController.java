@@ -1,18 +1,16 @@
 import java.util.List;
 import java.util.Optional;
 
+import Room.Room;
+
 public class SchoolController {
     private SchoolModel schoolModel;
-    private VolunteerController volunteerController;
-    private EventController eventController;
-    private DonationController donationController;
 
     public SchoolController(SchoolModel school) {
         this.schoolModel = school;
     }
 
     // CLASS DIAGRAM FUNCTIONS
-    // TODO: Implement School controller class diagram functions
 
     public boolean subjectExists(SubjectModel subject) {
         return schoolModel.checkForSubject(subject);
@@ -43,10 +41,8 @@ public class SchoolController {
     }
 
     public boolean manageRoomAssignment(Student student, Room room) {
+        // TODO: assign student to room
         return true;
-    }
-
-    public void sendEventUpdate() {
     }
 
     public boolean updateAvailableSubjects(List<SubjectModel> subjects) {

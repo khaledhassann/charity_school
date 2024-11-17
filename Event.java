@@ -1,56 +1,55 @@
-import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
+    private int eventId;
     private String eventName;
-    private Date eventDate;
-    private String eventLocation;
+    private String eventDate;
+    private String location;
     private List<User> attendees;
 
-    // SETTERS AND GETTERS
-    public Date getEventDate() {
-        return eventDate;
+    // Constructor
+    public Event(int eventId, String eventName, String eventDate, String location) {
+        this.eventId = eventId;
+        this.eventName = eventName;
+        this.eventDate = eventDate;
+        this.location = location;
+        this.attendees = new ArrayList<>();
     }
 
-    public String getEventLocation() {
-        return eventLocation;
+    // Getters
+    public int getEventId() {
+        return eventId;
     }
 
     public String getEventName() {
         return eventName;
     }
 
-    public List<User> getAttendees() {
-        return attendees;
+    public String getEventDate() {
+        return eventDate;
     }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
+    public String getLocation() {
+        return location;
     }
 
-    public void setEventLocation(String eventLocation) {
-        this.eventLocation = eventLocation;
-    }
-
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
-    }
-
-    public void setAttendees(List<User> attendees) {
-        this.attendees = attendees;
-    }
-
-    // CLASS METHODS
+    // Register attendee
     public boolean registerAttendee(User user) {
-        return true;
+        if (!attendees.contains(user)) {
+            attendees.add(user);
+            return true;
+        }
+        return false;
     }
 
-    public boolean trackAttendance(User attendee) {
-        return true;
+    // Remove attendee
+    public boolean removeAttendee(User user) {
+        return attendees.remove(user);
     }
 
-    public void sendReminder(Event event, User attendee) {
-        // TODO: implement reminder sending logic
+    // Display attendees
+    public List<User> displayAttendees() {
+        return new ArrayList<>(attendees);
     }
-
 }

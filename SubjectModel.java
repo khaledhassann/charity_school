@@ -28,9 +28,9 @@ public class SubjectModel {
         this.students = new ArrayList<>();
     }
 
-    public String getBehavior() {
-        return "Default behavior";
-    };
+    // public String getBehavior() {
+    // return "Default behavior";
+    // };
 
     public boolean addStudent(Student student) {
         if (!students.contains(student)) {
@@ -88,7 +88,7 @@ public class SubjectModel {
     public String getDetails() {
         return this.getSubjectCode() + ":" + this.getSubjectName() + " with credit hours "
                 + this.getSubjectCredit()
-                + "\nTeaching method: " + this.getBehavior() + "\nGrading: "
+                + "\nGrading: "
                 + this.getGradeBehavior().defineGrading()
                 + "\nFinal Exam: " + this.getFinalExam().defineExamType() + "\nTime Slot: " + this.getTimeslot();
     };

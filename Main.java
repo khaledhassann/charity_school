@@ -1,5 +1,6 @@
-import java.util.ArrayList;
 import java.util.List;
+
+import Room.RoomView;
 
 // public class Main {
 //     public static void main(String[] args) {
@@ -30,8 +31,11 @@ public class Main {
                         new SubjectModel("History101", "ASU300", 2,
                                 new PassFailGrading(), new PracticalExam(), 3, config.EXAMPLE_DONOR)))));
 
+        RoomView roomView = new RoomView();
+        DonationView donationView = new DonationView();
+        EventView eventView = new EventView();
         // Create the AdminView and set the SchoolView
-        AdminView adminView = new AdminView(mockSchoolView);
+        AdminView adminView = new AdminView(mockSchoolView, roomView, donationView, eventView);
 
         // Show the main menu for the Admin console
         adminView.showMainMenu();

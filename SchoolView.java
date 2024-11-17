@@ -133,7 +133,7 @@ public class SchoolView {
                     break;
 
                 case 0:
-                    System.out.println("Exiting the program. Goodbye!");
+                    System.out.println("Going back to main Menu!");
                     break;
 
                 default:

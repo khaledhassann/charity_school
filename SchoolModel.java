@@ -1,6 +1,8 @@
 import java.util.List;
 import java.util.Optional;
 
+import Room.Room;
+
 public class SchoolModel {
     private String schoolName;
     private String location;
@@ -17,7 +19,6 @@ public class SchoolModel {
     }
 
     // CLASS DIAGRAM FUNCTIONS
-    // TODO: Implement School model class diagram functions
     public boolean addUser(User user) {
         return userList.add(user);
     }
@@ -36,7 +37,7 @@ public class SchoolModel {
         return true;
     }
 
-    public boolean addSubject(Subject subject) {
+    public boolean addSubject(SubjectModel subject) {
         return true;
     }
 
@@ -51,6 +52,24 @@ public class SchoolModel {
     }
 
     public boolean addRoom(Room room) {
+        // Validate input
+        if (room == null) {
+            System.out.println("Invalid room. Cannot be null.");
+            return false;
+        }
+
+        // Check if the room already exists
+        boolean roomExists = rooms.stream()
+                .anyMatch(existingRoom -> existingRoom.getRoomNumber() == room.getRoomNumber());
+
+        if (roomExists) {
+            System.out.println("Room with number " + room.getRoomNumber() + " already exists.");
+            return false;
+        }
+
+        // Add the room and return true
+        rooms.add(room);
+        System.out.println("Room " + room.getRoomNumber() + " added successfully.");
         return true;
     }
 
