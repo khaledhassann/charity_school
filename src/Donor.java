@@ -52,6 +52,7 @@ public abstract class Donor {
     
                 if (donationDetails != null) {
                     donationHistory.add(donationDetails);
+                    didDonate = donationStrategy.donate();
                     return donationStrategy.donate();
                 }
             }

@@ -13,13 +13,13 @@ public class TeachingDonation implements IDonationStrategy {
 
     @Override
     public boolean donate() {
-        // System.out.println("Creating schedule for teaching donation:");
-        // createdSchedule = schedule.createSchedule(selectedSubjects);
-
-        // System.out.println("Teaching Donation Schedule:");
-        // for (Map.Entry<String, Integer> entry : createdSchedule.entrySet()) {
-        //     System.out.println("Subject: " + entry.getKey() + " - Time Slot: " + entry.getValue());
-        // }
+        if (selectedSubjects == null || selectedSubjects.isEmpty()) {
+            System.out.println("No subjects selected for teaching donation.");
+            return false;
+        }
+    
+        schedule = new Schedule(selectedSubjects);
+        createdSchedule = schedule.createSchedule(selectedSubjects);
         System.out.println("Processing teaching donation for selected subjects:");
         for (Subject subject : selectedSubjects) {
             System.out.println("Subject: " + subject.getName() + " - Time Slot: " + subject.getTimeSlot());
@@ -27,10 +27,6 @@ public class TeachingDonation implements IDonationStrategy {
         System.out.println("Teaching donation scheduled successfully.");
         return true;
     }
-
-    // public Schedule getSchedule() {
-    //     return schedule;
-    // }
 
     public List<Subject> getSelectedSubjects() {
         return selectedSubjects;

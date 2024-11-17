@@ -24,5 +24,13 @@ public class School {
     public boolean removeSubject(Subject subject) {
         return true;
     }
+    public Subject getSubjectByName(String name) {
+        for (Subject subject : availableSubjects) {
+            if (subject.getName().equalsIgnoreCase(name)) {
+                return subject;
+            }
+        }
+        return null; // Return null if no subject is found with the given name
+    }
 
 }
