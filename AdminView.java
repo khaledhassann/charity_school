@@ -25,6 +25,8 @@ public class AdminView {
             System.out.println("2. Manage Events");
             System.out.println("3. Manage Ads");
             System.out.println("4. Manage Rooms");
+            System.out.println("5. Subscribe to Donations notifications");
+            System.out.println("6. Unsubscribe from Donations notifications");
             System.out.println("0. Back to main menu");
 
             System.out.print("Your choice: ");
@@ -46,6 +48,12 @@ public class AdminView {
 
                 case 4:
                     roomView.showMenu();
+                    break;
+                case 5:
+                    System.out.println("Subscribed");
+                    break;
+                case 6:
+                    System.out.println("Unsubscribed");
                     break;
 
                 case 0:

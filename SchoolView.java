@@ -13,7 +13,9 @@ public class SchoolView {
                 List.of(new SubjectModel("Math 101", "MATH101", 3, new LetterGrading(), new WrittenExam(), 4,
                         config.EXAMPLE_DONOR),
                         new SubjectModel("History101", "ASU300", 2,
-                                new PassFailGrading(), new PracticalExam(), 3, config.EXAMPLE_DONOR))));
+                                new PassFailGrading(), new PracticalExam(), 3, config.EXAMPLE_DONOR)),
+                List.of(config.EXAMPLE_DONOR, config.EXAMPLE_STUDENT,
+                        new Student("2084", "Omar", "omar@email.com", false, null, null, null, 0, null, null))));
         this.scanner = new Scanner(System.in);
     }
 

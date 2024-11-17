@@ -16,13 +16,13 @@ public class Schedule {
     public Map<String, Integer> createSchedule(List<SubjectModel> selectedSubjects) {
         Map<String, Integer> scheduleMap = new HashMap<>();
 
-        System.out.println("Creating schedule:");
+        System.out.println("Creating schedule...");
         for (SubjectModel subject : selectedSubjects) {
             Integer timeSlot = subject.getTimeslot();
             String name = subject.getSubjectName();
             if (timeSlot != null) {
                 scheduleMap.put(name, timeSlot);
-                System.out.println("Subject: " + name + " - Time Slot: " + timeSlot);
+                // System.out.println("Subject: " + name + " - Time Slot: " + timeSlot);
             }
         }
 

@@ -1,4 +1,3 @@
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,14 +97,14 @@ public class StudentController {
         }
 
         Map<String, Integer> scheduleMap = new HashMap<>();
-        System.out.println("Creating schedule:");
+        System.out.println("Creating schedule...");
 
         for (SubjectModel subject : selectedSubjects) {
             Integer timeSlot = subject.getTimeslot();
             String name = subject.getSubjectName();
             if (timeSlot != null) {
                 scheduleMap.put(name, timeSlot);
-                System.out.println("Subject: " + name + " - Time Slot: " + timeSlot);
+                // System.out.println("Subject: " + name + " - Time Slot: " + timeSlot);
             }
         }
 

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,14 +12,26 @@ public class SchoolModel {
     private List<Event> events;
     private List<SubjectModel> availableSubjects;
 
-    public SchoolModel(String schoolName, String location, List<SubjectModel> subjects) {
+    public SchoolModel(String schoolName, String location, List<SubjectModel> subjects, List<User> userList) {
         this.schoolName = schoolName;
         this.location = location;
         this.availableSubjects = subjects;
-        this.userList = config.schoolUsersList;
+        this.userList = userList;
     }
 
     // CLASS DIAGRAM FUNCTIONS
+    public List<Student> getAllStudents() {
+        List<Student> students = new ArrayList<>();
+
+        for (User user : userList) {
+            if (user instanceof Student) {
+                students.add((Student) user); // Safe cast since we checked with instanceof
+            }
+        }
+
+        return students;
+    }
+
     public boolean addUser(User user) {
         return userList.add(user);
     }

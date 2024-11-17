@@ -5,14 +5,14 @@ public class Student extends User {
     private String dateOfBirth;
     private String nationality;
     private String major;
-    private Date enrollmentYear;
+    private int enrollmentYear = -1;
     private List<Donor> donors;
     private List<SubjectModel> subjects;
 
     // Constructor using StudentConfig for defaults
     public Student(String userID, String name, String email,
             boolean beneficiaryStatus,
-            String dateOfBirth, String nationality, String major, Date enrollmentYear,
+            String dateOfBirth, String nationality, String major, int enrollmentYear,
             List<Donor> donors, List<SubjectModel> subjects) {
         super(
                 userID != null ? userID : StudentConfig.DEFAULT_USER_ID,
@@ -23,9 +23,9 @@ public class Student extends User {
         this.dateOfBirth = dateOfBirth != null ? dateOfBirth : StudentConfig.DEFAULT_DATE_OF_BIRTH;
         this.nationality = nationality != null ? nationality : StudentConfig.DEFAULT_NATIONALITY;
         this.major = major != null ? major : StudentConfig.DEFAULT_MAJOR;
-        this.enrollmentYear = enrollmentYear != null ? enrollmentYear : StudentConfig.DEFAULT_ENROLLMENT_YEAR;
+        this.enrollmentYear = enrollmentYear != -1 ? enrollmentYear : StudentConfig.DEFAULT_ENROLLMENT_YEAR;
         this.donors = (donors != null && !donors.isEmpty()) ? donors : new ArrayList<>(StudentConfig.DEFAULT_DONORS);
-        this.subjects = (subjects != null && !subjects.isEmpty()) ? subjects
+        this.subjects = (subjects != null) ? subjects
                 : new ArrayList<>(StudentConfig.DEFAULT_SUBJECTS);
     }
 
@@ -67,11 +67,11 @@ public class Student extends User {
         this.major = major;
     }
 
-    public Date getEnrollmentYear() {
+    public int getEnrollmentYear() {
         return enrollmentYear;
     }
 
-    public void setEnrollmentYear(Date enrollmentYear) {
+    public void setEnrollmentYear(int enrollmentYear) {
         this.enrollmentYear = enrollmentYear;
     }
 
@@ -114,7 +114,7 @@ public class Student extends User {
     }
 
     public List<SubjectModel> getAvailableSubjects() {
-        return new ArrayList<>(StudentConfig.DEFAULT_SUBJECTS);
+        return subjects;
 
     }
 
