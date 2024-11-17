@@ -171,7 +171,7 @@ public class DonorMain {
 
         showMenuHelper(scanner, donorController, donorView);
 
-        scanner.close();
+        // scanner.close();
     }
 
     private static void showMenuHelper(Scanner scanner, DonationController donorController, DonationScreen donorView) {

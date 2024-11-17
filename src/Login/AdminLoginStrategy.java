@@ -1,5 +1,6 @@
 package Login;
 
+import School.AdminMain;
 public class AdminLoginStrategy extends ILoginStrategy {
     private final String filePath = "./src/Data/Admins.txt";
     @Override
@@ -13,7 +14,7 @@ public class AdminLoginStrategy extends ILoginStrategy {
         System.out.println("Forward to Admin menu");
 
         // Route to relevant page
-
+        AdminMain.showMenu();
         return true;
     }
 }
