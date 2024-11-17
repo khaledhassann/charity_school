@@ -10,7 +10,7 @@ public class User {
     protected String phone;
     protected String address;
     protected boolean beneficiaryStatus;
-    private List<Event> events;
+    //private List<Event> events;
 
 
 
@@ -32,7 +32,7 @@ public class User {
         this.phone = phone;
         this.address = address;
         this.beneficiaryStatus = beneficiaryStatus;
-        this.events = new ArrayList<>();
+        //this.events = new ArrayList<>();
 
 
     }
@@ -84,30 +84,30 @@ public class User {
         this.address = address;
     }
     // Register event
-    public boolean registerEvent(Event event) {
-        if (!events.contains(event)) {
-            events.add(event);
-            return true;
-        }
-        return false;
-    }
+//    public boolean registerEvent(Event event) {
+//        if (!events.contains(event)) {
+//            events.add(event);
+//            return true;
+//        }
+//        return false;
+//    }
 
     // Withdraw from event
-    public boolean withdrawEvent(Event event) {
-        return events.remove(event);
-    }
-
-    // Display registered events
-    public List<String> displayEvents() {
-        List<String> eventDetails = new ArrayList<>();
-        for (Event event : events) {
-            eventDetails.add(name + ", Type: Registered event - " + event.getEventName());
-        }
-        return eventDetails;
-    }
-    public List<Event> getEvents() {
-        return events;
-    }
+//    public boolean withdrawEvent(Event event) {
+//        return events.remove(event);
+//    }
+//
+//    // Display registered events
+//    public List<String> displayEvents() {
+//        List<String> eventDetails = new ArrayList<>();
+//        for (Event event : events) {
+//            eventDetails.add(name + ", Type: Registered event - " + event.getEventName());
+//        }
+//        return eventDetails;
+//    }
+//    public List<Event> getEvents() {
+//        return events;
+//    }
 
 
 
