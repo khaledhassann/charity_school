@@ -152,8 +152,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DonorView {
-    public void showMenu() {    // 
+public class Main {
+    public static void main(String[] args) {    // 
         List<Subject> subjects = new ArrayList<>();
         subjects.add(new Subject("Math", 1));
         subjects.add(new Subject("Science", 2));
