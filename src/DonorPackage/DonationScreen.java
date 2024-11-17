@@ -1,5 +1,4 @@
 package DonorPackage;
-
 // import java.util.List;
 // import java.util.Scanner;
 
@@ -84,6 +83,7 @@ public class DonationScreen {
 
     public void displayDonorMainMenu(){
         System.out.println("\n--- Main Menu ---");
+            // System.out.println("1. Login");
             System.out.println("1. View Profile");
             System.out.println("2. Make Donation");
             System.out.println("3. View Donation History");
@@ -96,13 +96,20 @@ public class DonationScreen {
     }
 
     public void displayDonationHistory(List<DonationDetails> donationHistory) {
-        System.out.println("\n--- Donation History ---");
-        if (donationHistory.isEmpty()) {
-            System.out.println("No donations made yet.");
-        } else {
-            for (DonationDetails details : donationHistory) {
-                System.out.println(details);
+        System.out.println("--- Donation History ---");
+        for (DonationDetails donation : donationHistory) {
+            System.out.println("Donation ID: " + donation.getDonationID());
+            System.out.println("Date: " + donation.getDate());
+            System.out.println("School: " + donation.getSchool());
+
+            if (donation.getDonationAmount() != null) {
+                System.out.println("Donation Amount: $" + donation.getDonationAmount());
+                System.out.println("Payment Strategy: " + donation.getPaymentStrategy());
+            } else if (donation.getSelectedSubjects() != null) {
+                System.out.println("Teaching Subjects: ");
+                donation.displaySubjects();
             }
+            System.out.println("------------------------");
         }
     }
 }

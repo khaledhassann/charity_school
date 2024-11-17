@@ -1,5 +1,4 @@
 package DonorPackage;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -80,6 +79,18 @@ public class DonationDetails {
 
     public List<Subject> getSelectedSubjects() {
         return selectedSubjects;
+    }
+
+    public void displaySubjects() {
+        List<Subject> subjects = getSelectedSubjects(); // Get the list of selected subjects
+        if (subjects == null || subjects.isEmpty()) {
+            System.out.println("No subjects selected.");
+            return;
+        }
+
+        for (Subject subject : subjects) {
+            System.out.println("- " + subject.getName()); // Display the name of each subject
+        }
     }
 
     public void setSelectedSubjects(List<Subject> selectedSubjects) {

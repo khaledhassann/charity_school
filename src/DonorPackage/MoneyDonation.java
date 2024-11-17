@@ -1,11 +1,16 @@
 package DonorPackage;
-
 public class MoneyDonation implements IDonationStrategy {
     private double amount;
     private String paymentMethod;
+    private Payment payment;
+
+    public MoneyDonation(double amount,Payment payment){
+        this.amount=amount;
+        this.payment=payment;
+    }
 
     public String getPaymentMethod() {
-        return paymentMethod;
+        return payment.getPaymentStrategy().getName();
     }
 
     public void setPaymentMethod(String paymentMethod) {
@@ -19,8 +24,21 @@ public class MoneyDonation implements IDonationStrategy {
 
     @Override
     public boolean donate() {
-        System.out.println("Processing monetary donation of " + amount + " via " + paymentMethod);
-        return true; 
+        if (payment == null || payment.getPaymentStrategy() == null) {
+            System.out.println("No payment strategy selected. Donation failed.");
+            return false;
+        }
+
+        System.out.println("Processing monetary donation of " + amount + " via " + payment.getPaymentStrategy().getName());
+        boolean paymentSuccessful = payment.pay(amount);
+
+        if (paymentSuccessful) {
+            System.out.println("Payment successful. Thank you for your donation!");
+        } else {
+            System.out.println("Payment failed. Please try again.");
+        }
+
+        return paymentSuccessful; 
     }
 
     public double getAmount() {

@@ -188,6 +188,6 @@ public class DonorMain {
                 case 4 -> System.out.println("Exiting... Thank you for your contributions!");
                 default -> System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 5);
+        } while (choice != 4);
     }
 }
