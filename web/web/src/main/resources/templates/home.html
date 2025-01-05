@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hope Haven School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: #800020; /* Burgundy color */
+            color: #fff;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        header nav ul li:hover ul {
+            display: block;
+        }
+
+        header nav ul li ul {
+            display: none;
+            position: absolute;
+            background: #fff;
+            color: #333;
+            top: 100%;
+            left: 0;
+            list-style: none;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header nav ul li ul li {
+            margin: 5px 0;
+        }
+
+        header nav ul li ul li a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .search-and-apply {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-and-apply .search {
+            margin-right: 20px;
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .search-and-apply .signup,
+        .search-and-apply .login {
+            background: #7a7978;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .nav-image {
+            width: 100%;
+            height: 400px;
+            background: url('/images/pexels-pixabay-207684.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .nav-image .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-image .content {
+            position: relative;
+            color: #fff;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .nav-image .content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .nav-image .content p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .nav-image .btn {
+            padding: 10px 20px;
+            background: #7a7978;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .hero {
+            padding: 60px 20px;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #800020;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 20px;
+            max-width: 800px;
+            line-height: 1.8;
+        }
+
+        .about-us {
+            padding: 60px 20px;
+            background: #e6e6e6;
+            text-align: center;
+        }
+
+        .about-us h2 {
+            font-size: 36px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .about-us p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #555;
+            margin: 0 auto 20px;
+            max-width: 800px;
+        }
+
+        .about-us .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .about-us .feature {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-us .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-us .feature h3 {
+            font-size: 20px;
+            color: #800020;
+            margin-bottom: 10px;
+        }
+
+        .about-us .feature p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .about-us .feature i {
+            font-size: 40px;
+            color: #800020;
+            margin-bottom: 15px;
+        }
+
+        .courses-section {
+            padding: 60px 20px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .courses-section h2 {
+            font-size: 36px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .courses-section .course-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .courses-section .course {
+            background: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .courses-section .course img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .courses-section .course h3 {
+            font-size: 24px;
+            color: #800020;
+            margin-bottom: 10px;
+        }
+
+        .courses-section .course p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .teachers-section {
+            padding: 60px 20px;
+            background: #e6e6e6;
+            text-align: center;
+        }
+
+        .teachers-section h2 {
+            font-size: 36px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .teachers-section .teacher-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .teachers-section .teacher {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .teachers-section .teacher img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .upcoming-events-section {
+            padding: 60px 20px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .upcoming-events-section h2 {
+            font-size: 36px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .upcoming-events-section .event-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .upcoming-events-section .event {
+            background: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .upcoming-events-section .event img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Hope Haven School</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#courses-section">Courses</a></li>
+                <li><a href="#">Academics</a></li>
+                <li><a href="#teachers-section">Teachers</a></li>
+                <li><a href="#upcoming-events-section">Events</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-and-apply">
+            <span class="search">🔍</span>
+            <a href="#" class="signup">Sign Up</a>
+            <a href="#" class="login">Login</a>
+        </div>
+    </header>
+
+    <div class="nav-image">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Building Futures with Love</h1>
+            <p>Hope Haven School is committed to empowering underprivileged children by providing quality education, nurturing care, and opportunities for a brighter tomorrow.</p>
+            <a href="#" class="btn">Learn More</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1>Welcome to Hope Haven School</h1>
+        <p>We believe every child deserves the opportunity to learn and grow. Our mission is to provide a nurturing environment where education transforms lives and inspires hope for a better future.</p>
+    </div>
+
+    <div class="about-us">
+        <h2>About Us</h2>
+        <p>Hope Haven School is a beacon of hope for children from underserved communities. We strive to bridge the gap in education by offering free or low-cost learning resources, nutritious meals, and a supportive atmosphere. Our school is not just a place for academic learning but a sanctuary where children can dream big and work towards their aspirations.</p>
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-book-reader"></i>
+                <h3>Accessible Education</h3>
+                <p>We provide free and affordable education to ensure no child is left behind.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-brain"></i>
+                <h3>Holistic Development</h3>
+                <p>Our programs foster intellectual, emotional, and physical growth.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3>Community Support</h3>
+                <p>We collaborate with local organizations to uplift families and communities.</p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Add this CSS rule to the rest of your styles */
+        .courses-section .course img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+    </style>
+
+
+
+<style>
+    .teachers-section .teacher img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+</style>
+
+
+
+<div id="courses-section" class="section">
+    <h2>Our Courses</h2>
+    <div class="card-container">
+        <div th:each="course : ${courses}" class="card">
+            <div class="card-content">
+                <img th:src="${course.imageUrl}" alt="Course Image" class="course-image">
+                <h3 th:text="${course.name}" class="course-title"></h3>
+                <p th:text="${course.description}" class="course-description"></p>
+               
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .section h2 {
+        font-size: 36px;
+        color: #800020;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .card-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .course-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    .course-title {
+        font-size: 22px;
+        color: #800020;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .course-description {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .register-button {
+        background: linear-gradient(to right, #800020, #a62940);
+        color: #fff;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .register-button:hover {
+        background: linear-gradient(to right, #a62940, #800020);
+    }
+</style>
+
+
+<div id="teachers-section" class="section">
+    <h2>Our Teachers</h2>
+    <div class="card-container">
+        <div th:each="teacher : ${teachers}" class="card">
+            <img th:src="${teacher.imageUrl}" alt="Teacher Image">
+            <h3 th:text="${teacher.name}"></h3>
+            <p th:text="${teacher.subject}"></p>
+            
+        </div>
+    </div>
+</div>
+
+<div id="upcoming-events-section" class="section">
+    <h2>Upcoming Events</h2>
+    <div class="card-container">
+        <div th:each="event : ${events}" class="card">
+            <img th:src="${event.imageUrl}" alt="Event Image">
+            <h3 th:text="${event.name}"></h3>
+            <p th:text="${event.description}"></p>
+            <button>Learn More</button>
+        </div>
+    </div>
+</div>
+<style>
+.section h2 {
+    font-size: 36px;
+    color: #800020;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-size: 22px;
+    color: #800020;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.card button {
+    background: linear-gradient(to right, #800020, #a62940);
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.card button:hover {
+    background: linear-gradient(to right, #a62940, #800020);
+}
+
+</style>
+
+    <footer>
+        <p>&copy; 2025 Hope Haven School. All rights reserved.</p>
+    </footer>
+</body>
+</html>
