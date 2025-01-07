@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Student</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: white;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #7a001e;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: 600;
+            width: 100%;
+        }
+
+        footer {
+            background: #7a001e;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px; /* Increased container width */
+            background: #fff;
+            border-radius: 10px;
+            margin: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border: 2px solid #800020;
+        }
+
+        h1 {
+            font-size: 22px;
+            color: #800020;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .input-group input {
+            width: 85%; /* Adjusted input field width */
+            padding: 10px 40px 10px 12px; /* Adjusted padding for eye icon */
+            font-size: 14px;
+            border: 1px solid #800020;
+            border-radius: 25px;
+            outline: none;
+            background: #f9f9f9;
+            margin: 0 auto;
+            display: block; /* Center the input field */
+        }
+
+        .input-group .password-toggle {
+            position: absolute;
+            right: 15px; /* Adjusted to align with the new container width */
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #800020;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+        }
+
+        button {
+            background: #800020;
+            color: #fff;
+            border: none;
+            padding: 12px 0;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%; /* Match the container's width */
+        }
+
+        button:hover {
+            background: #a62940;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #800020;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #a62940;
+        }
+    </style>
+</head>
+<body>
+    <header>Register Student</header>
+    <div class="container">
+        <h1>Register a New Student</h1>
+        <form>
+            <div class="input-group">
+                <input type="text" placeholder="Name" required>
+            </div>
+            <div class="input-group">
+                <input type="email" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Password" id="password" required>
+                <i class="fa fa-eye password-toggle" id="toggle-password" onclick="togglePassword('password', 'toggle-password')"></i>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Confirm Password" id="confirm-password" required>
+                <i class="fa fa-eye password-toggle" id="toggle-confirm-password" onclick="togglePassword('confirm-password', 'toggle-confirm-password')"></i>
+            </div>
+            <div class="input-group">
+                <input type="tel" placeholder="Phone Number" required>
+            </div>
+            <button type="submit">Register Student</button>
+        </form>
+        <a href="admin.html" class="back-link">← Back to Admin Dashboard</a>
+    </div>
+    <footer>&copy; 2025 Hope Haven School. All rights reserved.</footer>
+
+    <script>
+        function togglePassword(inputId, toggleId) {
+            const input = document.getElementById(inputId);
+            const toggle = document.getElementById(toggleId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggle.classList.remove('fa-eye');
+                toggle.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                toggle.classList.remove('fa-eye-slash');
+                toggle.classList.add('fa-eye');
+            }
+        }
+    </script>
+</body>
+</html>

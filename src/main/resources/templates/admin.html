@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Hope Haven School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: #800020; /* Burgundy color */
+            color: #fff;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        header nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .content h1 {
+            font-size: 48px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .action:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .action h3 {
+            font-size: 20px;
+            color: #800020;
+            margin-bottom: 15px;
+        }
+
+        .action p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .action a {
+            display: inline-block;
+            background: #800020;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .action a:hover {
+            background: #a62940;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .action {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Hope Haven School</div>
+        <nav>
+            <ul>
+                <li><a href="/" aria-label="Home">Home</a></li>
+                <li><a href="/#courses-section" aria-label="Courses">Courses</a></li>
+                <li><a href="#" aria-label="Academics">Academics</a></li>
+                <li><a href="/#teachers-section" aria-label="Teachers">Teachers</a></li>
+                <li><a href="/adminpage#upcoming-events-section" aria-label="Events">Events</a></li>
+                <li><a href="/admin" aria-label="Services">Services</a></li>
+                <li><a href="#" aria-label="Contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1>Welcome, Admin!</h1>
+        <p>Manage accounts, rooms, and courses with ease.</p>
+        <div class="actions">
+            <div class="action">
+                <h3>Create Admin</h3>
+                <p>Add a new admin to the system.</p>
+                <a href="/create-admin" aria-label="Create Admin">Create Admin</a>
+            </div>
+            <div class="action">
+                <h3>Register Student</h3>
+                <p>Enroll a new student in the system.</p>
+                <a href="register_student" aria-label="Register Student">Register Student</a>
+            </div>
+            <div class="action">
+                <h3>Create Rooms</h3>
+                <p>Set up new rooms for classes.</p>
+                <a href="/create-room" aria-label="Create Rooms">Create Rooms</a>
+            </div>
+            <div class="action">
+                <h3>Upgrade Room</h3>
+                <p>Enhance or modify existing rooms.</p>
+                <a href="/upgrade-room" aria-label="Upgrade Room">Upgrade Room</a>
+            </div>
+            <div class="action">
+                <h3>Assign Courses</h3>
+                <p>Assign courses to available rooms.</p>
+                <a href="#" aria-label="Assign Courses">Assign Courses</a>
+            </div>
+            <div class="action">
+                <h3>Create Advertisement</h3>
+                <p>Design and post Ads on social media platforms.</p>
+                <a href="/create-advertisement" aria-label="Create Advertisement">Create Advertisement</a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Hope Haven School. All rights reserved.</p>
+    </footer>
+</body>
+</html>

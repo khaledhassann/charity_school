@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Ads Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #f5f5f5, #e8e8e8);
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(to right, #800020, #a62940);
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffcccc;
+        }
+
+        .admin-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .admin-section h1 {
+            font-size: 36px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .create-ad-button {
+            background: linear-gradient(to right, #800020, #a62940);
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .create-ad-button:hover {
+            background: linear-gradient(to right, #a62940, #800020);
+        }
+
+        .ads-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .ad-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ad-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .ad-card img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+        }
+
+        .ad-card h3 {
+            font-size: 22px;
+            color: #800020;
+            margin-bottom: 10px;
+        }
+
+        .ad-card p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .ad-status {
+            background: #ffdd57;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-button {
+            background: #800020;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .dropdown-button:hover {
+            background: #a62940;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Admin Dashboard</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="/ads">Manage Ads</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="admin-section">
+        <h1>Manage Ads</h1>
+        <button class="create-ad-button" onclick="window.location.href='/ads/create'">Create New Ad</button>
+
+        <div class="ads-list">
+            <!-- Dynamically Render Ads -->
+            <div th:each="ad : ${ads}" class="ad-card">
+                <!-- Use platform-based online URLs -->
+                <img th:src="${ad.platform == 'INSTAGRAM' ? 'https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg' :
+                             ad.platform == 'FACEBOOK' ? 'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg' :
+                             ad.platform == 'TWITTER' ? 'https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg' :
+                             ''}" 
+                     alt="Platform Logo">
+                <h3 th:text="${ad.content}">Ad Title</h3>
+                <p th:text="${ad.status}">Ad Status</p>
+                <p th:text="${ad.launchDate}">Launch Date</p>
+                <div class="dropdown">
+                    <button class="dropdown-button">Options</button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="alert('Edit functionality not implemented yet')">Edit</a>
+                        <a href="#" onclick="alert('Delete functionality not implemented yet')">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Admin Dashboard. All rights reserved.</p>
+    </footer>
+</body>
+</html>

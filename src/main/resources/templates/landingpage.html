@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hope Haven School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: #800020; /* Burgundy color */
+            color: #fff;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        header nav ul li:hover ul {
+            display: block;
+        }
+
+        header nav ul li ul {
+            display: none;
+            position: absolute;
+            background: #fff;
+            color: #333;
+            top: 100%;
+            left: 0;
+            list-style: none;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header nav ul li ul li {
+            margin: 5px 0;
+        }
+
+        header nav ul li ul li a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .search-and-apply {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-and-apply .search {
+            margin-right: 20px;
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .search-and-apply .signup,
+        .search-and-apply .login {
+            background: #7a7978;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .nav-image {
+            width: 100%;
+            height: 400px;
+            background: url('C:/Users/Mriam/Documents/sdp_project/charity_school/images/pexels-pixabay-207684.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .nav-image .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-image .content {
+            position: relative;
+            color: #fff;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .nav-image .content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .nav-image .content p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .nav-image .btn {
+            padding: 10px 20px;
+            background: #7a7978;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .hero {
+            padding: 60px 20px;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #800020;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 20px;
+            max-width: 800px;
+            line-height: 1.8;
+        }
+
+        .about-us {
+            padding: 60px 20px;
+            background: #e6e6e6;
+            text-align: center;
+        }
+
+        .about-us h2 {
+            font-size: 36px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .about-us p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #555;
+            margin: 0 auto 20px;
+            max-width: 800px;
+        }
+
+        .about-us .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .about-us .feature {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-us .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-us .feature h3 {
+            font-size: 20px;
+            color: #800020;
+            margin-bottom: 10px;
+        }
+
+        .about-us .feature p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .about-us .feature i {
+            font-size: 40px;
+            color: #800020;
+            margin-bottom: 15px;
+        }
+
+        .courses-section {
+            padding: 60px 20px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .courses-section h2 {
+            font-size: 36px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .courses-section .course-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .courses-section .course {
+            background: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .courses-section .course img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .courses-section .course h3 {
+            font-size: 24px;
+            color: #800020;
+            margin-bottom: 10px;
+        }
+
+        .courses-section .course p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .teachers-section {
+            padding: 60px 20px;
+            background: #e6e6e6;
+            text-align: center;
+        }
+
+        .teachers-section h2 {
+            font-size: 36px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .teachers-section .teacher-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .teachers-section .teacher {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .teachers-section .teacher img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .upcoming-events-section {
+            padding: 60px 20px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .upcoming-events-section h2 {
+            font-size: 36px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .upcoming-events-section .event-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .upcoming-events-section .event {
+            background: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .upcoming-events-section .event img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Hope Haven School</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#courses-section">Courses</a></li>
+                <li><a href="#">Academics</a></li>
+                <li><a href="#teachers-section">Teachers</a></li>
+                <li><a href="#upcoming-events-section">Events</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-and-apply">
+            <span class="search">🔍</span>
+            <a href="#" class="signup">Sign Up</a>
+            <a href="#" class="login">Login</a>
+        </div>
+    </header>
+
+    <div class="nav-image">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Building Futures with Love</h1>
+            <p>Hope Haven School is committed to empowering underprivileged children by providing quality education, nurturing care, and opportunities for a brighter tomorrow.</p>
+            <a href="#" class="btn">Learn More</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1>Welcome to Hope Haven School</h1>
+        <p>We believe every child deserves the opportunity to learn and grow. Our mission is to provide a nurturing environment where education transforms lives and inspires hope for a better future.</p>
+    </div>
+
+    <div class="about-us">
+        <h2>About Us</h2>
+        <p>Hope Haven School is a beacon of hope for children from underserved communities. We strive to bridge the gap in education by offering free or low-cost learning resources, nutritious meals, and a supportive atmosphere. Our school is not just a place for academic learning but a sanctuary where children can dream big and work towards their aspirations.</p>
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-book-reader"></i>
+                <h3>Accessible Education</h3>
+                <p>We provide free and affordable education to ensure no child is left behind.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-brain"></i>
+                <h3>Holistic Development</h3>
+                <p>Our programs foster intellectual, emotional, and physical growth.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3>Community Support</h3>
+                <p>We collaborate with local organizations to uplift families and communities.</p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Add this CSS rule to the rest of your styles */
+        .courses-section .course img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+    </style>
+
+<div  id="courses-section" class="courses-section">
+    <h2>Let's Check Our Courses</h2>
+    <div class="course-list">
+        <div class="course">
+            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\A1VqnK8cuLL.AC_UF1000,1000_QL80.jpg" alt="History">
+            <h3>History</h3>
+            <p>Discover the events, cultures, and milestones that shaped our world, exploring ancient civilizations, significant eras, and transformative movements throughout history.</p>
+        </div>
+        <div class="course">
+            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\science.jpg" alt="Science">
+            <h3>Science</h3>
+            <p>Explore the wonders of the natural world through hands-on experiments and scientific concepts.</p>
+        </div>
+        <div class="course">
+            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\maths.jpg" alt="Maths">
+            <h3>Maths</h3>
+            <p>Build a strong foundation in mathematics by mastering essential concepts, problem-solving techniques, and real-world applications that inspire logical thinking and analytical skills.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .teachers-section .teacher img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div id= "teachers-section" class="teachers-section">
+    <h2>Let's Meet Our Teachers</h2>
+    <div class="teacher-list">
+        <div class="teacher">
+            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\WhatsApp Image 2025-01-02 at 6.15.51 PM.jpeg" alt="Teacher 1">
+            <h3>Laila Ihab</h3>
+            <p>Science Teacher</p>
+        </div>
+        <div class="teacher">
+            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\WhatsApp Image 2025-01-02 at 6.24.02 PM.jpeg" alt="Teacher 2">
+            <h3>Mariam Sameh</h3>
+            <p>History Teacher</p>
+        </div>
+        <div class="teacher">
+            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\WhatsApp Image 2025-01-02 at 6.19.16 PM.jpeg" alt="Teacher 3">
+            <h3>Habiba Yasser</h3>
+            <p>Maths Teacher</p>
+        </div>
+    </div>
+</div>
+
+<div id="upcoming-events-section" class="upcoming-events-section">
+    <h2>Our Upcoming Events</h2>
+    <div class="event-list">
+        <div class="event">
+            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\WM Science Fair 5-12 Abereham Moges.jpg" alt="Event 1">
+            <h3>Science Fair</h3>
+            <p>Join us for an exciting day of experiments and discoveries at our annual Science Fair.</p>
+        </div>
+        <div class="event">
+            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\National_Museum5.jpg" alt="Event 2">
+            <h3>History Exhibition</h3>
+            <p>Experience the past with our interactive History Exhibition showcasing ancient artifacts.</p>
+        </div>
+        <div class="event">
+            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\free-educational-vector-collection.jpg" alt="Event 3">
+            <h3>Math Competition</h3>
+            <p>Challenge your problem-solving skills in our upcoming Maths Competition.</p>
+        </div>
+    </div>
+</div>
+
+
+    <footer>
+        <p>&copy; 2025 Hope Haven School. All rights reserved.</p>
+    </footer>
+</body>
+</html>
