@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Courses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(to right, #f5f5f5, #e8e8e8);
+        }
+
+        header {
+            background: linear-gradient(to right, #800020, #a62940);
+            color: #fff;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header .logo {
+            font-size: 28px;
+            font-weight: 700;
+            margin-right: auto;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .content {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .content h1 {
+            font-size: 48px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .courses {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .course {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .course:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .course img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .course h3 {
+            font-size: 22px;
+            color: #800020;
+            margin-bottom: 10px;
+        }
+
+        .course p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .course button {
+            background: linear-gradient(to right, #800020, #a62940);
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .course button:hover {
+            background: linear-gradient(to right, #a62940, #800020);
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Hope Haven School</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1>Register for Courses</h1>
+        <p>Browse through the available courses and register for the ones you are interested in.</p>
+        <div class="courses">
+            <!-- Dynamic rendering of courses -->
+            <div th:each="course : ${courses}" class="course">
+                <img th:src="${course.image_url}" th:alt="${course.name}">
+                <h3 th:text="${course.name}"></h3>
+                <p th:text="${course.description}"></p>
+                <p><strong>Credits:</strong> <span th:text="${course.credits}"></span></p>
+                <p><strong>Time Slot:</strong> <span th:text="${course.time_slot}"></span></p>
+                <form th:action="@{/register-course}" method="post" onsubmit="return confirmRegister(event, this)">
+                    <input type="hidden" th:name="courseId" th:value="${course.id}">
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Hope Haven School. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function confirmRegister(event, form) {
+            // Show a confirmation dialog
+            if (confirm("Are you sure you want to register for this course?")) {
+                return true; // Allow the form to submit
+            }
+            // Prevent the form submission
+            event.preventDefault();
+            return false;
+        }
+    </script>
+</body>
+</html>
