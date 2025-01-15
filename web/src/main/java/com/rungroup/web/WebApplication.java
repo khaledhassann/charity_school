@@ -23,9 +23,34 @@ public class WebApplication {
         // testDelete(testRepository);
         // CourseRepository courseRepository = new CourseRepository(); // Ensure proper initialization
         // createCourses(courseRepository);
+        // EventRepository eventRepository = new EventRepository();
+        // createEvents( eventRepository);
 
     }
-
+    private static void createEvents(EventRepository eventRepository) {
+        // List of events to be created
+        String[][] eventData = {
+            {"Tech Conference 2025", "A conference to discuss advancements in technology.", "https://example.com/images/tech.jpg", "2025-05-15T10:00", "Cairo International Conference Center"},
+            {"Art Exhibition", "Explore the work of talented local artists.", "https://example.com/images/art.jpg", "2025-03-10T15:00", "Downtown Art Gallery"},
+            {"Music Festival", "Enjoy live performances from top artists.", "https://example.com/images/music.jpg", "2025-06-20T18:30", "City Park"},
+            {"Charity Marathon", "Run for a cause and help raise funds for charity.", "https://example.com/images/marathon.jpg", "2025-04-25T07:00", "Main Street"},
+            {"Startup Pitch Night", "An opportunity for startups to pitch their ideas to investors.", "https://example.com/images/pitch.jpg", "2025-07-15T19:00", "Tech Hub Auditorium"}
+        };
+    
+        for (String[] data : eventData) {
+            Event event = new Event();
+            event.setName(data[0]);
+            event.setDescription(data[1]);
+            event.setImage_url(data[2]);
+            event.setDate(LocalDateTime.parse(data[3])); // Parsing the ISO 8601 date string
+            event.setLocation(data[4]);
+    
+            // Insert the event into the database
+            eventRepository.insert(event);
+            System.out.println("Inserted event: " + event.getName());
+        }
+    }
+    
     private static void createCourses(CourseRepository courseRepository) {
         // List of courses to be created
         String[][] courseData = {

@@ -1,11 +1,8 @@
 package com.rungroup.web.repositories.Implementations;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 
 import com.rungroup.web.mappers.GenericMapper;
-import com.rungroup.web.database.DatabaseConfig;
 
 import com.rungroup.web.models.test;
 import com.rungroup.web.repositories.GenericRepository;

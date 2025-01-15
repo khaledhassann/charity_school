@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 
 import com.rungroup.web.mappers.GenericMapper;
 
-import com.rungroup.web.models.Course;
+import com.rungroup.web.models.Donation;
 import com.rungroup.web.repositories.GenericRepository;
 
-public class CourseRepository extends GenericRepository<Course> {
+public class DonationRepository extends GenericRepository<Donation> {
 
-    public CourseRepository() {
-        super("Course", new GenericMapper<Course>(Course.class));
+    public DonationRepository() {
+        super("Donation", new GenericMapper<Donation>(Donation.class));
     }
     
-    public boolean update (Course entity) {
+    public boolean update (Donation entity) {
         // Add the update date explicitly
         entity.setUpdated_at(LocalDateTime.now());
         return super.update(entity);
