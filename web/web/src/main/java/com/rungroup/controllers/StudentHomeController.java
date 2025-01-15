@@ -12,7 +12,7 @@ public class StudentHomeController {
     // Endpoint for the Student Homepage
     @GetMapping("/")
     public String studentHomePage() {
-        return "student-home"; // Name of the HTML file for the homepage (student-home.html)
+        return "student-home"; 
     }
 
     

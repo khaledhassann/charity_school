@@ -2,6 +2,8 @@ package com.rungroup.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.rungroup.models.*;
@@ -25,9 +27,30 @@ public class HomeController {
 
         // Dummy events
         List<Event> events = new ArrayList<>();
-        events.add(new Event(1L, "Science Fair", "Exciting experiments await!", "/images/science fair.jpg"));
-        events.add(new Event(2L, "History Exhibition", "Interactive history event.", "/images/National_Museum5.jpg"));
-        events.add(new Event(3L, "Math Competition", "Challenge your math skills.", "/images/free-educational-vector-collection.jpg"));
+events.add(new Event(
+    1L,
+    "Science Fair",
+    "Exciting experiments await!",
+    "/images/science fair.jpg",
+    LocalDateTime.of(2025, 2, 10, 10, 0), // Event date: 10th February 2025 at 10:00 AM
+    "Lab 101, Hope Haven School" // Event location
+));
+events.add(new Event(
+    2L,
+    "History Exhibition",
+    "Interactive history event.",
+    "/images/National_Museum5.jpg",
+    LocalDateTime.of(2025, 3, 15, 12, 0), // Event date: 15th March 2025 at 12:00 PM
+    "History Hall, Hope Haven School" // Event location
+));
+events.add(new Event(
+    3L,
+    "Math Competition",
+    "Challenge your math skills.",
+    "/images/free-educational-vector-collection.jpg",
+    LocalDateTime.of(2025, 4, 5, 9, 30), // Event date: 5th April 2025 at 9:30 AM
+    "Math Wing, Hope Haven School" // Event location
+));
 
         model.addAttribute("courses", courses);
         model.addAttribute("teachers", teachers);
