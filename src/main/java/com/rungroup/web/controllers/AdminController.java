@@ -12,7 +12,11 @@ import java.util.List;
 public class AdminController {
 
     private List<Admin> admins = new ArrayList<>();
-    private int idCounter = 1;
+    private static long idCounter = 1L; // Counter for generating unique IDs
+
+    private synchronized long generateId() {
+        return idCounter++;
+    }
 
     @GetMapping("/create-admin")
     public String showCreateAdminPage(Model model) {
@@ -26,7 +30,7 @@ public class AdminController {
                               @RequestParam("password") String password,
                               Model model) {
         // Create a new Admin object
-        Admin newAdmin = new Admin(idCounter++, name, email, password);
+        Admin newAdmin = new Admin(generateId(), name, email, password);
 
         // Add the admin to the list
         admins.add(newAdmin);
@@ -36,11 +40,5 @@ public class AdminController {
 
         model.addAttribute("message", "Admin created successfully!");
         return "create-admin";
-    }
-
-    @GetMapping("/admin-list")
-    public String showAdminList(Model model) {
-        model.addAttribute("admins", admins);
-        return "admin-list";
     }
 }
