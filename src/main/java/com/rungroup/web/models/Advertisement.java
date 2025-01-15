@@ -2,13 +2,13 @@ package com.rungroup.web.models;
 
 import java.time.LocalDateTime;
 
-public abstract class Advertisement {
+public class Advertisement {
     private Long id;
     private String content;
-    private SocialMediaPlatform platform;
+    private String platform;
     private String status;
     private LocalDateTime launchDate;
-    private Long eventId;
+    private Long eventId; // New field for associated event
 
     // Getters and Setters
     public Long getId() {
@@ -17,6 +17,13 @@ public abstract class Advertisement {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    public Long getEventId() {
+        return eventId;
+    }
+    public void setEventId(Long eventId){
+this.eventId=eventId;
+
     }
 
     public String getContent() {
@@ -27,11 +34,11 @@ public abstract class Advertisement {
         this.content = content;
     }
 
-    public SocialMediaPlatform getPlatform() {
+    public String getPlatform() {
         return platform;
     }
 
-    public void setPlatform(SocialMediaPlatform platform) {
+    public void setPlatform(String platform) {
         this.platform = platform;
     }
 
@@ -50,15 +57,4 @@ public abstract class Advertisement {
     public void setLaunchDate(LocalDateTime launchDate) {
         this.launchDate = launchDate;
     }
-
-    public Long getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
-    }
-
-    // Abstract method
-    public abstract String showAd();
 }

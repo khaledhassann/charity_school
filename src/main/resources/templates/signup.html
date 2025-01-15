@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -117,10 +117,6 @@
       background-color: #b22234;
     }
 
-    .hidden {
-      display: none;
-    }
-
     @media (max-width: 768px) {
       .signup-container {
         flex-direction: column;
@@ -168,13 +164,6 @@
               <option value="donor">Donor</option>
             </select>
           </div>
-          <div class="input-group hidden" id="donor-type">
-            <select required>
-              <option value="" disabled selected>Select Donor Type</option>
-              <option value="monetary">Monetary Donor</option>
-              <option value="teacher">Teacher Donor</option>
-            </select>
-          </div>
           <button type="submit" class="btn">SIGN UP</button>
         </form>
       </div>
@@ -182,17 +171,6 @@
   </div>
 
   <script>
-    const roleSelect = document.getElementById('role');
-    const donorType = document.getElementById('donor-type');
-
-    roleSelect.addEventListener('change', () => {
-      if (roleSelect.value === 'donor') {
-        donorType.classList.remove('hidden');
-      } else {
-        donorType.classList.add('hidden');
-      }
-    });
-
     const togglePassword = document.getElementById('toggle-password');
     const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
     const passwordField = document.getElementById('password');
@@ -214,3 +192,254 @@
   </script>
 </body>
 </html>
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Page</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #800020, #b22234);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .signup-container {
+      display: flex;
+      width: 90%;
+      max-width: 1000px;
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .left-panel {
+      width: 50%;
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px 0 0 20px;
+    }
+
+    .illustration {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('/images/school3.jpeg') center/cover;
+      filter: brightness(1.2);
+    }
+
+    .right-panel {
+      background: #fff;
+      padding: 3rem;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .signup-box {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .signup-box h1 {
+      font-size: 2rem;
+      color: #800020;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border-radius: 25px;
+      border: 1px solid #800020;
+      outline: none;
+      background: #fff;
+      color: #333;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #800020;
+      font-size: 1.2rem;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 1rem 0;
+      background-color: #800020;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #b22234;
+    }
+
+    /* Popup styles */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 20px 40px;
+      text-align: center;
+      z-index: 1000;
+      display: none;
+    }
+
+    .popup h2 {
+      color: #800020;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .popup button {
+      padding: 10px 20px;
+      background-color: #800020;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .popup button:hover {
+      background-color: #b22234;
+    }
+
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .signup-container {
+        flex-direction: column;
+      }
+
+      .left-panel,
+      .right-panel {
+        width: 100%;
+      }
+
+      .left-panel {
+        height: 200px;
+        border-radius: 20px 20px 0 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <div class="left-panel">
+      <div class="illustration"></div>
+    </div>
+    <div class="right-panel">
+      <div class="signup-box">
+        <h1>Create an Account</h1>
+        <form id="signupForm" action="/signup" method="post">
+          <div class="input-group">
+            <input type="text" name="name" placeholder="Name" required>
+          </div>
+          <div class="input-group">
+            <input type="email" name="email" placeholder="Email" required>
+          </div>
+          <div class="input-group">
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <i class="toggle-password fas fa-eye" id="toggle-password"></i>
+          </div>
+          <div class="input-group">
+            <select name="role" id="role" required>
+              <option value="" disabled selected>Select Role</option>
+              <option value="volunteer">Volunteer</option>
+              <option value="donor">Donor</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">SIGN UP</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-overlay" id="popupOverlay"></div>
+  <div class="popup" id="popup">
+    <h2>Signup Successful!</h2>
+    <button onclick="closePopup()">OK</button>
+  </div>
+
+  <script>
+    const togglePassword = document.getElementById('toggle-password');
+    const passwordField = document.getElementById('password');
+    const signupForm = document.getElementById('signupForm');
+    const popup = document.getElementById('popup');
+    const popupOverlay = document.getElementById('popupOverlay');
+
+    togglePassword.addEventListener('click', () => {
+      const type = passwordField.type === 'password' ? 'text' : 'password';
+      passwordField.type = type;
+      togglePassword.classList.toggle('fa-eye');
+      togglePassword.classList.toggle('fa-eye-slash');
+    });
+
+    signupForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent form submission
+      popup.style.display = 'block';
+      popupOverlay.style.display = 'block';
+    });
+
+    function closePopup() {
+      popup.style.display = 'none';
+      popupOverlay.style.display = 'none';
+      signupForm.submit(); // Submit form after closing popup
+    }
+  </script>
+</body>
+</html>
+
+ 
