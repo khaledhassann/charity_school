@@ -4,7 +4,7 @@ public class Course {
     private Long id;
     private String name;
     private String description;
-    private String imageUrl;
+    private String image_Url;
     private int credits;        
     private int timeSlot;       
     private double progress;    
@@ -13,7 +13,7 @@ public class Course {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.image_Url = image_Url;
         this.credits = credits;
         this.timeSlot = timeSlot;
         this.progress = progress;
@@ -45,11 +45,11 @@ public class Course {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return image_Url;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrl(String image_Url) {
+        this.image_Url = image_Url;
     }
 
     public int getCredits() {

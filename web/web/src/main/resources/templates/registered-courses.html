@@ -137,14 +137,16 @@
         <p>Here are the courses you have registered for:</p>
         <div class="courses">
             <!-- Dynamic rendering of registered courses -->
-            <div th:each="course : ${registeredCourses}" class="course">
-                <img th:src="${course.imageUrl}" th:alt="${course.name}">
-                <h3 th:text="${course.name}"></h3>
-                <p th:text="${course.description}"></p>
-                <p><strong>Credits:</strong> <span th:text="${course.credits}"></span></p>
-                <p><strong>Time Slot:</strong> <span th:text="${course.timeSlot}"></span></p>
-                <p><strong>Progress:</strong> <span th:text="${course.progress} + '%'"></span></p>
+            <div>
+                <h1>Your Registered Courses</h1>
+                <ul>
+                    <li th:each="course : ${registeredCourses}">
+                        <h3 th:text="${course.name}"></h3>
+                        <p th:text="${course.description}"></p>
+                    </li>
+                </ul>
             </div>
+            
         </div>
     </div>
     

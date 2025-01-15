@@ -13,21 +13,22 @@ import java.util.List;
 
 public class VerbDetailsFactory {
 
-    public VerbDetails createVerbDetails(Verb verbType, User user, Object target, List<Object> additionalData) {
-        String verbName = verbType.getName().toLowerCase(); // To handle case-insensitivity
+    public static VerbDetails createVerbDetails(Verb verbType, User user, Object target, List<Object> additionalData) {
+        String verbName = verbType.getName().toLowerCase(); 
 
         switch (verbName) {
             case "teach":
                 double hoursTaught = (double) additionalData.get(0);
-                return new TeachDetails(user, target, verbType, LocalDateTime.now(), hoursTaught);
+                return new TeachDetails(user, target, verbType, hoursTaught);
 
             case "participate":
                 String role = (String) additionalData.get(0);
-                return new ParticipateDetails(user, target, verbType, LocalDateTime.now(), role);
+                return new ParticipateDetails(user, target, verbType, role);
 
-            case "register":
-                String status = (String) additionalData.get(0);
-                return new RegisterDetails(user, target, verbType, LocalDateTime.now(), status);
+                case "register":
+                String status = (String) additionalData.get(0); // Safe access
+                return new RegisterDetails(user, target, verbType, status);
+            
 
             default:
                 throw new IllegalArgumentException("Invalid verb type: " + verbName);

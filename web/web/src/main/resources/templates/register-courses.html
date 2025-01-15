@@ -151,17 +151,18 @@
         <p>Browse through the available courses and register for the ones you are interested in.</p>
         <div class="courses">
             <!-- Dynamic rendering of courses -->
-            <div th:each="course : ${courses}" class="course">
-                <img th:src="${course.imageUrl}" th:alt="${course.name}">
-                <h3 th:text="${course.name}"></h3>
-                <p th:text="${course.description}"></p>
-                <p><strong>Credits:</strong> <span th:text="${course.credits}"></span></p>
-                <p><strong>Time Slot:</strong> <span th:text="${course.timeSlot}"></span></p>
-                <form th:action="@{/register-course}" method="post" onsubmit="return confirmRegister(event, this)">
-                    <input type="hidden" th:name="courseId" th:value="${course.id}">
-                    <button type="submit">Register</button>
-                </form>
+            <div>
+                <h1>Register for Courses</h1>
+                <div th:each="course : ${courses}">
+                    <h3 th:text="${course.name}"></h3>
+                    <p th:text="${course.description}"></p>
+                    <form th:action="@{/register-course}" method="post">
+                        <input type="hidden" th:name="courseId" th:value="${course.id}">
+                        <button type="submit">Register</button>
+                    </form>
+                </div>
             </div>
+            
         </div>
     </div>
     
