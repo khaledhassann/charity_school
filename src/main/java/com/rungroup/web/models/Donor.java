@@ -1,22 +1,22 @@
 package com.rungroup.web.models;
 
 public class Donor extends User {
-    private String preferredType;
+    private String preferred_type;
     
 
 public Donor(){}
 
-public Donor(Long id, String name, String email, String password, String preferredType) {
+public Donor(Long id, String name, String email, String password, String preferred_type) {
     super(id, name, email, password);
-    this.preferredType = preferredType;
+    this.preferred_type = preferred_type;
 }
 
 public String getPreferredType() {
-    return preferredType;
+    return preferred_type;
 }
 
-public void setPreferredType(String preferredType) {
-    this.preferredType = preferredType;
+public void setPreferredType(String preferred_type) {
+    this.preferred_type = preferred_type;
 }
 
     @Override

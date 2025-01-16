@@ -41,7 +41,7 @@ public class BeneficiaryController {
                               Model model) {
         
         String role = "Beneficiary";
-         User user = UserFactory.createUser(generateId(),role, name, email,password, grade, enrollmentDate);
+         User user = UserFactory.createUser(generateId(),role, name, email,password, grade, enrollmentDate,null,null,false);
             System.out.println("User created: " + user.getName() + " (" + user.getRole() + ")");
 
         // Add the admin to the list

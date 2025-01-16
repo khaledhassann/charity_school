@@ -19,9 +19,9 @@ public class UserController {
     private final List<User> users = new ArrayList<>();
 
     public UserController() {
-        users.add(UserFactory.createUser(1L, "Beneficiary", "Charlie", "charlie@gmail.com", "password", "Grade 5", LocalDateTime.now()));
-        users.add(UserFactory.createUser(2L, "Donor", "Bob", "bob@gmail.com", "password", null, null));
-        users.add(UserFactory.createUser(3L, "Volunteer", "Alice", "alice@gmail.com", "password", null, null));
+        users.add(UserFactory.createUser(1L, "Beneficiary", "Charlie", "charlie@gmail.com", "password", "Grade 5", LocalDateTime.now(),null,null,false));
+        users.add(UserFactory.createUser(2L, "Donor", "Bob", "bob@gmail.com", "password", null, null,"Monthly",null,false));
+        users.add(UserFactory.createUser(3L, "Volunteer", "Alice", "alice@gmail.com", "password", null, null,null, List.of("Technical", "Organizing"),true));
     }
 
     @GetMapping("/manage-users")

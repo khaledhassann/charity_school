@@ -1,7 +1,7 @@
 package com.rungroup.web.models;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+// import java.time.LocalDateTime;
+// import java.util.ArrayList;
 import java.util.List;
 
 public class Volunteer extends User {
@@ -13,10 +13,10 @@ public class Volunteer extends User {
     super();
   }
 
-    public Volunteer(Long id,String name, String email, String password) {
+    public Volunteer(Long id,String name, String email, String password,List<String> skills,boolean availability) {
         super(id, name, email, password);
-        this.skills = new ArrayList<>();
-        this.availability=false;
+        this.skills = skills;
+        this.availability=availability;
     
     }
 
@@ -29,11 +29,11 @@ public class Volunteer extends User {
         this.skills = skills;
     }
 
-    public String getAvailability() {
+    public boolean getAvailability() {
         return availability;
     }
 
-    public void setAvailability(String availability) {
+    public void setAvailability(boolean availability) {
         this.availability = availability;
     }
 
@@ -66,7 +66,7 @@ public class Volunteer extends User {
     // }
     @Override
     public String getRole() {
-        return "Donor";
+        return "Volunteer";
     }
 
 }
