@@ -1,10 +1,15 @@
 package com.rungroup.web.models;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
 public abstract class User {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
     private String password;
+    
 
     public User()
     {}

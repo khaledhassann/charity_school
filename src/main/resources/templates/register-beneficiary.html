@@ -74,6 +74,28 @@
             margin: 0 auto;
             display: block; /* Center the input field */
         }
+        .input-group select {
+            width: 85%; /* Adjusted input field width */
+            padding: 10px 40px 10px 12px; /* Adjusted padding for eye icon */
+            font-size: 14px;
+            border: 1px solid #800020;
+            border-radius: 25px;
+            outline: none;
+            background: #f9f9f9;
+            margin: 0 auto;
+            display: block; /* Center the input field */
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            border-color: #a62940;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+        }
 
         .input-group .password-toggle {
             position: absolute;
@@ -120,23 +142,47 @@
     </style>
 </head>
 <body>
-    <header>Register Student</header>
+    <header>Register Beneficiary</header>
     <div class="container">
         <h1>Register a New Student</h1>
-        <form>
+        <div th:if="${message}" class="alert alert-success" th:text="${message}" 
+             style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+        </div>
+
+        <form method="post" action="/register-beneficiary">
             <div class="input-group">
-                <input type="text" th:field="*{name}" placeholder="Name" required>
+                <input type="text"  placeholder="Name" required>
             </div>
             <div class="input-group">
-                <input type="email" th:field="*{email}" placeholder="Email" required>
+                <input type="email" placeholder="Email" required>
             </div>
             <div class="input-group">
-                <input type="password" th:field="*{password}" placeholder="Password" id="password" required>
+                <input type="password" placeholder="Password" id="password" required>
                 <i class="fa fa-eye password-toggle" id="toggle-password" onclick="togglePassword('password', 'toggle-password')"></i>
             </div>
-
+            <div class="input-group">
+                <select required>
+                    <option value="" disabled selected>Select Grade</option>
+                    <option value="1">Grade 1</option>
+                    <option value="2">Grade 2</option>
+                    <option value="3">Grade 3</option>
+                    <option value="4">Grade 4</option>
+                    <option value="5">Grade 5</option>
+                    <option value="6">Grade 6</option>
+                    <option value="7">Grade 7</option>
+                    <option value="8">Grade 8</option>
+                    <option value="9">Grade 9</option>
+                    <option value="10">Grade 10</option>
+                    <option value="11">Grade 11</option>
+                    <option value="12">Grade 12</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="enrollmentDate">Enrollment Date</label>
+                <input type="datetime-local" id="enrollmentDate" required>
+            </div>
            
-            <button type="submit">Register Student</button>
+            <button type="submit">Register Beneficiary</button>
         </form>
         <a href="admin.html" class="back-link">← Back to Admin Dashboard</a>
     </div>

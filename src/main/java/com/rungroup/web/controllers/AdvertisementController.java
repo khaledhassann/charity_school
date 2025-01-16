@@ -5,6 +5,7 @@ import com.rungroup.web.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -31,7 +32,8 @@ public class AdvertisementController {
             @RequestParam("platform") String platform,
             @RequestParam("status") String status,
             @RequestParam("launchDate") LocalDateTime launchDate,
-            @RequestParam("event") Long eventId,
+            @ModelAttribute Event event,
+        
             Model model) {
 
         Advertisement advertisement = new Advertisement();
@@ -39,7 +41,7 @@ public class AdvertisementController {
         advertisement.setPlatform(platform);
         advertisement.setStatus(status);
         advertisement.setLaunchDate(launchDate);
-        advertisement.setEventId(eventId);  // Simply set the eventId instead of the whole Event object
+        advertisement.setEventId(event.getId());  // Simply set the eventId instead of the whole Event object
 
         advertisements.add(advertisement);
         model.addAttribute("message", "Advertisement created successfully!");

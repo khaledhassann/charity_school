@@ -38,6 +38,15 @@
             font-size: 22px;
             margin-bottom: 20px;
         }
+        footer {
+            background: #7a001e;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            width: 100%;
+            margin-top: auto;
+        }
 
         form {
             display: flex;
@@ -79,6 +88,34 @@
         button:hover {
             background-color: #a62940;
         }
+        .popup-message {
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            font-weight: bold;
+            z-index: 1000;
+            animation: fadeOut 3s ease-in-out forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
 
         .back-link {
             text-align: center;
@@ -101,6 +138,10 @@
 
 <div class="container">
     <h1>Create a New Advertisement</h1>
+    <!-- Success Popup -->
+    <div id="successMessage" th:if="${message}" class="popup-message">
+        <p th:text="${message}"></p>
+    </div>
     <form method="post" action="/create-advertisement">
         <div>
             <label for="content">Advertisement Content</label>
@@ -134,14 +175,14 @@
     
         <div>
             <label for="event">Select Event</label>
-            <select id="event" name="eventId" required>
-                <option value="" disabled selected>Select an event</option>
-                <!-- This will iterate over the events from EventController.createdEvents -->
-                <option th:each="event : ${events}" 
-                        th:value="${event.id}" 
-                        th:text="${event.name}">
-                </option>
-            </select>
+<select id="event" name="event" required>
+    <option value="" disabled selected>Select an event</option>
+    <!-- Iterate over the events from EventController -->
+    <option th:each="event : ${events}" 
+            th:value="${event}" 
+            th:text="${event.name}">
+    </option>
+</select>
         </div>
     
         <button type="submit">Create Advertisement</button>
@@ -149,9 +190,12 @@
     
     
     <div class="back-link">
-        <a href="/admin-dashboard">← Back to Admin Dashboard</a>
+        <a href="/admin">← Back to Admin Dashboard</a>
     </div>
+    
 </div>
+<footer>&copy; 2025 Hope Haven School. All rights reserved.</footer>
+
 
 </body>
 </html>
