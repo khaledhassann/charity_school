@@ -247,11 +247,11 @@
             </div>
             <div class="form-group">
                 <label for="volunteer_id">Responsible Volunteer</label>
-                <select id="volunteer_id" name="volunteer_id" required>
+                <select name="volunteer_id" required>
                     <option value="" disabled selected>Select Volunteer</option>
-                    <!-- Dynamically populated by the server -->
                     <option th:each="volunteer : ${volunteers}" th:value="${volunteer.id}" th:text="${volunteer.name}"></option>
                 </select>
+                
             </div>
             <button type="submit" class="btn">Create Task</button>
         </form>

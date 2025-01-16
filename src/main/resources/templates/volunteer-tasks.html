@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Tasks</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+        header {
+            background: #7a001e;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: 600;
+            width: 100%;
+        }
+        .task-container {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            border-radius: 10px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border: 2px solid #800020;
+        }
+        h2 {
+            font-size: 22px;
+            color: #800020;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+        .task-list li {
+            margin-bottom: 12px;
+        }
+        .task-list li a {
+            text-decoration: none;
+            color: #800020;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 10px;
+            display: block;
+            text-align: center;
+            border: 1px solid #800020;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+        .task-list li a:hover {
+            background: #800020;
+            color: #fff;
+        }
+        footer {
+            background: #7a001e;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            width: 100%;
+            margin-top: auto;
+        }
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #800020;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #a62940;
+        }
+    </style>
+</head>
+<body>
+    <header>Your Tasks</header>
+    <div class="task-container">
+        <h2>Your Assigned Tasks</h2>
+        <ul class="task-list">
+            <li th:each="task : ${tasks}">
+                <a th:href="@{/task/{id}(id=${task.id})}" th:text="${task.name}"></a>
+            </li>
+        </ul>
+        <a href="/admin" class="back-link">&larr; Back to Admin Dashboard</a>
+    </div>
+    <footer>&copy; 2025 Hope Haven School. All rights reserved.</footer>
+</body>
+</html>
