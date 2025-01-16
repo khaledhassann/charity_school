@@ -1,44 +1,48 @@
-// package com.rungroup.web.controllers;
+package com.rungroup.web.controllers;
 
-// import com.rungroup.web.models.Admin;
-// import org.springframework.stereotype.Controller;
-// import org.springframework.ui.Model;
-// import org.springframework.web.bind.annotation.*;
+import com.rungroup.web.models.Admin;
+import com.rungroup.web.repositories.Implementations.AdminRepository;
 
-// import java.util.ArrayList;
-// import java.util.List;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-// @Controller
-// public class AdminController {
+import java.util.ArrayList;
+import java.util.List;
 
-//     private List<Admin> admins = new ArrayList<>();
-//     private static long idCounter = 1L; // Counter for generating unique IDs
+@Controller
+public class AdminController {
 
-//     private synchronized long generateId() {
-//         return idCounter++;
-//     }
+    private List<Admin> admins = new ArrayList<>();
+    private AdminRepository rs = new AdminRepository();
+    public AdminController() {
+        this.admins = this.rs.findAll();
+    }
 
-//     @GetMapping("/create-admin")
-//     public String showCreateAdminPage(Model model) {
-//         model.addAttribute("message", null);
-//         return "create-admin";
-//     }
+    @GetMapping("/create-admin")
+    public String showCreateAdminPage(Model model) {
+        model.addAttribute("message", null);
+        return "create-admin";
+    }
 
-//     @PostMapping("/create-admin")
-//     public String createAdmin(@RequestParam("name") String name,
-//                               @RequestParam("email") String email,
-//                               @RequestParam("password") String password,
-//                               Model model) {
-//         // Create a new Admin object
-//         Admin newAdmin = new Admin(generateId(), name, email, password);
+    @PostMapping("/create-admin")
+    public String createAdmin(@RequestParam("name") String name,
+                              @RequestParam("email") String email,
+                              @RequestParam("password") String password,
+                              Model model) {
+        // Create a new Admin object
+        Admin newAdmin = new Admin(name, email, password);
 
-//         // Add the admin to the list
-//         admins.add(newAdmin);
+        // Add the admin to the list
+        admins.add(newAdmin);
 
-//         // Debugging information
-//         System.out.println("New Admin Created: " + newAdmin);
+        // Insert the admin into the database
+        rs.insert(newAdmin);
+        
+        // Debugging information
+        System.out.println("New Admin Created: " + newAdmin);
 
-//         model.addAttribute("message", "Admin created successfully!");
-//         return "create-admin";
-//     }
-// }
+        model.addAttribute("message", "Admin created successfully!");
+        return "create-admin";
+    }
+}

@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 public class GenericMapper<T> {
@@ -21,7 +23,18 @@ public class GenericMapper<T> {
 
         query.append("INSERT INTO ").append(getTableName()).append(" (");
 
-        for (Field field : entityClass.getDeclaredFields()) {
+        // for (Field field : entityClass.getDeclaredFields()) {
+        //     field.setAccessible(true); // Allows access to private fields
+        //     try {
+        //         if (field.get(entity) != null && !field.isAnnotationPresent(jakarta.persistence.Id.class)) {
+        //             columns.add(field.getName());
+        //             values.add(formatValue(field.get(entity)));
+        //         }
+        //     } catch (IllegalAccessException e) {
+        //         e.printStackTrace();
+        //     }
+        // }
+        for (Field field : getAllFields(entityClass)) {
             field.setAccessible(true); // Allows access to private fields
             try {
                 if (field.get(entity) != null && !field.isAnnotationPresent(jakarta.persistence.Id.class)) {
@@ -32,7 +45,6 @@ public class GenericMapper<T> {
                 e.printStackTrace();
             }
         }
-
         query.append(columns).append(") VALUES (").append(values).append(");");
         return query.toString();
     }
@@ -99,5 +111,20 @@ public class GenericMapper<T> {
             return "'" + value.toString() + "'";
         }
         return value.toString();
+    }
+    private static List<Field> getAllFields(Class<?> entityClass) {
+        List<Field> fields = new ArrayList<>();
+
+        // Traverse the class hierarchy
+        while (entityClass != null) {
+            Field[] declaredFields = entityClass.getDeclaredFields();
+            for (Field field : declaredFields) {
+                fields.add(field);
+            }
+            // Move to the superclass
+            entityClass = entityClass.getSuperclass();
+        }
+
+        return fields;
     }
 }

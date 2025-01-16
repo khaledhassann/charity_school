@@ -2,6 +2,8 @@ package com.rungroup.web;
 
 import java.sql.Connection;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +15,7 @@ import com.rungroup.web.repositories.Implementations.*;
 public class WebApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WebApplication.class, args);
+		
 		
         // TestRepository testRepository = new TestRepository();
 
@@ -25,8 +27,45 @@ public class WebApplication {
         // createCourses(courseRepository);
         // EventRepository eventRepository = new EventRepository();
         // createEvents( eventRepository);
+        // RoomRepository roomRepository = new RoomRepository();
+        // createRooms( roomRepository);
+        // BRepository r = new BRepository();
+        // B b = new B();
+        // b.setB_SPECIFIC(1);
+        // b.setA(0);
+        // r.insert(b);
+        SpringApplication.run(WebApplication.class, args);
+
 
     }
+
+    private static void createRooms(RoomRepository roomRepository) {
+        // List of rooms to be created
+        Object[][] roomData = {
+            {"Conference Room A", 50, new String[] {"Projector", "Whiteboard", "Wi-Fi"}},
+            {"Meeting Room B", 20, new String[] {"Whiteboard", "Teleconferencing"}},
+            {"Workshop Room C", 30, new String[] {"Wi-Fi", "Sound System"}},
+            {"Training Room D", 40, new String[] {"Computers", "Wi-Fi", "Projector"}},
+            {"Event Hall E", 100, new String[] {"Stage", "Sound System", "Lighting"}}
+        };
+    
+        for (Object[] data : roomData) {
+            Room room = new Room();
+            room.setName((String) data[0]);
+            room.setCapacity((int) data[1]);
+    
+            // Populate the amendments list using the addAmendment method
+            for (String amendment : (String[]) data[2]) {
+                room.addAmendment(amendment);
+            }
+            
+            System.out.println("Room: " + room.getAmendments());
+            // Insert the room into the database
+            roomRepository.insert(room);
+            System.out.println("Inserted room: " + room.getName());
+        }
+    }
+    
     private static void createEvents(EventRepository eventRepository) {
         // List of events to be created
         String[][] eventData = {
