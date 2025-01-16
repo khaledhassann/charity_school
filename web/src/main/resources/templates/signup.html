@@ -383,7 +383,7 @@
     <div class="right-panel">
       <div class="signup-box">
         <h1>Create an Account</h1>
-        <form id="signupForm" action="/signup" method="post">
+        <form id="signupForm" method="post" onsubmit="setFormAction(event)">
           <div class="input-group">
             <input type="text" name="name" placeholder="Name" required>
           </div>
@@ -403,6 +403,18 @@
           </div>
           <button type="submit" class="btn">SIGN UP</button>
         </form>
+        <script>
+          function setFormAction(event) {
+            const roleSelect = document.getElementById('role');
+            const selectedRole = roleSelect.value;
+            const form = document.getElementById('signupForm');
+            if (selectedRole === 'donor') {
+              form.action = '/donor/signup';
+            } else {
+              form.action = '/volunteer/signup';
+            }
+          }
+        </script>
       </div>
     </div>
   </div>
