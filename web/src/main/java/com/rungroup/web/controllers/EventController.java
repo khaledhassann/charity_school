@@ -55,7 +55,7 @@
 //         newEvent.setDescription(description);
 //         newEvent.setDate(date);
 //         newEvent.setLocation(location);
-//         newEvent.setImageUrl("/images/" + originalFilename);
+//         newEvent.setimage_url("/images/" + originalFilename);
 
 //         createdEvents.add(newEvent);
 

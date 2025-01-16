@@ -1,7 +1,7 @@
-// package com.rungroup.web.models;
+package com.rungroup.web.models;
 
-// public enum SocialMediaPlatform {
-//     FACEBOOK,
-//     TWITTER,
-//     INSTAGRAM
-// }
+public enum SocialMediaPlatform {
+    FACEBOOK,
+    TWITTER,
+    INSTAGRAM
+}

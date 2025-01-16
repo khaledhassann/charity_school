@@ -1,26 +1,34 @@
-// package com.rungroup.models;
+package com.rungroup.web.models;
 
-// public class Teacher {
-//     private Long id;
-//     private String name;
-//     private String subject;
-//     private String imageUrl;
+import java.time.LocalDateTime;
 
-//     // Constructors
-//     public Teacher(Long id, String name, String subject, String imageUrl) {
-//         this.id = id;
-//         this.name = name;
-//         this.subject = subject;
-//         this.imageUrl = imageUrl;
-//     }
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-//     // Getters and Setters
-//     public Long getId() { return id; }
-//     public void setId(Long id) { this.id = id; }
-//     public String getName() { return name; }
-//     public void setName(String name) { this.name = name; }
-//     public String getSubject() { return subject; }
-//     public void setSubject(String subject) { this.subject = subject; }
-//     public String getImageUrl() { return imageUrl; }
-//     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
-// }
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "Teacher")
+public class Teacher {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String subject;
+    private String image_url;
+    @Column(name = "created_at", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime created_at;
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime updated_at;
+
+}

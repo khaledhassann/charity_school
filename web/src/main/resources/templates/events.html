@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registered Courses</title>
+    <title>Events</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -14,21 +14,17 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: #333;
             background: linear-gradient(to right, #f5f5f5, #e8e8e8);
+            color: #333;
         }
 
         header {
             background: linear-gradient(to right, #800020, #a62940);
             color: #fff;
             padding: 15px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
         header .logo {
@@ -36,76 +32,95 @@
             font-weight: 700;
         }
 
-        header nav ul {
+        nav ul {
             list-style: none;
             display: flex;
             gap: 20px;
         }
 
-        header nav ul li a {
-            color: #fff;
+        nav ul li a {
             text-decoration: none;
+            color: #fff;
             font-weight: 500;
-            font-size: 16px;
+            transition: color 0.3s ease;
         }
 
-        .content {
-            text-align: center;
+        nav ul li a:hover {
+            color: #ffcccc;
+        }
+
+        .events-section {
             padding: 40px 20px;
+            text-align: center;
         }
 
-        .content h1 {
-            font-size: 42px;
+        .events-section h1 {
+            font-size: 36px;
             color: #800020;
-            margin-bottom: 20px;
-        }
-
-        .content p {
-            font-size: 18px;
-            color: #555;
             margin-bottom: 30px;
         }
 
-        .courses {
+        .card-container {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            flex-wrap: wrap;
         }
 
-        .course {
+        .card {
             background: #fff;
             border-radius: 15px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
             width: 300px;
+            text-align: center;
             padding: 20px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .course:hover {
+        .card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .course img {
+        .card img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 15px;
         }
 
-        .course h3 {
-            font-size: 20px;
+        .card h3 {
+            font-size: 22px;
             color: #800020;
             margin-bottom: 10px;
         }
 
-        .course p {
+        .card p {
             font-size: 16px;
             color: #555;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+        }
+
+        .card .event-date, .card .event-location {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .card button {
+            background: linear-gradient(to right, #800020, #a62940);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .card button:hover {
+            background: linear-gradient(to right, #a62940, #800020);
         }
 
         footer {
@@ -124,22 +139,25 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/register-courses">Register Courses</a></li>
+                <li><a href="/register-courses">Courses</a></li>
                 <li><a href="/registered-courses">Registered Courses</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="/events">Events</a></li>
+                <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="content">
-        <h1>Registered Courses</h1>
-        <p>Here are the courses you have registered for:</p>
-        <div class="courses">
-            <!-- Dynamic rendering of registered courses -->
-            <div th:each="course : ${registeredCourses}" class="course">
-                <img th:src="${course.imageUrl}" th:alt="${course.name}">
-                <h3 th:text="${course.name}"></h3>
-                <p th:text="${course.description}"></p>
+    <div class="events-section">
+        <h1>All Events</h1>
+        <div class="card-container">
+            <!-- Dynamic rendering of events -->
+            <div th:each="event : ${events}" class="card">
+                <img th:src="@{${event.imageUrl}}" alt="Event Image">
+                <h3 th:text="${event.name}"></h3>
+                <p th:text="${event.description}"></p>
+                <p class="event-date">Date: <span th:text="${event.date}"></span></p>
+                <p class="event-location">Location: <span th:text="${event.location}"></span></p>
+                <button>Learn More</button>
             </div>
         </div>
     </div>

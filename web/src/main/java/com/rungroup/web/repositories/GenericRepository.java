@@ -22,31 +22,42 @@ public class GenericRepository<T>{
     }
 
     
-    public boolean insert (T entity) {
-        try{
+    public Long insert(T entity) {
+        Long generatedId = null;
+        try {
             // Generate SQL INSERT query
             String InsertQuery = mapper.toInsertQuery(entity);
             System.out.println("Insert Query: " + InsertQuery);
-
-            // Execute INSERT query
-            //   Get db connection 
+    
+            // Get DB connection
             Connection connection = database.getConnection();
-            PreparedStatement stmt = connection.prepareStatement(InsertQuery);
-            //   Execute the query
-            stmt.executeQuery();
-
-
-            return true;
-        }
-        catch (Exception e){
-            System.out.println(e);
-            return false;
-        }
-        // finally {
             
-        //     //  Clean up
-        //     database.close();
-        // }
+            // Prepare the statement to return generated keys
+            PreparedStatement stmt = connection.prepareStatement(InsertQuery, Statement.RETURN_GENERATED_KEYS);
+            
+            // Execute the query (INSERT)
+            stmt.executeUpdate();
+            
+            // Retrieve the generated keys (ID)
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            
+            // If the query generated keys, get the first one (the ID)
+            if (generatedKeys.next()) {
+                generatedId = generatedKeys.getLong(1);
+            }
+            
+            // Close resources
+            generatedKeys.close();
+            stmt.close();
+            //connection.close();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+            generatedId = -32L; // Return a specific error code if an exception occurs
+        }
+        
+        // Return the generated ID or an error code
+        return generatedId;
     }
 
     public boolean update (T entity) {

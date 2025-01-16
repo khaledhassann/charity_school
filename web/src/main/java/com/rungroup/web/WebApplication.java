@@ -16,7 +16,7 @@ public class WebApplication {
 
 	public static void main(String[] args) {
 		
-		
+        SpringApplication.run(WebApplication.class, args);
         // TestRepository testRepository = new TestRepository();
 
         // testCreate(testRepository);
@@ -26,7 +26,7 @@ public class WebApplication {
         // CourseRepository courseRepository = new CourseRepository(); // Ensure proper initialization
         // createCourses(courseRepository);
         // EventRepository eventRepository = new EventRepository();
-        // createEvents( eventRepository);
+        // createEvents(eventRepository);
         // RoomRepository roomRepository = new RoomRepository();
         // createRooms( roomRepository);
         // BRepository r = new BRepository();
@@ -34,9 +34,64 @@ public class WebApplication {
         // b.setB_SPECIFIC(1);
         // b.setA(0);
         // r.insert(b);
-        SpringApplication.run(WebApplication.class, args);
+        // TeacherRepository tr = new TeacherRepository();
+        // createTeachers(tr);
+
+        B b1 = new B();
+        b1.setB_SPECIFIC(80);
+
+        B b2 = new B();
+        b2.setB_SPECIFIC(80);
+
+        B b3 = new B();
+        b3.setB_SPECIFIC(80);
+
+        Event e1 = new Event();
+        e1.setImage_url("ss");
+        Event e2 = new Event();
+        e2.setImage_url("ss");
+        Event e3 = new Event();
+        e3.setImage_url("ss");
+        EventRepository er = new EventRepository();
+        er.insert(e1);
+        er.insert(e2);
+        er.insert(e3);
 
 
+        BRepository br = new BRepository();
+        br.insert(b1);
+        br.insert(b2);
+        br.insert(b3);
+
+        A a = new A();
+        List<B> bList = new ArrayList<>();
+        bList.add(b1);
+        bList.add(b2);
+        bList.add(b3);
+        a.setBlist(bList);
+
+        ARepository ar = new ARepository();
+        ar.insert(a);
+
+        
+
+    }
+
+    private static void createTeachers(TeacherRepository tr) {
+        // List of teachers to be created
+        Object[][] teacherData = {
+            {"Laila Ihab", "Science", "/images/laila.jpeg"},
+            {"Mariam Sameh", "History", "/images/habiba.jpeg"},
+            {"Habiba Yasser", "Maths", "/images/mariam.jpeg"}
+        };
+
+        for (Object[] data : teacherData) {
+            Teacher teacher = new Teacher();//(String) data[0], (String) data[1], (String) data[2]);
+            teacher.setName((String) data[0]);
+            teacher.setSubject((String) data[1]);
+            teacher.setImage_url((String) data[2]);
+            tr.insert(teacher); 
+        }
     }
 
     private static void createRooms(RoomRepository roomRepository) {
@@ -69,12 +124,11 @@ public class WebApplication {
     private static void createEvents(EventRepository eventRepository) {
         // List of events to be created
         String[][] eventData = {
-            {"Tech Conference 2025", "A conference to discuss advancements in technology.", "https://example.com/images/tech.jpg", "2025-05-15T10:00", "Cairo International Conference Center"},
-            {"Art Exhibition", "Explore the work of talented local artists.", "https://example.com/images/art.jpg", "2025-03-10T15:00", "Downtown Art Gallery"},
-            {"Music Festival", "Enjoy live performances from top artists.", "https://example.com/images/music.jpg", "2025-06-20T18:30", "City Park"},
-            {"Charity Marathon", "Run for a cause and help raise funds for charity.", "https://example.com/images/marathon.jpg", "2025-04-25T07:00", "Main Street"},
-            {"Startup Pitch Night", "An opportunity for startups to pitch their ideas to investors.", "https://example.com/images/pitch.jpg", "2025-07-15T19:00", "Tech Hub Auditorium"}
+            {"Science Fair", "Exciting experiments await!", "/images/science fair.jpg", "2025-05-15T10:00", "Cairo International Conference Center"},
+            {"History Exhibition", "Interactive history event.", "/images/National_Museum5.jpg", "2025-03-10T15:00", "Downtown Art Gallery"},
+            {"Math Competition", "Challenge your math skills.", "/images/free-educational-vector-collection.jpg", "2025-06-20T18:30", "City Park"},
         };
+
     
         for (String[] data : eventData) {
             Event event = new Event();

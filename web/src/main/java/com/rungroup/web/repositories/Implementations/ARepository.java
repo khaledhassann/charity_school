@@ -4,22 +4,22 @@ import java.time.LocalDateTime;
 
 import com.rungroup.web.mappers.GenericMapper;
 
-import com.rungroup.web.models.B;
+import com.rungroup.web.models.A;
 import com.rungroup.web.repositories.GenericRepository;
 
-public class BRepository extends GenericRepository<B> {
+public class ARepository extends GenericRepository<A> {
 
-    public BRepository() {
-        super("B", new GenericMapper<B>(B.class));
+    public ARepository() {
+        super("A", new GenericMapper<A>(A.class));
     }
     
-    public boolean update (B entity) {
+    public boolean update (A entity) {
         // Add the update date explicitly
         entity.setUpdated_at(LocalDateTime.now());
         return super.update(entity);
     }
 
-    public Long insert (B entity){
+    public Long insert (A entity){
         try{
             Long Id = super.insert(entity);
             entity.setId(Id);

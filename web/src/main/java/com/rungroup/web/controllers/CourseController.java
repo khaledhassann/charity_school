@@ -43,7 +43,7 @@ public class CourseController {
                 //     course.getId(),
                 //     course.getName(),
                 //     course.getDescription(),
-                //     course.getImageUrl(),
+                //     course.getimage_url(),
                 //     course.getCredits(),
                 //     course.getTimeSlot(),
                 //     course.getProgress() // Default progress remains 0.0
