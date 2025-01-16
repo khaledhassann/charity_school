@@ -28,13 +28,12 @@
             z-index: 1000;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
         }
 
         header .logo {
             font-size: 28px;
             font-weight: 700;
-            margin-right: auto;
         }
 
         header nav ul {
@@ -52,13 +51,13 @@
 
         .content {
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
         }
 
         .content h1 {
-            font-size: 48px;
+            font-size: 42px;
             color: #800020;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .content p {
@@ -69,9 +68,9 @@
 
         .courses {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            flex-wrap: wrap;
         }
 
         .course {
@@ -91,14 +90,14 @@
 
         .course img {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 15px;
         }
 
         .course h3 {
-            font-size: 22px;
+            font-size: 20px;
             color: #800020;
             margin-bottom: 10px;
         }
@@ -151,34 +150,25 @@
         <p>Browse through the available courses and register for the ones you are interested in.</p>
         <div class="courses">
             <!-- Dynamic rendering of courses -->
-            <div>
-                <h1>Register for Courses</h1>
-                <div th:each="course : ${courses}">
-                    <h3 th:text="${course.name}"></h3>
-                    <p th:text="${course.description}"></p>
-                    <form th:action="@{/register-course}" method="post">
-                        <input type="hidden" th:name="courseId" th:value="${course.id}">
-                        <button type="submit">Register</button>
-                    </form>
-                </div>
+            <div th:each="course : ${courses}" class="course">
+                <img th:src="${course.imageUrl}" th:alt="${course.name}">
+                <h3 th:text="${course.name}"></h3>
+                <p th:text="${course.description}"></p>
+                <form th:action="@{/register-course}" method="post" onsubmit="return confirmRegister(event, this)">
+                    <input type="hidden" th:name="courseId" th:value="${course.id}">
+                    <button type="submit">Register</button>
+                </form>
             </div>
-            
         </div>
     </div>
-    
+
     <footer>
         <p>&copy; 2025 Hope Haven School. All rights reserved.</p>
     </footer>
 
     <script>
         function confirmRegister(event, form) {
-            // Show a confirmation dialog
-            if (confirm("Are you sure you want to register for this course?")) {
-                return true; // Allow the form to submit
-            }
-            // Prevent the form submission
-            event.preventDefault();
-            return false;
+            return confirm("Are you sure you want to register for this course?");
         }
     </script>
 </body>

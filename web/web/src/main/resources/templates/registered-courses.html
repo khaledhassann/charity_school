@@ -28,13 +28,12 @@
             z-index: 1000;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
         }
 
         header .logo {
             font-size: 28px;
             font-weight: 700;
-            margin-right: auto;
         }
 
         header nav ul {
@@ -52,11 +51,11 @@
 
         .content {
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
         }
 
         .content h1 {
-            font-size: 48px;
+            font-size: 42px;
             color: #800020;
             margin-bottom: 20px;
         }
@@ -91,14 +90,14 @@
 
         .course img {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 15px;
         }
 
         .course h3 {
-            font-size: 22px;
+            font-size: 20px;
             color: #800020;
             margin-bottom: 10px;
         }
@@ -137,19 +136,13 @@
         <p>Here are the courses you have registered for:</p>
         <div class="courses">
             <!-- Dynamic rendering of registered courses -->
-            <div>
-                <h1>Your Registered Courses</h1>
-                <ul>
-                    <li th:each="course : ${registeredCourses}">
-                        <h3 th:text="${course.name}"></h3>
-                        <p th:text="${course.description}"></p>
-                    </li>
-                </ul>
+            <div th:each="course : ${registeredCourses}" class="course">
+                <img th:src="${course.imageUrl}" th:alt="${course.name}">
+                <h3 th:text="${course.name}"></h3>
+                <p th:text="${course.description}"></p>
             </div>
-            
         </div>
     </div>
-    
 
     <footer>
         <p>&copy; 2025 Hope Haven School. All rights reserved.</p>
