@@ -1,5 +1,6 @@
 package com.rungroup.controllers;
 
+import com.rungroup.models.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,16 +10,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.rungroup.models.*;
-
 @Controller
 public class CourseController {
 
+    private final AssessmentController assessmentController;
     private List<Course> availableCourses = new ArrayList<>();
     private List<Course> registeredCourses = new ArrayList<>();
     private User currentUser;
 
-    public CourseController() {
+    // Constructor with dependency injection for AssessmentController
+    public CourseController(AssessmentController assessmentController) {
+        this.assessmentController = assessmentController;
+
         // Static list of available courses with updated attributes
         currentUser = new Beneficiary(1L, "mariam", "mariam@sameh", "123", "90");
         availableCourses.add(new Course(1L, "History", "Explore ancient civilizations and key historical events.",
@@ -85,4 +88,36 @@ public class CourseController {
         model.addAttribute("registeredCourses", registeredCourses);
         return "registered-courses";
     }
+
+    @GetMapping("/course-details")
+    public String getCourseDetails(@RequestParam Long courseId, Model model) {
+        // Find the course by ID
+        Course course = availableCourses.stream()
+                .filter(c -> c.getId().equals(courseId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Course not found"));
+
+        // Add the course to the model
+        model.addAttribute("course", course);
+
+        // Return the course details page
+        return "course-details"; // This corresponds to the name of the HTML file
+    }
+
+    @GetMapping("/course-assessments")
+    public String getCourseAssessments(@RequestParam Long courseId, Model model) {
+        Course course = availableCourses.stream()
+                .filter(c -> c.getId().equals(courseId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Course not found"));
+    
+        // Fetch only active assessments for the course
+        List<Assessment> activeAssessments = assessmentController.getActiveAssessmentsForCourse(course);
+    
+        model.addAttribute("course", course);
+        model.addAttribute("assessments", activeAssessments);
+    
+        return "course-assessments";
+    }
+    
 }

@@ -140,6 +140,10 @@
                 <img th:src="${course.imageUrl}" th:alt="${course.name}">
                 <h3 th:text="${course.name}"></h3>
                 <p th:text="${course.description}"></p>
+                <form th:action="@{/course-details}" method="get">
+                    <input type="hidden" th:name="courseId" th:value="${course.id}">
+                    <button type="submit">Learn More</button>
+                </form>
             </div>
         </div>
     </div>
