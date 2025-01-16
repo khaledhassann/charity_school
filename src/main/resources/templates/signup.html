@@ -346,6 +346,9 @@
     .popup button:hover {
       background-color: #b22234;
     }
+    .hidden {
+      display: none;
+    }
 
     .popup-overlay {
       position: fixed;
@@ -401,11 +404,54 @@
               <option value="donor">Donor</option>
             </select>
           </div>
+          <div class="input-group">
+            <select name="role" id="role" required>
+              <option value="" disabled selected>Select Role</option>
+              <option value="volunteer">Volunteer</option>
+              <option value="donor">Donor</option>
+            </select>
+          </div>
+
+          <!-- Volunteer-specific fields -->
+          <div id="volunteer-fields" class="hidden">
+            <div class="input-group">
+              <select name="skills" required>
+                <option value="" disabled selected>Select Skill</option>
+                <option value="teaching">Teaching</option>
+                <option value="counseling">Counseling</option>
+                <option value="organizing">Organizing</option>
+                <option value="technical">Technical Support</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <select name="availability" required>
+                <option value="" disabled selected>Availability</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Donor-specific fields -->
+          <div id="donor-fields" class="hidden">
+            <div class="input-group">
+              <select name="preferredType" required>
+                <option value="" disabled selected>Preferred Type</option>
+                <option value="one-time">One-Time</option>
+                <option value="monthly">Monthly</option>
+                <option value="annually">Annually</option>
+              </select>
+            </div>
+          </div>
+
           <button type="submit" class="btn">SIGN UP</button>
         </form>
       </div>
     </div>
   </div>
+
+  
+          
 
   <div class="popup-overlay" id="popupOverlay"></div>
   <div class="popup" id="popup">
@@ -438,6 +484,25 @@
       popupOverlay.style.display = 'none';
       signupForm.submit(); // Submit form after closing popup
     }
+
+    const roleSelect = document.getElementById('role');
+    const volunteerFields = document.getElementById('volunteer-fields');
+    const donorFields = document.getElementById('donor-fields');
+
+    roleSelect.addEventListener('change', (event) => {
+      const role = event.target.value;
+      if (role === 'volunteer') {
+        volunteerFields.classList.remove('hidden');
+        donorFields.classList.add('hidden');
+      } else if (role === 'donor') {
+        donorFields.classList.remove('hidden');
+        volunteerFields.classList.add('hidden');
+      } else {
+        volunteerFields.classList.add('hidden');
+        donorFields.classList.add('hidden');
+      }
+    });
+
   </script>
 </body>
 </html>

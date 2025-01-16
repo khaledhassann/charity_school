@@ -54,9 +54,4 @@ public class BeneficiaryController {
         model.addAttribute("beneficiaries", beneficiaries); 
         return "register-beneficiary";
     }
-
-    // @GetMapping("/beneficiaries")
-    // public List<Beneficiary> getAllBeneficiaries() {
-    //     return beneficiaries;
-    // }
 }
