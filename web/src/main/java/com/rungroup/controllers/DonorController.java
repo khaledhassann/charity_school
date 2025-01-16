@@ -3,7 +3,6 @@ package com.rungroup.controllers;
 import com.rungroup.models.Donation;
 import com.rungroup.models.Donor;
 import com.rungroup.models.CurrentUser;
-import com.rungroup.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +19,7 @@ public class DonorController {
 
     private Donor donor;
     private List<Donation> donations = new ArrayList<>();
+    private Donation lastDonation = null;
 
     public DonorController() {
         donations.add(new Donation(1L, 100.0, 1L, LocalDateTime.now().minusDays(10), "Credit Card"));
@@ -27,27 +27,23 @@ public class DonorController {
         donations.add(new Donation(3L, 200.0, 2L, LocalDateTime.now().minusDays(3), "Bank Transfer"));
     }
 
-    // Show donation form
     @GetMapping("/donate")
-    public String showDonationForm() {
-        this.donor = (Donor) CurrentUser.getUser(); 
-        System.out.println("This is the donor in donate: "+ donor);
+    public String showDonationForm(Model model) {
+        this.donor = (Donor) CurrentUser.getUser();
+        model.addAttribute("lastDonation", lastDonation);
         return "donation";
     }
 
-    // Handle donation form submission
     @PostMapping("/donate")
     public String makeDonation(
             @RequestParam("amount") double amount,
             @RequestParam("payment_method") String paymentMethod,
             Model model
     ) {
-
-        this.donor = (Donor) CurrentUser.getUser(); 
-        System.out.println("This is the donor in donate: "+ donor);
+        this.donor = (Donor) CurrentUser.getUser();
 
         // Create a new donation
-        Donation newDonation = new Donation(
+        lastDonation = new Donation(
                 (long) (donations.size() + 1),
                 amount,
                 donor.getId(),
@@ -55,27 +51,47 @@ public class DonorController {
                 paymentMethod
         );
 
-        donations.add(newDonation);
-        donor.makeDonation(newDonation);
+        donations.add(lastDonation);
+        donor.makeDonation(lastDonation);
 
         model.addAttribute("message", "Donation successful!");
+        model.addAttribute("lastDonation", lastDonation);
+        return "redirect:/successfulDonation";
+    }
+
+    @GetMapping("/successfulDonation")
+    public String showSuccessPage(Model model) {
+        if (lastDonation != null) {
+            System.out.println("--------last donation amount: "+lastDonation.getAmount());
+            System.out.println("--------last donation payment: "+lastDonation.getPayment());
+            System.out.println("--------last donation amount: "+lastDonation.getFormattedDate());
+        return "successfulDonation";}
+        else
         return "donation";
     }
 
-    // View donation history
+    @PostMapping("/refund")
+    public String refundDonation(Model model) {
+        if (lastDonation != null) {
+            donations.remove(lastDonation);
+            // donor.getDonations().remove(lastDonation);
+            model.addAttribute("message", "Donation refunded successfully!");
+            lastDonation = null;
+        } else {
+            model.addAttribute("message", "No donation available for refund.");
+        }
+
+        return "redirect:/donate";
+    }
+
     @GetMapping("/donation_history")
     public String viewDonationHistory(Model model) {
         this.donor = (Donor) CurrentUser.getUser();
-        System.out.println("This is the donor in view history: "+ donor);
-
-        // Filter donations to include only those made by the current donor
         List<Donation> userDonations = donations.stream()
                 .filter(donation -> donation.getUserId().equals(donor.getId()))
                 .collect(Collectors.toList());
 
-        System.out.println("Donations for current user: " + userDonations.size());
         model.addAttribute("donations", userDonations);
-
         return "donation_history";
     }
 }

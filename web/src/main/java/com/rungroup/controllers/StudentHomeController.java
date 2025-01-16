@@ -1,14 +1,15 @@
 package com.rungroup.controllers;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController {
+public class StudentHomeController {
 
-    @GetMapping("/home")
-    public String homePage(Model model) {
-
-        return "home";
+    @GetMapping("/student-home")
+    public String studentHomePage() {
+        return "student-home"; 
     }
+
+    
 }

@@ -255,7 +255,6 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/#courses-section">Courses</a></li>
-                <li><a href="#">Academics</a></li>
                 <li><a href="/#teachers-section">Teachers</a></li>
                 <li><a href="/#upcoming-events-section">Events</a></li>
                 <li><a href="#">Contact</a></li>
@@ -267,14 +266,6 @@
             </form>
         </div>
     </header>
-
-    <div class="sidebar" id="sidebar">
-        <ul>
-            <li><a href="/donate">Make Donation</a></li>
-            <li><a th:href="@{/donation_history}">View Donation History</a></li>
-            <li><a href="/update_profile">Update Profile</a></li>
-        </ul>
-    </div>
 
     <div class="nav-image">
         <div class="overlay"></div>
@@ -290,19 +281,16 @@
         <div th:if="${error}" style="color: red;">[[${error}]]</div>
         <form action="/update_profile" method="POST">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" th:value="${donor.name}" required>
+            <input type="text" id="name" name="name" th:value="${admin.name}" required>
     
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" th:value="${donor.email}" required>
+            <input type="email" id="email" name="email" th:value="${admin.email}" required>
             
             <div class="input-group">
                 <label for="password">New Password:</label>
                 <input type="password" id="password" name="password" >
                 <i class="toggle-password fas fa-eye" id="toggle-password"></i>
             </div>
-
-            <label for="preferred_type">Preferred Type:</label>
-            <input type="text" id="preferred_type" name="preferred_type" th:value="${donor.preferred_type}" required>
     
             <input type="submit" value="Update Profile">
         </form>

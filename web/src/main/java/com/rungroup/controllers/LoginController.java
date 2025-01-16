@@ -1,7 +1,7 @@
 package com.rungroup.controllers;
 
 import com.rungroup.models.User;
-import com.rungroup.models.Donor;
+import com.rungroup.utils.UserFactory;
 import com.rungroup.models.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,14 @@ public class LoginController {
 
     public LoginController() {
         users = new ArrayList<>();
-        users.add(new Donor(1L, "John Doe", "john@example.com", "password123"));
+        User donor = UserFactory.createUser(1L,"Donor", "Laila", "laila@example.com","laila123", null, null,"None");
+        users.add(donor);
+        // User volunteer = UserFactory.createUser(2L,"Volunteer", "Mariam", "mariam@example.com","mariam123", null, null);
+        // users.add(volunteer);
+        User beneficiary = UserFactory.createUser(3L,"Beneficiary", "Habiba", "habiba@example.com","habiba123", null, null,null);
+        users.add(beneficiary);
+        User admin = UserFactory.createUser(4L,"Admin", "Adham", "adham@example.com","adham123", null, null,null);
+        users.add(admin);
     }
 
     @GetMapping("/login")
@@ -31,7 +38,18 @@ public class LoginController {
         for (User user : users) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 CurrentUser.setUser(user);
-                return "redirect:/";
+                System.out.println("--------user role: "+user.getRole());
+                if ("Beneficiary".equalsIgnoreCase(user.getRole())) {
+                    return "redirect:/student-home";
+                } else if ("Donor".equalsIgnoreCase(user.getRole())) {
+                    return "redirect:/";
+                // } else if ("Volunteer".equalsIgnoreCase(user.getRole())) {
+                //     return "redirect:/";
+                }else if ("Admin".equalsIgnoreCase(user.getRole())) {
+                    return "redirect:/admin-home";
+                } else {
+                    throw new IllegalArgumentException("Invalid role: " + user.getRole());
+                }
             }
         }
         model.addAttribute("error", "Login failed: wrong email or password.");

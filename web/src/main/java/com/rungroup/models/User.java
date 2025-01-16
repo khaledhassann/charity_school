@@ -5,12 +5,14 @@ public abstract class User {
     protected String name;
     protected String email;
     protected String password;
+    // protected String preferred_type;
 
     public User(Long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        // this.preferred_type=preferred_type;
     }
 
     public Long getId() {
@@ -44,6 +46,10 @@ public abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    // public void setPreferredType(String preferred_type){
+    //     this.preferred_type=preferred_type;
+    // }
 
     public abstract String getRole();
 }

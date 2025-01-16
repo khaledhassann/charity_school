@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Homepage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f5f5, #d7d7d7);
+        }
+
+        header {
+            background: linear-gradient(90deg, #800020, #a62940);
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        header nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .content h1 {
+            font-size: 48px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            text-align: center;
+            width: 280px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .action:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .action h3 {
+            font-size: 22px;
+            color: #800020;
+            margin-bottom: 15px;
+        }
+
+        .action p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .action a {
+            display: inline-block;
+            background: linear-gradient(90deg, #800020, #a62940);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .action a:hover {
+            background: linear-gradient(90deg, #a62940, #800020);
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        .search-and-apply {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-and-apply .search {
+            margin-right: 20px;
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .search-and-apply .logout {
+            background: #7a7978;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-block;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Hope Haven School</div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/register-courses">Register Courses</a></li>
+                <li><a href="/registered-courses">Registered Courses</a></li>
+            </ul>
+        </nav>
+        <div class="search-and-apply">
+            <form action="/logout" method="post">
+                <button type="submit" class="logout">Log out</button>
+            </form>
+    </header>
+
+    <div class="content">
+        <h1>Welcome, Student!</h1>
+        <p>Access your courses, register for new ones, and view your schedule below.</p>
+        <div class="actions">
+            <div class="action">
+                <h3>View Registered Courses</h3>
+                <p>Explore the courses you have already registered for.</p>
+                <a href="/registered-courses">Go to Courses</a>
+            </div>
+            <div class="action">
+                <h3>Register Courses</h3>
+                <p>Enroll in courses that align with your academic goals.</p>
+                <a href="/register-courses">Register Now</a>
+            </div>
+            <div class="action">
+                <h3>View Schedule</h3>
+                <p>Plan your studies with your personalized timetable.</p>
+                <a href="/view-schedule">View Schedule</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Hope Haven School. All rights reserved.</p>
+    </footer>
+</body>
+</html>
