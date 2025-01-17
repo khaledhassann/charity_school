@@ -137,7 +137,7 @@
         <div class="courses">
             <!-- Dynamic rendering of registered courses -->
             <div th:each="course : ${registeredCourses}" class="course">
-                <img th:src="${course.imageUrl}" th:alt="${course.name}">
+                <img th:src="${course.image_url}" th:alt="${course.name}">
                 <h3 th:text="${course.name}"></h3>
                 <p th:text="${course.description}"></p>
             </div>

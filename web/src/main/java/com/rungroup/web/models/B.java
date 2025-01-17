@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,5 +33,21 @@ public class B {
     protected LocalDateTime created_at;
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     protected LocalDateTime updated_at;
+
+    // @ElementCollection
+    // @CollectionTable(name = "B_Skills", joinColumns = @JoinColumn(name = "b_id"))
+    // @Column(name = "skill")
+    private String skills;
+    
+    public void setSkills(List<String> skills) {
+        if (skills == null) {
+            skills = new ArrayList<>();
+            return;
+        }
+        this.skills = String.join(", ", skills);
+    }
+    public List<String> getSkills() {
+        return List.of(skills.split(", "));
+    }
 
 }

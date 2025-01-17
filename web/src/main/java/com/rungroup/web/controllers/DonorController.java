@@ -28,7 +28,11 @@ public class DonorController {
             Model model) {
 
         // Process and save the donor details (mock for now)
-        Donor donor = new Donor(name, email, password);
+        // we don't provide prefered type
+        Donor donor = new Donor();
+        donor.setName(name);
+        donor.setEmail(email);
+        donor.setPassword(password);
         System.out.println("Donor Registered: " + donor.getName() + ", " + donor.getEmail());
 
         // Save the donor to the database

@@ -5,13 +5,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Service;
 
+// import com.rungroup.web.mappers.BService;
 import com.rungroup.web.models.*;
 import com.rungroup.web.repositories.Implementations.*;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.rungroup.web.*")
 public class WebApplication {
 
 	public static void main(String[] args) {
@@ -37,43 +40,55 @@ public class WebApplication {
         // TeacherRepository tr = new TeacherRepository();
         // createTeachers(tr);
 
-        B b1 = new B();
-        b1.setB_SPECIFIC(80);
+        // B b1 = new B();
+        // b1.setB_SPECIFIC(80);
 
-        B b2 = new B();
-        b2.setB_SPECIFIC(80);
+        // B b2 = new B();
+        // b2.setB_SPECIFIC(80);
 
-        B b3 = new B();
-        b3.setB_SPECIFIC(80);
+        // B b3 = new B();
+        // b3.setB_SPECIFIC(80);
 
-        Event e1 = new Event();
-        e1.setImage_url("ss");
-        Event e2 = new Event();
-        e2.setImage_url("ss");
-        Event e3 = new Event();
-        e3.setImage_url("ss");
-        EventRepository er = new EventRepository();
-        er.insert(e1);
-        er.insert(e2);
-        er.insert(e3);
+        // Event e1 = new Event();
+        // e1.setImage_url("ss");
+        // Event e2 = new Event();
+        // e2.setImage_url("ss");
+        // Event e3 = new Event();
+        // e3.setImage_url("ss");
+        // EventRepository er = new EventRepository();
+        // er.insert(e1);
+        // er.insert(e2);
+        // er.insert(e3);
 
 
-        BRepository br = new BRepository();
-        br.insert(b1);
-        br.insert(b2);
-        br.insert(b3);
+        // BRepository br = new BRepository();
+        // br.insert(b1);
+        // br.insert(b2);
+        // br.insert(b3);
 
-        A a = new A();
-        List<B> bList = new ArrayList<>();
-        bList.add(b1);
-        bList.add(b2);
-        bList.add(b3);
-        a.setBlist(bList);
+        // A a = new A();
+        // List<B> bList = new ArrayList<>();
+        // bList.add(b1);
+        // bList.add(b2);
+        // bList.add(b3);
+        // a.setBlist(bList);
 
-        ARepository ar = new ARepository();
-        ar.insert(a);
+        // ARepository ar = new ARepository();
+        // ar.insert(a);
+        // B b = new B();
+        // b.setSkills(List.of("Skill1", "Skill2", "Skill3"));
+        // BRepository br = new BRepository();
+        // Long id = br.insert(b);
+        // System.out.println("BABABABA: " +  id);
 
-        
+        // B b2 = br.findById(id);
+        // System.out.println("B2: " + b2);
+        // System.out.println("ID: " + b2.getId());
+        // System.out.println("Created at: " + b2.getCreated_at());
+        // System.out.println("Updated at: " + b2.getUpdated_at());
+        // System.out.println("B_SPECIFIC: " + b2.getB_SPECIFIC());
+        // System.out.println("Skills: " + b2.getSkills());
+
 
     }
 

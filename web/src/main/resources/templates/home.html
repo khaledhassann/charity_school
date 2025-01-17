@@ -450,7 +450,7 @@
     <div class="card-container">
         <div th:each="course : ${courses}" class="card">
             <div class="card-content">
-                <img th:src="${course.imageUrl}" alt="Course Image" class="course-image">
+                <img th:src="${course.image_url}" alt="Course Image" class="course-image">
                 <h3 th:text="${course.name}" class="course-title"></h3>
                 <p th:text="${course.description}" class="course-description"></p>
                
@@ -530,7 +530,7 @@
     <h2>Our Teachers</h2>
     <div class="card-container">
         <div th:each="teacher : ${teachers}" class="card">
-            <img th:src="${teacher.imageUrl}" alt="Teacher Image">
+            <img th:src="${teacher.image_url}" alt="Teacher Image">
             <h3 th:text="${teacher.name}"></h3>
             <p th:text="${teacher.subject}"></p>
             
@@ -542,7 +542,7 @@
     <h2>Upcoming Events</h2>
     <div class="card-container">
         <div th:each="event : ${events}" class="card">
-            <img th:src="${event.imageUrl}" alt="Event Image">
+            <img th:src="${event.image_url}" alt="Event Image">
             <h3 th:text="${event.name}"></h3>
             <p th:text="${event.description}"></p>
             <button>Learn More</button>

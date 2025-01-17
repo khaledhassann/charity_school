@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: white;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        header {
+            background: #7a001e;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: 600;
+            width: 100%;
+        }
+
+        footer {
+            background: #7a001e;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .form-container {
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group select[multiple] {
+            height: auto;
+            min-height: 120px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #800020;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #b22234;
+        }
+
+        .success-message {
+            color: green;
+            text-align: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            border-radius: 10px;
+            margin: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border: 2px solid #800020;
+        }
+
+        h1 {
+            font-size: 22px;
+            color: #800020;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .form-group select[multiple] {
+    height: auto;
+    min-height: 120px;
+    padding: 8px;
+}
+
+.form-group select[multiple] option {
+    padding: 6px;
+    margin: 2px 0;
+    border-radius: 4px;
+}
+
+.form-group select[multiple] option:checked {
+    background-color: #800020;
+    color: white;
+}
+
+        .input-group input,
+        .input-group select {
+            width: 85%;
+            padding: 10px 12px;
+            font-size: 14px;
+            border: 1px solid #800020;
+            border-radius: 25px;
+            outline: none;
+            background: #f9f9f9;
+            margin: 0 auto;
+            display: block;
+        }
+
+        button {
+            background: #800020;
+            color: #fff;
+            border: none;
+            padding: 12px 0;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #a62940;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #800020;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #a62940;
+        }
+        .popup-message {
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            font-weight: bold;
+            z-index: 1000;
+            animation: fadeOut 3s ease-in-out forwards;
+        }
+        .error-message {
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #c13336;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            font-weight: bold;
+            z-index: 1000;
+            animation: fadeOut 3s ease-in-out forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>Create Task</header>
+    <div class="container">
+        <h1>Create a New Task</h1>
+        <!-- Success Popup -->
+    <div id="successMessage" th:if="${message}" class="popup-message">
+        <p th:text="${message}"></p>
+    </div>
+    <div th:if="${error}" th:text="${error}" class="error-message"></div>
+        <form action="/create-task" method="post">
+            <div class="form-group">
+                <label for="name">Task Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="skillsRequired">Skills Required</label>
+                <select id="skillsRequired" name="skillsRequired" multiple required>
+                    <option value="Teaching">Teaching</option>
+                    <option value="Counseling">Counseling</option>
+                    <option value="Organizing">Organizing</option>
+                    <option value="Technical">Technical</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="volunteer_id">Responsible Volunteer</label>
+                <select name="volunteer_id" required>
+                    <option value="" disabled selected>Select Volunteer</option>
+                    <option th:each="volunteer : ${volunteers}" th:value="${volunteer.id}" th:text="${volunteer.name}"></option>
+                </select>
+                
+            </div>
+            <button type="submit" class="btn">Create Task</button>
+        </form>
+        <a href="/admin" class="back-link">← Back to Admin Dashboard</a>
+        <!-- <div class="success-message" th:if="${message}" th:text="${message}"></div> -->
+    </div>
+    <footer>&copy; 2025 Hope Haven School. All rights reserved.</footer>
+</body>
+
+</html>

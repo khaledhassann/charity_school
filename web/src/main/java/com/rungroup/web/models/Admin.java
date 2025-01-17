@@ -1,5 +1,8 @@
 package com.rungroup.web.models;
 
+import com.rungroup.web.repositories.Implementations.AdminRepository;
+import com.rungroup.web.repositories.Implementations.DonorRepository;
+
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.Table;
@@ -78,5 +81,9 @@ public class Admin extends User {
     @Override
     public String getRole() {
         return "Admin";
+    }
+    @Override
+    public boolean delete(){
+        return new AdminRepository().deleteById(this.id);
     }
 }

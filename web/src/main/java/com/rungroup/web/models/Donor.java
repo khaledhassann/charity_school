@@ -1,5 +1,8 @@
 package com.rungroup.web.models;
 
+import com.rungroup.web.repositories.Implementations.DonorRepository;
+import com.rungroup.web.repositories.Implementations.VolunteerRepository;
+
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.Table;
@@ -13,13 +16,14 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table(name = "Donor")
 public class Donor extends User {
+    private String preferred_type;
     
 
     public Donor(){}
 
-    public Donor(String name, String email, String password) {
+    public Donor(String name, String email, String password, String preferred_type) {
         super(name, email, password);
-       
+        this.preferred_type = preferred_type;
     }
 
     // // Getters and setters
@@ -53,5 +57,8 @@ public class Donor extends User {
     public String getRole() {
         return "Donor";
     }
-
+    @Override
+    public boolean delete(){
+        return new DonorRepository().deleteById(this.id);
+    }
 }

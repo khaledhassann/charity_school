@@ -28,7 +28,11 @@ public class VolunteerController {
             Model model) {
 
         // Process and save the volunteer details (mock for now)
-        Volunteer volunteer = new Volunteer(name, email, password);
+        // we should set skills also
+        Volunteer volunteer = new Volunteer();
+        volunteer.setName(name);
+        volunteer.setEmail(email);
+        volunteer.setPassword(password);
         System.out.println("Volunteer Registered: " + volunteer.getName() + ", " + volunteer.getEmail());
 
         // Save the volunteer to the database
