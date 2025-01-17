@@ -179,7 +179,7 @@
     <option value="" disabled selected>Select an event</option>
     <!-- Iterate over the events from EventController -->
     <option th:each="event : ${events}" 
-            th:value="${event}" 
+            th:value="${event.id}" 
             th:text="${event.name}">
     </option>
 </select>

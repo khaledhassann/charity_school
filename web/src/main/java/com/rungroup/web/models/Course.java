@@ -34,4 +34,13 @@ public class Course {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updated_at;
 
+    public Course(String name, String description, String image_url, int credits, int time_slot, double progress) {
+        this.name = name;
+        this.description = description;
+        this.image_url = image_url;
+        this.credits = credits;
+        this.time_slot = time_slot;
+        this.progress = progress;
+    }
+
 }

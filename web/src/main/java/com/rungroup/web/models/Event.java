@@ -32,4 +32,12 @@ public class Event {
     private LocalDateTime created_at;
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updated_at;
+    
+    public Event(String name, String description, String image_url, LocalDateTime date, String location) {
+        this.name = name;
+        this.description = description;
+        this.image_url = image_url;
+        this.date = date;
+        this.location = location;
+    }
 }

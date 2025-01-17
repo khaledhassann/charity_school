@@ -87,7 +87,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.rungroup.web.repositories.Implementations.AdvertisementRepository;
+// import com.rungroup.web.repositories.Implementations.AdvertisementRepository;
 import com.rungroup.web.repositories.Implementations.EventRepository;
 
 import java.io.File;
