@@ -16,15 +16,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "Advertisement")
-public class Advertisement {
+public abstract class  Advertisement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    private String platform;
+    protected String DecoratedAd;
+    // private String platform;
     private String status;
     private LocalDateTime launch_date;
     private Long event_id; // New field for associated event
@@ -32,5 +32,6 @@ public class Advertisement {
     private LocalDateTime created_at;
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updated_at;
+    public abstract String showAdString();
 
 }
