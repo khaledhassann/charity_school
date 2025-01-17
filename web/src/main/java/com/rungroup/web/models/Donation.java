@@ -5,12 +5,16 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.rungroup.web.repositories.Implementations.DonationRepository;
+import com.rungroup.web.utils.PaymentStrategy;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,15 +35,33 @@ public class Donation {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime date;
     // private String payment_id;      // I edited this 
-    private String payment;
     @Column(name = "created_at", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime created_at;
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updated_at;
+    @Transient
+    private PaymentStrategy paymentStrategy; 
+    @Transient
+    private DonationRepository dr = new DonationRepository(); 
+    private String payment;
 
 
     public boolean processDonation() {
-        return true;
+        if (paymentStrategy == null) {
+            throw new IllegalStateException("Payment strategy not set.");
+        }
+
+        if (paymentStrategy.pay(amount)) {
+            // donations.add(this);
+            // Add the donation to the database
+            dr.insert(this);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean refundDonation() {
+        return dr.deleteById(this.getId());
     }
 
     public String getFormattedDate(){
@@ -50,4 +72,6 @@ public class Donation {
     public String getDetails() {
         return "Donation ID: " + id + ", Amount: " + amount + ", User ID: " + user_id + ", Date: " + date + ", Payment: " + payment;
     }
+
+    
 }
