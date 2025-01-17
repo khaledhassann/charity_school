@@ -99,7 +99,7 @@ public class GenericMapper<T> {
             T entity = entityClass.getDeclaredConstructor().newInstance();
             ResultSetMetaData metaData = rs.getMetaData();
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                System.out.println("Column: " + metaData.getColumnName(i));
+                // System.out.println("Column: " + metaData.getColumnName(i));
             }
             // Traverse all fields, including inherited ones
             for (Field field : getAllFields(entityClass)) {

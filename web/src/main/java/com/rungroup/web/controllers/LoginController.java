@@ -1,6 +1,8 @@
 package com.rungroup.web.controllers;
 
 import com.rungroup.web.models.User;
+import com.rungroup.web.models.UserCollection;
+import com.rungroup.web.models.UserIterator;
 import com.rungroup.web.repositories.Implementations.AdminRepository;
 import com.rungroup.web.repositories.Implementations.BeneficiaryRepository;
 import com.rungroup.web.repositories.Implementations.DonorRepository;
@@ -19,23 +21,15 @@ import java.util.List;
 
 @Controller
 public class LoginController {
-    private List<User> users = new ArrayList<>();
+    private UserCollection userCollection;
 
     public LoginController() {
-        // users = new ArrayList<>();
-        // User donor = UserFactory.createUser(1L,"Donor", "Laila", "laila@example.com","laila123", null, null,"None",null,false);
-        // users.add(donor);
-        users.addAll(new DonorRepository().findAll());    
-        // User volunteer = UserFactory.createUser(2L,"Volunteer", "Mariam", "mariam@example.com","mariam123", null, null,"none",List.of("Teaching", "Organizing"),true);
-        // users.add(volunteer);
-        users.addAll(new VolunteerRepository().findAll()); 
-        // User beneficiary = UserFactory.createUser(3L,"Beneficiary", "Habiba", "habiba@example.com","habiba123", "Grade 5", LocalDateTime.now(),null,null,false);
-        // users.add(beneficiary);
-        users.addAll(new BeneficiaryRepository().findAll()); 
-        // User admin = UserFactory.createUser(4L,"Admin", "Adham", "adham@example.com","adham123", null, null,null,null,false);
-        // users.add(admin);
-        users.addAll(new AdminRepository().findAll()); 
-    
+        userCollection = new UserCollection();
+        // Add users from repositories
+        userCollection.getUsers().addAll(new DonorRepository().findAll());
+        userCollection.getUsers().addAll(new VolunteerRepository().findAll());
+        userCollection.getUsers().addAll(new BeneficiaryRepository().findAll());
+        userCollection.getUsers().addAll(new AdminRepository().findAll());
     }
 
     @GetMapping("/login")
@@ -45,10 +39,14 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, Model model) {
-        for (User user : users) {
+        UserIterator iterator = userCollection.iterator();
+        
+        while (iterator.hasNext()) {
+            User user = iterator.next();
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 CurrentUser.setUser(user);
                 System.out.println("--------user role: "+user.getRole());
+                System.out.println("The id of the logged in user: " + user.getId());
                 if ("Beneficiary".equalsIgnoreCase(user.getRole())) {
                     return "redirect:/student-home";
                 } else if ("Donor".equalsIgnoreCase(user.getRole())) {

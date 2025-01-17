@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "Beneficiary")
 public class Beneficiary extends User {
     private String grade;
-    private LocalDateTime enrollmentDate;
+    private LocalDateTime enrollment_date;
 
     public Beneficiary() {
         super();
@@ -31,7 +31,7 @@ public class Beneficiary extends User {
     public Beneficiary(String name, String email, String password, String grade, LocalDateTime enrollmentDate) {
         super(name, email, password);
         this.grade=grade;
-        this.enrollmentDate=enrollmentDate;
+        this.enrollment_date=enrollmentDate;
     }
 
     @Override
@@ -48,11 +48,11 @@ public class Beneficiary extends User {
     }
 
     public LocalDateTime getEnrollmentDate() {
-        return enrollmentDate;
+        return enrollment_date;
     }
 
     public void setEnrollmentDate(LocalDateTime enrollmentDate) {
-        this.enrollmentDate = enrollmentDate;
+        this.enrollment_date = enrollmentDate;
     }
     @Override
     public boolean delete(){
