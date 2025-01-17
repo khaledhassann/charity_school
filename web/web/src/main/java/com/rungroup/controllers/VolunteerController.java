@@ -86,4 +86,5 @@ public class VolunteerController {
         model.addAttribute("teachedCourses", teachedCourses);
         return "teached-courses";
     }
+    
 }

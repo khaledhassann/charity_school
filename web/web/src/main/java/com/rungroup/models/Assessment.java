@@ -11,7 +11,6 @@ public class Assessment {
     private Course course;
     private State state;
     private String stateName;
-    
 
     public Assessment(Long id, String name, double weight, double maxScore, LocalDateTime deadline, Course course, State state) {
         this.id = id;
@@ -24,7 +23,10 @@ public class Assessment {
         this.stateName = state instanceof Draft ? "Draft" : "Active";
     }
 
-    // Getters and setters
+    // Default constructor
+    public Assessment() {}
+
+    // Getters
     public Long getId() {
         return id;
     }
@@ -49,15 +51,52 @@ public class Assessment {
         return course;
     }
 
-    public String getStateName() {
-        return state.toString();
+    public State getState() {
+        return state;
     }
 
+    public String getStateName() {
+        return stateName;
+    }
+
+    // Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setMaxScore(double maxScore) {
+        this.maxScore = maxScore;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+        this.stateName = state instanceof Draft ? "Draft" : "Active";
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    // Additional Methods
     public void changeState() {
         state.changeState(this);
     }
-
-   
 
     @Override
     public String toString() {
@@ -67,13 +106,4 @@ public class Assessment {
                 ", state=" + state +
                 '}';
     }
-    public void setState(State state) {
-        this.state = state;
-        this.stateName = state instanceof Draft ? "Draft" : "Active";
-    }
-    public State getState() {
-        return state;
-    }
-    
-    
 }
