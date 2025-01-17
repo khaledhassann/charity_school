@@ -9,6 +9,6 @@ public class AdminHomeController {
     // Endpoint for the Student Homepage
     @GetMapping("/")
     public String AdminHomePage() {
-        return "adminpage"; // Name of the HTML file for the homepage (student-home.html)
+        return "adminpage"; 
     }
 }
