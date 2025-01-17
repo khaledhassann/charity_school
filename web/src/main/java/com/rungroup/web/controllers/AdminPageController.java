@@ -11,4 +11,5 @@ public class AdminPageController {
         return "admin";
     }
 
+  
 }

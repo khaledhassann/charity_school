@@ -13,11 +13,10 @@ import com.rungroup.web.repositories.Implementations.EventRepository;
 import com.rungroup.web.repositories.Implementations.TeacherRepository;
 
 @Controller
-public class AdminHomeController {
+public class DonorHomeController {
 
-    // Endpoint for the Student Homepage
-    @GetMapping("/admin-home")
-    public String AdminHomePage(Model model) {
+    @GetMapping("/donor")
+    public String DonorHomePage(Model model) {
         List<Course> courses = new CourseRepository().findAll();
         List<Teacher> teachers = new TeacherRepository().findAll();
         List<Event> events = new EventRepository().findAll();
@@ -25,6 +24,7 @@ public class AdminHomeController {
         model.addAttribute("courses", courses);
         model.addAttribute("teachers", teachers);
         model.addAttribute("events", events);
-        return "adminpage"; // Name of the HTML file for the homepage (student-home.html)
+
+        return "donorHome"; 
     }
 }

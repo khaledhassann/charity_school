@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile - Hope Haven School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: #800020; /* Burgundy color */
+            color: #fff;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        .search-and-apply {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-and-apply .logout:hover {
+            background: #ababab; 
+        }
+
+        .search-and-apply .logout {
+            background: #7a7978;
+            transition: background 0.3s ease;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .nav-image {
+            width: 100%;
+            height: 400px;
+            background: url('C:/Users/Mriam/Documents/sdp_project/charity_school/images/pexels-pixabay-207684.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .nav-image .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-image .content {
+            position: relative;
+            color: #fff;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .form-container {
+            padding: 20px;
+            margin: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-container input[type="submit"] {
+            background: #800020; /* Burgundy color */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group input, 
+        .input-group select {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border-radius: 25px;
+            border: 1px solid #800020;
+            outline: none;
+            background: #fff;
+            color: #333;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .skills-container label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .hamburger-menu {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .hamburger-menu span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: white;
+            border-radius: 9px;
+            transition: .25s ease-in-out;
+        }
+
+        .hamburger-menu span:nth-child(1) {
+            top: 2.5px;
+        }
+
+        .hamburger-menu span:nth-child(2) {
+            top: 11px;
+        }
+
+        .hamburger-menu span:nth-child(3) {
+            top: 21px;
+        }
+
+        .hamburger-menu.open span:nth-child(1) {
+            top: 15px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger-menu.open span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger-menu.open span:nth-child(3) {
+            top: 14px;
+            transform: rotate(-135deg);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hamburger-menu" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="logo">Hope Haven School</div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/#courses-section">Courses</a></li>
+                <li><a href="/#teachers-section">Teachers</a></li>
+                <li><a href="/#upcoming-events-section">Events</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-and-apply">
+            <form action="/logout" method="post">
+                <button type="submit" class="logout">Log out</button>
+            </form>
+        </div>
+    </header>
+
+    <div class="nav-image">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Update Profile</h1>
+            <p>Update your information below:</p>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2>Profile Update Form</h2>
+        <div th:if="${message}" style="color: green;">[[${message}]]</div>
+        <div th:if="${error}" style="color: red;">[[${error}]]</div>
+        <form action="/update_profile-volunteer" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" th:value="${volunteer.name}" required>
+    
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" th:value="${volunteer.email}" required>
+            
+            <div class="input-group">
+                <label for="password">New Password:</label>
+                <input type="password" id="password" name="password">
+                <i class="toggle-password fas fa-eye" id="toggle-password"></i>
+            </div>
+
+            <div class="input-group">
+                <label for="skills">Skills:</label>
+                <div class="skills-container">
+                    <label>
+                        <input type="checkbox" name="skills" value="Teaching" th:checked="${volunteer.skills.contains('Teaching')}"> Teaching
+                    </label>
+                    <label>
+                        <input type="checkbox" name="skills" value="Counseling" th:checked="${volunteer.skills.contains('Counseling')}"> Counseling
+                    </label>
+                    <label>
+                        <input type="checkbox" name="skills" value="Organizing" th:checked="${volunteer.skills.contains('Organizing')}"> Organizing
+                    </label>
+                    <label>
+                        <input type="checkbox" name="skills" value="Technical Support" th:checked="${volunteer.skills.contains('Technical Support')}"> Technical Support
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="availability">Availability:</label>
+                <select name="availability" required>
+                    <option value="" disabled>Availability</option>
+                    <option value="true" th:selected="${volunteer.availability == 'true'}">Yes</option>
+                    <option value="false" th:selected="${volunteer.availability == 'false'}">No</option>
+                </select>
+            </div>
+    
+            <input type="submit" value="Update Profile">
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Hope Haven School. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            sidebar.classList.toggle('open');
+            hamburgerMenu.classList.toggle('open');
+        }
+        const passwordField = document.getElementById('password');
+        const togglePassword = document.getElementById('toggle-password');
+
+        togglePassword.addEventListener('click', () => {
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+            togglePassword.classList.toggle('fa-eye');
+            togglePassword.classList.toggle('fa-eye-slash');
+        });
+    </script>
+</body>
+</html>

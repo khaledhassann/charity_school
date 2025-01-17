@@ -1,0 +1,318 @@
+<!DOCTYPE html> 
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation - Hope Haven School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: #800020;
+            color: #fff;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        .donation-section {
+            padding: 60px 20px;
+            background: #fff;
+            max-width: 800px;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .donation-section h1 {
+            font-size: 32px;
+            color: #800020;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .donation-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .donation-form label {
+            font-size: 18px;
+            color: #333;
+            padding: 2px;
+        }
+
+        .donation-form input,
+        .donation-form select,
+        .donation-form button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #800020;
+            border-radius: 10px;
+            
+            font-size: 16px;
+        }
+
+        .donation-form button {
+            background: #800020;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .donation-form button:hover {
+            background: #a0002b;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 60px; /* Adjusted for header height */
+            left: 0;
+            width: 300px;
+            height: calc(100% - 60px);
+            background: #4f5458;
+            text-align: left;
+            font-size: 20px;
+            transform: rotate3d(0, 1, 0, 90deg);
+            transform-origin: left center;
+            transition: .5s;
+            z-index: 999; /* Ensure sidebar is above other elements */
+        }
+
+        .sidebar.open {
+            transform: rotate3d(0, 0, 1, 0deg);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li:hover,
+        .sidebar li.active {
+            background: #0000003f;
+        }
+
+        .sidebar li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+        .hamburger-menu {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .hamburger-menu span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: white;
+            border-radius: 9px;
+            transition: .25s ease-in-out;
+        }
+
+        .hamburger-menu span:nth-child(1) {
+            top: 2.5px;
+        }
+
+        .hamburger-menu span:nth-child(2) {
+            top: 11px;
+        }
+
+        .hamburger-menu span:nth-child(3) {
+            top: 21px;
+        }
+
+        .hamburger-menu.open span:nth-child(1) {
+            top: 15px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger-menu.open span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger-menu.open span:nth-child(3) {
+            top: 14px;
+            transform: rotate(-135deg);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hamburger-menu" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="logo">Hope Haven School</div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/#courses-section">Courses</a></li>
+                <li><a href="#">Academics</a></li>
+                <li><a href="/#teachers-section">Teachers</a></li>
+                <li><a href="/#upcoming-events-section">Events</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="@{/donate}">Make Donation</a></li>
+            <li><a th:href="@{/donation_history}">View Donation History</a></li>
+            <li><a href="/update_profile">Update Profile</a></li>
+        </ul>
+    </div>
+
+    <section class="donation-section">
+        <h1>Make a Donation</h1>
+        <form class="donation-form" th:action="@{/donate}" method="post">
+            <label for="donation-amount">Donation Amount</label>
+            <input type="number" id="donation-amount" name="amount" placeholder="Enter amount" required>
+    
+            <label for="payment-method">Payment Method</label>
+            <select id="payment-method" name="payment_method" required>
+                <option value="" disabled selected>Select a payment method</option>
+                <option value="credit-card">Credit Card</option>
+                <option value="paypal">PayPal</option>
+                <option value="bank-transfer">Bank Transfer</option>
+            </select>
+
+            <div id="credit-card-fields" class="hidden">
+                <label for="cc-number">Credit Card Number</label>
+                <input type="text" id="cc-number" name="cc_number" placeholder="Enter your credit card number">
+
+                <label for="cc-expiration">Expiration Date</label>
+                <input type="text" id="cc-expiration" name="cc_expiration" placeholder="MM/YY">
+
+                <label for="cc-cvv">CVV</label>
+                <input type="text" id="cc-cvv" name="cc_cvv" placeholder="CVV">
+
+                <label for="cc-holderName">Card Holder Name</label>
+                <input type="text" id="cc-holderName" name="cc_holderName" placeholder="holderName">
+            </div>
+
+            <div id="paypal-fields" class="hidden">
+                <label for="paypal-email">PayPal Email</label>
+                <input type="email" id="paypal-email" name="paypal_email" placeholder="Enter your PayPal email">
+                <label for="paypal-pass">PayPal Password</label>
+                <input type="password" id="paypal-pass" name="paypal_pass" placeholder="Enter your PayPal password">
+            </div>
+
+            <div id="bank-transfer-fields" class="hidden">
+                <label for="bank-account">Bank Account Number</label>
+                <input type="text" id="bank-account" name="bank_account" placeholder="Enter your bank account number">
+
+                <label for="bank-name">Bank Name</label>
+                <input type="text" id="bank-name" name="bank_name" placeholder="Enter your bank name">
+
+            </div>
+    
+            <!-- <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required> -->
+    
+            <button type="submit">Donate Now</button>
+        </form>
+    
+        <div>
+            <p th:text="${message}"></p>
+        </div>
+    </section>    
+
+    <footer>
+        <p>&copy; 2025 Hope Haven School. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const paymentMethodSelect = document.getElementById('payment-method');
+        const creditCardFields = document.getElementById('credit-card-fields');
+        const paypalFields = document.getElementById('paypal-fields');
+        const bankTransferFields = document.getElementById('bank-transfer-fields');
+
+        paymentMethodSelect.addEventListener('change', function () {
+            const selectedMethod = paymentMethodSelect.value;
+
+            creditCardFields.classList.add('hidden');
+            paypalFields.classList.add('hidden');
+            bankTransferFields.classList.add('hidden');
+
+            if (selectedMethod === 'credit-card') {
+                creditCardFields.classList.remove('hidden');
+            } else if (selectedMethod === 'paypal') {
+                paypalFields.classList.remove('hidden');
+            } else if (selectedMethod === 'bank-transfer') {
+                bankTransferFields.classList.remove('hidden');
+            }
+        });
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            sidebar.classList.toggle('open');
+            hamburgerMenu.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

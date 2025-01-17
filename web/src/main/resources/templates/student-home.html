@@ -129,6 +129,35 @@
             margin-top: 40px;
             font-size: 14px;
         }
+
+        .search-and-apply {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-and-apply .search {
+            margin-right: 20px;
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .search-and-apply .logout:hover {
+            background: #ababab; 
+        }
+
+        .search-and-apply .logout {
+            background: #7a7978;
+            transition: background 0.3s ease;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-block;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -139,9 +168,13 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/register-courses">Register Courses</a></li>
                 <li><a href="/registered-courses">Registered Courses</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="/update_profile-beneficiary">Update Profile</a></li>
             </ul>
         </nav>
+        <div class="search-and-apply">
+            <form action="/logout" method="post">
+                <button type="submit" class="logout">Log out</button>
+            </form>
     </header>
 
     <div class="content">

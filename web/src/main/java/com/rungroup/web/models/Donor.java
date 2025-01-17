@@ -26,6 +26,10 @@ public class Donor extends User {
         this.preferred_type = preferred_type;
     }
 
+    public boolean makeDonation(Donation donation){
+        return true;
+    }
+
     // // Getters and setters
     // public String getName() {
     //     return name;
@@ -57,6 +61,7 @@ public class Donor extends User {
     public String getRole() {
         return "Donor";
     }
+
     @Override
     public boolean delete(){
         return new DonorRepository().deleteById(this.id);

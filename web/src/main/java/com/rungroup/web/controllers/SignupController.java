@@ -34,7 +34,7 @@ public class SignupController {
             @RequestParam("role") String role,
             @RequestParam(value = "skills", required = false) List<String> skills,
             @RequestParam(value = "availability", required = false) Boolean availability,
-            @RequestParam(value = "preferredType", required = false) String preferredType,
+            @RequestParam(value = "preferred_type", required = false) String preferred_type,
             Model model
     ) {
         System.out.println("-------------role: "+role);
@@ -47,7 +47,7 @@ public class SignupController {
                     password,
                     null, // grade not required
                     null, // enrollmentDate not required
-                    preferredType,
+                    preferred_type,
                     skills,
                     availability != null && availability
             );

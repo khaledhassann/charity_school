@@ -157,7 +157,7 @@ public class GenericRepository<T>{
             stmt.executeQuery();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e);
             return false;
         }
         // finally {

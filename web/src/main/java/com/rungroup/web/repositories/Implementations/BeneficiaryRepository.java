@@ -22,6 +22,7 @@ public class BeneficiaryRepository extends GenericRepository<Beneficiary> {
     public Long insert (Beneficiary entity){
         try{
             Long Id = super.insert(entity);
+            
             entity.setId(Id);
             return Id;
         }catch(Exception e){

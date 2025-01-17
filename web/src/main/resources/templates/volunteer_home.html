@@ -96,10 +96,14 @@
             color: #fff;
             cursor: pointer;
         }
+        
+        .search-and-apply .logout:hover {
+            background: #ababab; 
+        }
 
-        .search-and-apply .signup,
-        .search-and-apply .login {
+        .search-and-apply .logout {
             background: #7a7978;
+            transition: background 0.3s ease;
             color: #fff;
             padding: 10px 20px;
             border-radius: 20px;
@@ -113,7 +117,7 @@
         .nav-image {
             width: 100%;
             height: 400px;
-            background: url('/images/pexels-pixabay-207684.jpg') no-repeat center center/cover;
+            background: url('C:/Users/Mriam/Documents/sdp_project/charity_school/images/pexels-pixabay-207684.jpg') no-repeat center center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -371,16 +375,15 @@
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#courses-section">Courses</a></li>
-                <li><a href="#">Academics</a></li>
                 <li><a href="#teachers-section">Teachers</a></li>
                 <li><a href="#upcoming-events-section">Events</a></li>
+                <li><a href="/teach-courses">Teach Courses</a></li> <!-- Added Services Link -->
                 <li><a href="#">Contact</a></li>
+                <li><a href="/update_profile-volunteer">Update Profile</a></li>
             </ul>
         </nav>
         <div class="search-and-apply">
-            <span class="search">🔍</span>
-            <a href="#" class="signup">Sign Up</a>
-            <a href="/login" class="login">Login</a>
+            <a href="/logout" class="logout">Log out</a>
         </div>
     </header>
 

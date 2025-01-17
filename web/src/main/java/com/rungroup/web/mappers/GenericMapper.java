@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Transient;
 
 public class GenericMapper<T> {
     private final Class<T> entityClass;
@@ -20,7 +21,6 @@ public class GenericMapper<T> {
         this.entityClass = entityClass;
     }
 
-    
     public String toInsertQuery(T entity) {
         StringBuilder query = new StringBuilder();
         StringJoiner columns = new StringJoiner(", ");
@@ -29,19 +29,25 @@ public class GenericMapper<T> {
         query.append("INSERT INTO ").append(getTableName()).append(" (");
 
         // for (Field field : entityClass.getDeclaredFields()) {
-        //     field.setAccessible(true); // Allows access to private fields
-        //     try {
-        //         if (field.get(entity) != null && !field.isAnnotationPresent(jakarta.persistence.Id.class)) {
-        //             columns.add(field.getName());
-        //             values.add(formatValue(field.get(entity)));
-        //         }
-        //     } catch (IllegalAccessException e) {
-        //         e.printStackTrace();
-        //     }
+        // field.setAccessible(true); // Allows access to private fields
+        // try {
+        // if (field.get(entity) != null &&
+        // !field.isAnnotationPresent(jakarta.persistence.Id.class)) {
+        // columns.add(field.getName());
+        // values.add(formatValue(field.get(entity)));
+        // }
+        // } catch (IllegalAccessException e) {
+        // e.printStackTrace();
+        // }
         // }
         for (Field field : getAllFields(entityClass)) {
             field.setAccessible(true); // Allows access to private fields
             try {
+
+                // Skip fields annotated with @Transient
+                if (field.isAnnotationPresent(Transient.class)) {
+                    continue;
+                }
                 // Get the column name from the @Column annotation or the field name
                 Column columnAnnotation = field.getAnnotation(Column.class);
                 if (field.get(entity) != null && !field.isAnnotationPresent(jakarta.persistence.Id.class)) {
@@ -56,7 +62,6 @@ public class GenericMapper<T> {
         return query.toString();
     }
 
-    
     public String toUpdateQuery(T entity) {
         StringBuilder query = new StringBuilder();
         StringJoiner setClause = new StringJoiner(", ");
@@ -67,6 +72,10 @@ public class GenericMapper<T> {
         for (Field field : getAllFields(entityClass)) {
             field.setAccessible(true);
             try {
+                // Skip fields annotated with @Transient
+                if (field.isAnnotationPresent(Transient.class)) {
+                    continue;
+                }
                 if (field.isAnnotationPresent(jakarta.persistence.Id.class)) {
                     idValue = field.get(entity);
                 } else if (field.get(entity) != null) {
@@ -85,7 +94,6 @@ public class GenericMapper<T> {
         return query.toString();
     }
 
-    
     public T fromResultSet(ResultSet rs) {
         try {
             T entity = entityClass.getDeclaredConstructor().newInstance();
@@ -97,6 +105,11 @@ public class GenericMapper<T> {
             for (Field field : getAllFields(entityClass)) {
                 field.setAccessible(true);
 
+                // Skip fields annotated with @Transient
+                if (field.isAnnotationPresent(Transient.class)) {
+                    continue;
+                }
+
                 // Get the column name from the @Column annotation or the field name
                 Column columnAnnotation = field.getAnnotation(Column.class);
                 String columnName = columnAnnotation != null ? columnAnnotation.name() : field.getName();
@@ -105,13 +118,14 @@ public class GenericMapper<T> {
                     // Check if the column exists in the ResultSet
                     if (columnExists(rs, columnName)) {
                         Object value = rs.getObject(columnName);
-                        if (value != null && field.getType().equals(LocalDateTime.class) && value instanceof Timestamp) {
+                        if (value != null && field.getType().equals(LocalDateTime.class)
+                                && value instanceof Timestamp) {
                             value = ((Timestamp) value).toLocalDateTime();
                         }
-                        // System.out.println("Setting field: " + field.getName() + 
-                        //     ", Type: " + field.getType().getName() + 
-                        //     ", Value: " + value + 
-                        //     ", Value Type: " + (value != null ? value.getClass().getName() : "null"));
+                        // System.out.println("Setting field: " + field.getName() +
+                        // ", Type: " + field.getType().getName() +
+                        // ", Value: " + value +
+                        // ", Value Type: " + (value != null ? value.getClass().getName() : "null"));
 
                         field.set(entity, value);
                     }
@@ -156,6 +170,7 @@ public class GenericMapper<T> {
         }
         return value.toString();
     }
+
     private static List<Field> getAllFields(Class<?> entityClass) {
         List<Field> fields = new ArrayList<>();
 
@@ -169,5 +184,5 @@ public class GenericMapper<T> {
 
         return fields;
     }
-    
+
 }

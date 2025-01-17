@@ -382,17 +382,17 @@
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#courses-section">Courses</a></li>
-                <li><a href="#">Academics</a></li>
                 <li><a href="#teachers-section">Teachers</a></li>
                 <li><a href="#upcoming-events-section">Events</a></li>
                 <li><a href="/admin">Services</a></li> <!-- Added Services Link -->
                 <li><a href="#">Contact</a></li>
+                <li><a href="/update_profile-admin">Update Profile</a></li>
             </ul>
         </nav>
         <div class="search-and-apply">
-            <span class="search">🔍</span>
-            <a href="#" class="logout">Log out</a>
-        </div>
+            <form action="/logout" method="post">
+                <button type="submit" class="logout">Log out</button>
+            </form>
     </header>
 
     <div class="nav-image">
@@ -442,26 +442,7 @@
         }
     </style>
 
-<div  id="courses-section" class="courses-section">
-    <h2>Let's Check Our Courses</h2>
-    <div class="course-list">
-        <div class="course">
-            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\A1VqnK8cuLL.AC_UF1000,1000_QL80.jpg" alt="History">
-            <h3>History</h3>
-            <p>Discover the events, cultures, and milestones that shaped our world, exploring ancient civilizations, significant eras, and transformative movements throughout history.</p>
-        </div>
-        <div class="course">
-            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\science.jpg" alt="Science">
-            <h3>Science</h3>
-            <p>Explore the wonders of the natural world through hands-on experiments and scientific concepts.</p>
-        </div>
-        <div class="course">
-            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\maths.jpg" alt="Maths">
-            <h3>Maths</h3>
-            <p>Build a strong foundation in mathematics by mastering essential concepts, problem-solving techniques, and real-world applications that inspire logical thinking and analytical skills.</p>
-        </div>
-    </div>
-</div>
+
 
 <style>
     .teachers-section .teacher img {
@@ -473,48 +454,178 @@
     }
 </style>
 
-<div id= "teachers-section" class="teachers-section">
-    <h2>Let's Meet Our Teachers</h2>
-    <div class="teacher-list">
-        <div class="teacher">
-            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\WhatsApp Image 2025-01-02 at 6.15.51 PM.jpeg" alt="Teacher 1">
-            <h3>Laila Ihab</h3>
-            <p>Science Teacher</p>
+
+
+<div id="courses-section" class="section">
+    <h2>Our Courses</h2>
+    <div class="card-container">
+        <div th:each="course : ${courses}" class="card">
+            <div class="card-content">
+                <img th:src="${course.image_url}" alt="Course Image" class="course-image">
+                <h3 th:text="${course.name}" class="course-title"></h3>
+                <p th:text="${course.description}" class="course-description"></p>
+               
+            </div>
         </div>
-        <div class="teacher">
-            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\WhatsApp Image 2025-01-02 at 6.24.02 PM.jpeg" alt="Teacher 2">
-            <h3>Mariam Sameh</h3>
-            <p>History Teacher</p>
-        </div>
-        <div class="teacher">
-            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\WhatsApp Image 2025-01-02 at 6.19.16 PM.jpeg" alt="Teacher 3">
-            <h3>Habiba Yasser</h3>
-            <p>Maths Teacher</p>
+    </div>
+</div>
+<style>
+    .section h2 {
+        font-size: 36px;
+        color: #800020;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .card-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .course-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    .course-title {
+        font-size: 22px;
+        color: #800020;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .course-description {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .register-button {
+        background: linear-gradient(to right, #800020, #a62940);
+        color: #fff;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .register-button:hover {
+        background: linear-gradient(to right, #a62940, #800020);
+    }
+</style>
+
+
+<div id="teachers-section" class="section">
+    <h2>Our Teachers</h2>
+    <div class="card-container">
+        <div th:each="teacher : ${teachers}" class="card">
+            <img th:src="${teacher.image_url}" alt="Teacher Image">
+            <h3 th:text="${teacher.name}"></h3>
+            <p th:text="${teacher.subject}"></p>
+            
         </div>
     </div>
 </div>
 
-<div id="upcoming-events-section" class="upcoming-events-section">
-    <h2>Our Upcoming Events</h2>
-    <div class="event-list">
-        <div class="event">
-            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\WM Science Fair 5-12 Abereham Moges.jpg" alt="Event 1">
-            <h3>Science Fair</h3>
-            <p>Join us for an exciting day of experiments and discoveries at our annual Science Fair.</p>
-        </div>
-        <div class="event">
-            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\National_Museum5.jpg" alt="Event 2">
-            <h3>History Exhibition</h3>
-            <p>Experience the past with our interactive History Exhibition showcasing ancient artifacts.</p>
-        </div>
-        <div class="event">
-            <img src="C:\Users\Mriam\Documents\sdp_project\charity_school\images\free-educational-vector-collection.jpg" alt="Event 3">
-            <h3>Math Competition</h3>
-            <p>Challenge your problem-solving skills in our upcoming Maths Competition.</p>
+<div id="upcoming-events-section" class="section">
+    <h2>Upcoming Events</h2>
+    <div class="card-container">
+        <div th:each="event : ${events}" class="card">
+            <img th:src="${event.image_url}" alt="Event Image">
+            <h3 th:text="${event.name}"></h3>
+            <p th:text="${event.description}"></p>
+            <button>Learn More</button>
         </div>
     </div>
 </div>
+<style>
+.section h2 {
+    font-size: 36px;
+    color: #800020;
+    margin-bottom: 20px;
+    text-align: center;
+}
 
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-size: 22px;
+    color: #800020;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.card button {
+    background: linear-gradient(to right, #800020, #a62940);
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.card button:hover {
+    background: linear-gradient(to right, #a62940, #800020);
+}
+
+</style>
 
     <footer>
         <p>&copy; 2025 Hope Haven School. All rights reserved.</p>
