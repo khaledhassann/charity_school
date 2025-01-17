@@ -80,42 +80,6 @@
             margin-left: 10px;
         }
 
-        .sidebar {
-            position: fixed;
-            top: 60px; /* Adjusted for header height */
-            left: 0;
-            width: 300px;
-            height: calc(100% - 60px);
-            background: #4f5458;
-            text-align: left;
-            font-size: 20px;
-            transform: rotate3d(0, 1, 0, 90deg);
-            transform-origin: left center;
-            transition: .5s;
-            z-index: 999; /* Ensure sidebar is above other elements */
-        }
-
-        .sidebar.open {
-            transform: rotate3d(0, 0, 1, 0deg);
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar li:hover,
-        .sidebar li.active {
-            background: #0000003f;
-        }
-
-        .sidebar li a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            display: block;
-        }
-
         .nav-image {
             width: 100%;
             height: 400px;
@@ -161,16 +125,11 @@
         }
 
         .form-container input[type="text"],
-        .form-container input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
+        .form-container input[type="email"],
         .form-container input[type="password"] {
             width: 100%;
             padding: 10px;
+            margin-bottom: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -191,16 +150,6 @@
             margin-bottom: 1.5rem;
         }
 
-        .input-group .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #800020;
-            font-size: 1.2rem;
-        }
-
         .input-group input, 
         .input-group select {
             width: 100%;
@@ -213,6 +162,20 @@
             font-size: 1rem;
             transition: all 0.3s ease;
         }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .skills-container label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
         footer {
             background: #333;
             color: #fff;
@@ -278,7 +241,6 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/#courses-section">Courses</a></li>
-                <li><a href="#">Academics</a></li>
                 <li><a href="/#teachers-section">Teachers</a></li>
                 <li><a href="/#upcoming-events-section">Events</a></li>
                 <li><a href="#">Contact</a></li>
@@ -290,14 +252,6 @@
             </form>
         </div>
     </header>
-
-    <div class="sidebar" id="sidebar">
-        <ul>
-            <li><a href="/donate">Make Donation</a></li>
-            <li><a th:href="@{/donation_history}">View Donation History</a></li>
-            <li><a href="/update_profile">Update Profile</a></li>
-        </ul>
-    </div>
 
     <div class="nav-image">
         <div class="overlay"></div>
@@ -311,28 +265,45 @@
         <h2>Profile Update Form</h2>
         <div th:if="${message}" style="color: green;">[[${message}]]</div>
         <div th:if="${error}" style="color: red;">[[${error}]]</div>
-        <form action="/update_profile" method="POST">
+        <form action="/update_profile-volunteer" method="POST">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" th:value="${donor.name}" required>
+            <input type="text" id="name" name="name" th:value="${volunteer.name}" required>
     
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" th:value="${donor.email}" required>
+            <input type="email" id="email" name="email" th:value="${volunteer.email}" required>
             
             <div class="input-group">
                 <label for="password">New Password:</label>
-                <input type="password" id="password" name="password" >
+                <input type="password" id="password" name="password">
                 <i class="toggle-password fas fa-eye" id="toggle-password"></i>
             </div>
 
             <div class="input-group">
-            <label for="preferred_type">Preferred Type:</label>
-            <select name="preferred_type"  required>
-                <option value="" disabled selected>Preferred Type</option>
-                <option value="one-time" th:selected="${donor.preferredType == 'one-time'}">One-Time</option>
-                <option value="monthly" th:selected="${donor.preferredType == 'monthly'}">Monthly</option>
-                <option value="annually" th:selected="${donor.preferredType == 'annually'}">Annually</option>
-                <option value="none"th:selected="${donor.preferredType == 'none'}">None</option>
-            </select></div>
+                <label for="skills">Skills:</label>
+                <div class="skills-container">
+                    <label>
+                        <input type="checkbox" name="skills" value="Teaching" th:checked="${volunteer.skills.contains('Teaching')}"> Teaching
+                    </label>
+                    <label>
+                        <input type="checkbox" name="skills" value="Counseling" th:checked="${volunteer.skills.contains('Counseling')}"> Counseling
+                    </label>
+                    <label>
+                        <input type="checkbox" name="skills" value="Organizing" th:checked="${volunteer.skills.contains('Organizing')}"> Organizing
+                    </label>
+                    <label>
+                        <input type="checkbox" name="skills" value="Technical Support" th:checked="${volunteer.skills.contains('Technical Support')}"> Technical Support
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="availability">Availability:</label>
+                <select name="availability" required>
+                    <option value="" disabled>Availability</option>
+                    <option value="true" th:selected="${volunteer.availability == 'true'}">Yes</option>
+                    <option value="false" th:selected="${volunteer.availability == 'false'}">No</option>
+                </select>
+            </div>
     
             <input type="submit" value="Update Profile">
         </form>

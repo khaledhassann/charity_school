@@ -63,8 +63,13 @@
             align-items: center;
         }
 
+        .search-and-apply .logout:hover {
+            background: #ababab; 
+        }
+
         .search-and-apply .logout {
             background: #7a7978;
+            transition: background 0.3s ease;
             color: #fff;
             padding: 10px 20px;
             border-radius: 20px;
@@ -74,6 +79,7 @@
             display: inline-block;
             margin-left: 10px;
         }
+
 
         .sidebar {
             position: fixed;
@@ -279,7 +285,7 @@
         <h2>Profile Update Form</h2>
         <div th:if="${message}" style="color: green;">[[${message}]]</div>
         <div th:if="${error}" style="color: red;">[[${error}]]</div>
-        <form action="/update_profile" method="POST">
+        <form action="/update_profile-admin" method="POST">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" th:value="${admin.name}" required>
     

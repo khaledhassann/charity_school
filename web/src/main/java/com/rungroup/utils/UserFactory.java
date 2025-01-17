@@ -1,5 +1,5 @@
 package com.rungroup.utils;
-
+import java.util.List;
 import com.rungroup.models.*;
 import java.time.LocalDateTime;
 
@@ -13,14 +13,16 @@ public class UserFactory {
         String password,
         String grade, 
         LocalDateTime enrollmentDate,
-        String preferred_type
+        String preferred_type,
+        List<String> skills,
+        boolean availability
     ) {
         if ("Beneficiary".equalsIgnoreCase(role)) {
             return new Beneficiary(id,name, email, password,grade,enrollmentDate);
         } else if ("Donor".equalsIgnoreCase(role)) {
             return new Donor(id,name, email, password,preferred_type);
         } else if ("Volunteer".equalsIgnoreCase(role)) {
-            return new Volunteer(id,name, email, password);
+            return new Volunteer(id,name, email, password,skills,availability);
         }else if ("Admin".equalsIgnoreCase(role)) {
             return new Admin(id,name, email, password);
         } else {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +19,13 @@ public class LoginController {
 
     public LoginController() {
         users = new ArrayList<>();
-        User donor = UserFactory.createUser(1L,"Donor", "Laila", "laila@example.com","laila123", null, null,"None");
+        User donor = UserFactory.createUser(1L,"Donor", "Laila", "laila@example.com","laila123", null, null,"None",null,false);
         users.add(donor);
-        // User volunteer = UserFactory.createUser(2L,"Volunteer", "Mariam", "mariam@example.com","mariam123", null, null);
-        // users.add(volunteer);
-        User beneficiary = UserFactory.createUser(3L,"Beneficiary", "Habiba", "habiba@example.com","habiba123", null, null,null);
+        User volunteer = UserFactory.createUser(2L,"Volunteer", "Mariam", "mariam@example.com","mariam123", null, null,"none",List.of("Teaching", "Organizing"),true);
+        users.add(volunteer);
+        User beneficiary = UserFactory.createUser(3L,"Beneficiary", "Habiba", "habiba@example.com","habiba123", "Grade 5", LocalDateTime.now(),null,null,false);
         users.add(beneficiary);
-        User admin = UserFactory.createUser(4L,"Admin", "Adham", "adham@example.com","adham123", null, null,null);
+        User admin = UserFactory.createUser(4L,"Admin", "Adham", "adham@example.com","adham123", null, null,null,null,false);
         users.add(admin);
     }
 
@@ -43,8 +44,8 @@ public class LoginController {
                     return "redirect:/student-home";
                 } else if ("Donor".equalsIgnoreCase(user.getRole())) {
                     return "redirect:/";
-                // } else if ("Volunteer".equalsIgnoreCase(user.getRole())) {
-                //     return "redirect:/";
+                } else if ("Volunteer".equalsIgnoreCase(user.getRole())) {
+                    return "redirect:/volunteer_home";
                 }else if ("Admin".equalsIgnoreCase(user.getRole())) {
                     return "redirect:/admin-home";
                 } else {

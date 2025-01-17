@@ -62,7 +62,7 @@
             display: flex;
             align-items: center;
         }
-
+       
         .search-and-apply .logout:hover {
             background: #ababab; 
         }
@@ -161,16 +161,11 @@
         }
 
         .form-container input[type="text"],
-        .form-container input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
+        .form-container input[type="email"],
         .form-container input[type="password"] {
             width: 100%;
             padding: 10px;
+            margin-bottom: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -188,7 +183,6 @@
 
         .input-group {
             position: relative;
-            margin-bottom: 1.5rem;
         }
 
         .input-group .toggle-password {
@@ -201,18 +195,6 @@
             font-size: 1.2rem;
         }
 
-        .input-group input, 
-        .input-group select {
-            width: 100%;
-            padding: 0.9rem 1rem;
-            border-radius: 25px;
-            border: 1px solid #800020;
-            outline: none;
-            background: #fff;
-            color: #333;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
         footer {
             background: #333;
             color: #fff;
@@ -278,10 +260,10 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/#courses-section">Courses</a></li>
-                <li><a href="#">Academics</a></li>
                 <li><a href="/#teachers-section">Teachers</a></li>
                 <li><a href="/#upcoming-events-section">Events</a></li>
                 <li><a href="#">Contact</a></li>
+                <li><a href="/update_profile-beneficiary">Update Profile</a></li>
             </ul>
         </nav>
         <div class="search-and-apply">
@@ -290,14 +272,6 @@
             </form>
         </div>
     </header>
-
-    <div class="sidebar" id="sidebar">
-        <ul>
-            <li><a href="/donate">Make Donation</a></li>
-            <li><a th:href="@{/donation_history}">View Donation History</a></li>
-            <li><a href="/update_profile">Update Profile</a></li>
-        </ul>
-    </div>
 
     <div class="nav-image">
         <div class="overlay"></div>
@@ -311,28 +285,18 @@
         <h2>Profile Update Form</h2>
         <div th:if="${message}" style="color: green;">[[${message}]]</div>
         <div th:if="${error}" style="color: red;">[[${error}]]</div>
-        <form action="/update_profile" method="POST">
+        <form action="/update_profile-beneficiary" method="POST">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" th:value="${donor.name}" required>
+            <input type="text" id="name" name="name" th:value="${beneficiary.name}" required>
     
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" th:value="${donor.email}" required>
+            <input type="email" id="email" name="email" th:value="${beneficiary.email}" required>
             
             <div class="input-group">
                 <label for="password">New Password:</label>
                 <input type="password" id="password" name="password" >
                 <i class="toggle-password fas fa-eye" id="toggle-password"></i>
             </div>
-
-            <div class="input-group">
-            <label for="preferred_type">Preferred Type:</label>
-            <select name="preferred_type"  required>
-                <option value="" disabled selected>Preferred Type</option>
-                <option value="one-time" th:selected="${donor.preferredType == 'one-time'}">One-Time</option>
-                <option value="monthly" th:selected="${donor.preferredType == 'monthly'}">Monthly</option>
-                <option value="annually" th:selected="${donor.preferredType == 'annually'}">Annually</option>
-                <option value="none"th:selected="${donor.preferredType == 'none'}">None</option>
-            </select></div>
     
             <input type="submit" value="Update Profile">
         </form>
