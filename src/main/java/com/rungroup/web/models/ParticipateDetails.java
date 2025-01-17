@@ -19,20 +19,19 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
 @Entity
-@Table(name = "teach_details")
-public class TeachDetails extends VerbDetails {
-    private Long hours_taught;
+@Table(name = "participate_details")
+public class ParticipateDetails extends VerbDetails {
+    private String role;
 
-    public TeachDetails(Long user_id, String user_type, Long target_id, String target_type, Long verb_id,
-            Long hours_taught) {
+    public ParticipateDetails(Long user_id, String user_type, Long target_id, String target_type, Long verb_id,
+            String role) {
         super(user_id, user_type, target_id, target_type, verb_id);
-        this.hours_taught = hours_taught;
+        this.role = role;
     }
 
     @Override
     public String getInteractionDetails() {
-        return getUser().getName() + " taught " + getTargetAdapter().getTargetName() + " for " + hours_taught
-                + " hours on "
+        return getUser().getName() + " participated in " + getTargetAdapter().getTargetName() + " as " + role + " on "
                 + created_at + ".";
     }
 

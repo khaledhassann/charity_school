@@ -3,6 +3,7 @@ package com.rungroup.web.repositories;
 import com.rungroup.web.database.DatabaseConfig;
 import com.rungroup.web.mappers.GenericMapper;
 
+import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,14 @@ public class GenericRepository<T> {
             // If the query generated keys, get the first one (the ID)
             if (generatedKeys.next()) {
                 generatedId = generatedKeys.getLong(1);
+                setId(entity, generatedId); // Use reflection to set the ID
+                // Retrieve the inserted entity from the database
+                T insertedEntity = findById(generatedId);
+                if (insertedEntity != null) {
+                    // Update the runtime object with the retrieved data
+                    updateRuntimeObject(entity, insertedEntity);
+                }
+
             }
 
             // Close resources
@@ -71,6 +80,13 @@ public class GenericRepository<T> {
             PreparedStatement stmt = connection.prepareStatement(updateQuery);
             // Execute the query
             stmt.executeQuery();
+
+            // Retrieve the updated entity from the database
+            T updatedEntity = findById(getId(entity));
+            if (updatedEntity != null) {
+                // Update the runtime object with the retrieved data
+                updateRuntimeObject(entity, updatedEntity);
+            }
 
             return true;
         } catch (Exception e) {
@@ -160,6 +176,51 @@ public class GenericRepository<T> {
         // // Clean up
         // database.close();
         // }
+    }
+
+    private void updateRuntimeObject(T runtimeObject, T databaseObject) {
+        // Use reflection to update the fields of the runtime object with the fields of
+        // the database object
+        for (Field field : runtimeObject.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                field.set(runtimeObject, field.get(databaseObject));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void setId(T entity, Long id) {
+        try {
+            Field idField = getIdField(entity.getClass());
+            idField.setAccessible(true);
+            idField.set(entity, id);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Long getId(T entity) {
+        try {
+            Field idField = getIdField(entity.getClass());
+            idField.setAccessible(true);
+            return (Long) idField.get(entity);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Field getIdField(Class<?> clazz) throws NoSuchFieldException {
+        while (clazz != null) {
+            try {
+                return clazz.getDeclaredField("id");
+            } catch (NoSuchFieldException e) {
+                clazz = clazz.getSuperclass();
+            }
+        }
+        throw new NoSuchFieldException("No field named 'id' found in class hierarchy");
     }
 
 }

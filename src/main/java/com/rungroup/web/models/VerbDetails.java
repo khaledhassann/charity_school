@@ -19,6 +19,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,11 +40,17 @@ public abstract class VerbDetails {
     protected LocalDateTime created_at;
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     protected LocalDateTime updated_at;
+    @Transient
+    protected String user_type;
+    @Transient
+    protected String target_type;
 
-    public VerbDetails(Long user_id, Long target_id, Long verb_id) {
+    public VerbDetails(Long user_id, String user_type, Long target_id, String target_type, Long verb_id) {
         this.user_id = user_id;
         this.target_id = target_id;
         this.verb_id = verb_id;
+        this.user_type = user_type;
+        this.target_type = target_type;
     }
 
     public abstract String getInteractionDetails();
@@ -54,68 +61,55 @@ public abstract class VerbDetails {
         DonorRepository dr = new DonorRepository();
         VolunteerRepository vr = new VolunteerRepository();
 
-        try {
-            Admin admin = ar.findById(user_id);
-            if (admin != null) {
-                return admin;
-            }
-        } catch (Exception e) {
-            // Log the exception if needed
+        // Retrieve the user based on user_type
+        User user = null;
+        switch (user_type.toLowerCase()) {
+            case "admin":
+                user = ar.findById(user_id);
+                break;
+            case "beneficiary":
+                user = br.findById(user_id);
+                break;
+            case "volunteer":
+                user = vr.findById(user_id);
+                break;
+            case "donor":
+                user = dr.findById(user_id);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown user type: " + user_type);
         }
 
-        try {
-            Beneficiary beneficiary = br.findById(user_id);
-            if (beneficiary != null) {
-                return beneficiary;
-            }
-        } catch (Exception e) {
-            // Log the exception if needed
+        if (user == null) {
+            throw new IllegalArgumentException("User not found with id: " + user_id);
         }
-
-        try {
-            Donor donor = dr.findById(user_id);
-            if (donor != null) {
-                return donor;
-            }
-        } catch (Exception e) {
-            // Log the exception if needed
-        }
-
-        try {
-            Volunteer volunteer = vr.findById(user_id);
-            if (volunteer != null) {
-                return volunteer;
-            }
-        } catch (Exception e) {
-            // Log the exception if needed
-        }
-
-        throw new RuntimeException("User not found in any repository");
+        return user;
     }
 
     public TargetAdapter getTargetAdapter() {
         CourseRepository cr = new CourseRepository();
         EventRepository er = new EventRepository();
+        TargetAdapter tAdapter;
 
-        try {
-            Course course = cr.findById(target_id);
-            if (course != null) {
-                return new CourseAdapter(course);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+        Object target = null;
+        switch (target_type.toLowerCase()) {
+            case "course":
+                target = cr.findById(target_id);
+                tAdapter = new CourseAdapter((Course) target);
+                break;
+            case "event":
+                target = er.findById(target_id);
+                tAdapter = new EventAdapter((Event) target);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown target type: " + target_type);
         }
 
-        try {
-            Event event = er.findById(target_id);
-            if (event != null) {
-                return new EventAdapter(event);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+        if (target == null || tAdapter == null) {
+            throw new IllegalArgumentException("Target not found with id: " + target_id);
         }
+        return tAdapter;
 
-        throw new RuntimeException("User not found in any repository");
     }
 
     public Verb getVerb() {
@@ -133,4 +127,5 @@ public abstract class VerbDetails {
 
         throw new RuntimeException("Verb not found in the repository");
     }
+    
 }

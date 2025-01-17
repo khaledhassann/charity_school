@@ -1,0 +1,33 @@
+package com.rungroup.web.repositories.Implementations;
+
+import java.time.LocalDateTime;
+
+import com.rungroup.web.mappers.GenericMapper;
+
+import com.rungroup.web.models.DeviceTargetting;
+import com.rungroup.web.repositories.GenericRepository;
+
+public class DeviceTargettingRepository extends GenericRepository<DeviceTargetting> {
+
+    public DeviceTargettingRepository() {
+        super("device_targetting", new GenericMapper<DeviceTargetting>(DeviceTargetting.class));
+    }
+
+    public boolean update(DeviceTargetting entity) {
+        // Add the update date explicitly
+        entity.setUpdated_at(LocalDateTime.now());
+        return super.update(entity);
+    }
+
+    public Long insert(DeviceTargetting entity) {
+        try {
+            Long Id = super.insert(entity);
+            entity.setId(Id);
+            return 1L;
+        } catch (Exception e) {
+            System.out.println(e);
+            return -1L;
+        }
+
+    }
+}
