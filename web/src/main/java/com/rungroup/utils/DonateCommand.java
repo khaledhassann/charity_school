@@ -12,13 +12,15 @@ public class DonateCommand implements Command {
 
     @Override
     public void execute() {
-        // Process the donation
-        donation.processDonation();
+        if (!donation.processDonation()) {
+            throw new RuntimeException("Donation processing failed!");
+        }
     }
 
     @Override
     public void undo() {
-        // Refund the donation
-        donation.refundDonation();
+        if (!donation.refundDonation()) {
+            throw new RuntimeException("Refund processing failed!");
+        }
     }
 }

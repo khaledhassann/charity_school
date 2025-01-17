@@ -6,13 +6,15 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.rungroup.utils.PaymentStrategy;
+
 public class Donation {
     private Long id;
     private double amount;
     private Long userId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime date;
-    // private Payment payment; 
+    private PaymentStrategy paymentStrategy; 
     private String payment;
     private List<Donation> donations = new ArrayList<>();
 
@@ -64,12 +66,24 @@ public class Donation {
         this.payment = payment;
     }
 
-    public boolean processDonation() {
-        return true;
+    public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
     }
 
-    public boolean refundDonation(){
-        return true;
+    public boolean processDonation() {
+        if (paymentStrategy == null) {
+            throw new IllegalStateException("Payment strategy not set.");
+        }
+
+        if (paymentStrategy.pay(amount)) {
+            donations.add(this);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean refundDonation() {
+        return donations.remove(this);
     }
 
     public String getDetails() {

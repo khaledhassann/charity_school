@@ -1,58 +1,55 @@
 package com.rungroup.models;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.rungroup.utils.Command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Donor extends User {
-    private String preferred_type;
+    private String preferredType;
     private List<Donation> donationHistory;
     private Command command;
 
-    public Donor(Long id, String name, String email, String password,String preferred_type) {
+    public Donor(Long id, String name, String email, String password, String preferredType) {
         super(id, name, email, password);
-        this.preferred_type=preferred_type;
+        this.preferredType = preferredType;
         this.donationHistory = new ArrayList<>();
     }
 
     public String getPreferredType() {
-        return preferred_type;
+        return preferredType;
     }
 
-    public void setPreferredType(String preferred_type) {
-        this.preferred_type = preferred_type;
+    public void setPreferredType(String preferredType) {
+        this.preferredType = preferredType;
     }
 
     @Override
     public String getRole() {
         return "Donor";
     }
-     
+
     public void setCommand(Command command) {
-    this.command = command;
+        this.command = command;
     }
+
     public boolean makeDonation(Donation donation) {
-            // command.execute();
+        if (command != null) {
+            command.execute();
             return true;
+        }
+        throw new IllegalStateException("Command not set.");
     }
 
     public void undoDonation(Donation donation) {
+        if (command != null) {
             command.undo();
-        
-}
-
-    public List<Donation> viewDonationHistory() {
-        return new ArrayList<>(donationHistory);
+        } else {
+            throw new IllegalStateException("Command not set.");
+        }
     }
 
-    public boolean updateProfile(String updatedName, String updatedEmail) {
-        if (updatedName != null && !updatedName.isBlank()) {
-            setName(updatedName);
-        }
-        if (updatedEmail != null && !updatedEmail.isBlank()) {
-            setEmail(updatedEmail);
-        }
-        return true; 
-    }
-
+    // public List<Donation> viewDonationHistory() {
+    //     return new ArrayList<>(donationHistory);
+    // }
 }
