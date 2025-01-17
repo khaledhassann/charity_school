@@ -100,10 +100,6 @@ public class Assessment {
 
     @Override
     public String toString() {
-        return "Assessment{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", state=" + state +
-                '}';
+        return "Assessment{name='" + name + "', state=" + state + "}";
     }
 }

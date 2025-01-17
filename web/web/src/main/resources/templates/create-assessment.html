@@ -106,6 +106,8 @@
     <div class="form-container">
         <h2>Create a New Assessment</h2>
         <form action="/create-assessment" method="post">
+            <input type="hidden" name="courseId" th:value="${selectedCourse.id}">
+
             <div class="form-group">
                 <label for="name">Assessment Name</label>
                 <input type="text" id="name" name="name" required>
@@ -122,23 +124,10 @@
                 <label for="deadline">Deadline</label>
                 <input type="datetime-local" id="deadline" name="deadline" required>
             </div>
-            <div class="form-group">
-                <label for="course">Course</label>
-                <select name="courseId" id="course" required>
-                    <option value="" disabled selected>Select a Course</option>
-                    <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="state">Initial State</label>
-                <select name="state" id="state" required>
-                    <option value="Draft">Draft</option>
-                    
-                </select>
-            </div>
             <button type="submit" class="btn">Create Assessment</button>
         </form>
-        <a href="/taught-courses" class="back-link">← Back to Courses</a>
+        
+        <a href="/teached-courses" class="back-link">← Back to Courses</a>
     </div>
     <footer>&copy; 2025 Hope Haven School. All rights reserved.</footer>
 </body>

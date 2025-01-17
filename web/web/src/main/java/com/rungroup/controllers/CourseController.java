@@ -13,14 +13,14 @@ import java.util.List;
 @Controller
 public class CourseController {
 
-    private final AssessmentController assessmentController;
-    private List<Course> availableCourses = new ArrayList<>();
+    
+    private static List<Course> availableCourses = new ArrayList<>();
     private List<Course> registeredCourses = new ArrayList<>();
     private User currentUser;
 
     // Constructor with dependency injection for AssessmentController
     public CourseController(AssessmentController assessmentController) {
-        this.assessmentController = assessmentController;
+        //this.assessmentController = assessmentController;
 
         // Static list of available courses with updated attributes
         currentUser = new Beneficiary(1L, "mariam", "mariam@sameh", "123", "90");
@@ -39,6 +39,10 @@ public class CourseController {
         availableCourses.add(new Course(6L, "Arabic", "Dive into the rich and ancient language of Arabic.",
                 "/images/1634038961-arabic.jpg", 3, 6, 0.0));
     }
+    public static List<Course> getAvailableCourses() {
+        return availableCourses;
+    }
+    
 
     @GetMapping("/register-courses")
     public String getRegisterCoursesPage(Model model) {
@@ -112,7 +116,7 @@ public class CourseController {
                 .orElseThrow(() -> new IllegalArgumentException("Course not found"));
     
         // Fetch only active assessments for the course
-        List<Assessment> activeAssessments = assessmentController.getActiveAssessmentsForCourse(course);
+        List<Assessment> activeAssessments = AssessmentController.getActiveAssessmentsForCourse(course);
     
         model.addAttribute("course", course);
         model.addAttribute("assessments", activeAssessments);
