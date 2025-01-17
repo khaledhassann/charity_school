@@ -18,4 +18,16 @@ public class CourseRepository extends GenericRepository<Course> {
         entity.setUpdated_at(LocalDateTime.now());
         return super.update(entity);
     }
+
+    public Long insert(Course entity) {
+        try {
+            Long Id = super.insert(entity);
+            entity.setId(Id);
+            return 1L;
+        } catch (Exception e) {
+            System.out.println(e);
+            return -1L;
+        }
+
+    }
 }

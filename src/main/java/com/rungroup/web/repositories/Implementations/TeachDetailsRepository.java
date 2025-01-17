@@ -9,7 +9,7 @@ import com.rungroup.web.repositories.GenericRepository;
 public class TeachDetailsRepository extends GenericRepository<TeachDetails> {
 
     public TeachDetailsRepository() {
-        super("TeachDetails", new GenericMapper<TeachDetails>(TeachDetails.class));
+        super("teach_details", new GenericMapper<TeachDetails>(TeachDetails.class));
     }
 
     @Override
@@ -17,5 +17,17 @@ public class TeachDetailsRepository extends GenericRepository<TeachDetails> {
         // Add the update date explicitly
         entity.setUpdated_at(LocalDateTime.now());
         return super.update(entity);
+    }
+
+    public Long insert(TeachDetails entity) {
+        try {
+            Long Id = super.insert(entity);
+            entity.setId(Id);
+            return 1L;
+        } catch (Exception e) {
+            System.out.println(e);
+            return -1L;
+        }
+
     }
 }

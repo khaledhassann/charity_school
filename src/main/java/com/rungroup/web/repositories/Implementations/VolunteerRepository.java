@@ -18,4 +18,16 @@ public class VolunteerRepository extends GenericRepository<Volunteer> {
         entity.setUpdated_at(LocalDateTime.now());
         return super.update(entity);
     }
+
+    public Long insert(Volunteer entity) {
+        try {
+            Long Id = super.insert(entity);
+            entity.setId(Id);
+            return 1L;
+        } catch (Exception e) {
+            System.out.println(e);
+            return -1L;
+        }
+
+    }
 }

@@ -32,18 +32,18 @@ public abstract class VerbDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-    protected Long userId;
-    protected Long targetId;
-    protected Long verbId;
+    protected Long user_id;
+    protected Long target_id;
+    protected Long verb_id;
     @Column(name = "created_at", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     protected LocalDateTime created_at;
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     protected LocalDateTime updated_at;
 
-    public VerbDetails(Long userId, Long targetId, Long verbId) {
-        this.userId = userId;
-        this.targetId = targetId;
-        this.verbId = verbId;
+    public VerbDetails(Long user_id, Long target_id, Long verb_id) {
+        this.user_id = user_id;
+        this.target_id = target_id;
+        this.verb_id = verb_id;
     }
 
     public abstract String getInteractionDetails();
@@ -55,7 +55,7 @@ public abstract class VerbDetails {
         VolunteerRepository vr = new VolunteerRepository();
 
         try {
-            Admin admin = ar.findById(userId);
+            Admin admin = ar.findById(user_id);
             if (admin != null) {
                 return admin;
             }
@@ -64,7 +64,7 @@ public abstract class VerbDetails {
         }
 
         try {
-            Beneficiary beneficiary = br.findById(userId);
+            Beneficiary beneficiary = br.findById(user_id);
             if (beneficiary != null) {
                 return beneficiary;
             }
@@ -73,7 +73,7 @@ public abstract class VerbDetails {
         }
 
         try {
-            Donor donor = dr.findById(userId);
+            Donor donor = dr.findById(user_id);
             if (donor != null) {
                 return donor;
             }
@@ -82,7 +82,7 @@ public abstract class VerbDetails {
         }
 
         try {
-            Volunteer volunteer = vr.findById(userId);
+            Volunteer volunteer = vr.findById(user_id);
             if (volunteer != null) {
                 return volunteer;
             }
@@ -98,7 +98,7 @@ public abstract class VerbDetails {
         EventRepository er = new EventRepository();
 
         try {
-            Course course = cr.findById(targetId);
+            Course course = cr.findById(target_id);
             if (course != null) {
                 return new CourseAdapter(course);
             }
@@ -107,7 +107,7 @@ public abstract class VerbDetails {
         }
 
         try {
-            Event event = er.findById(targetId);
+            Event event = er.findById(target_id);
             if (event != null) {
                 return new EventAdapter(event);
             }
@@ -122,7 +122,7 @@ public abstract class VerbDetails {
         VerbRepository vr = new VerbRepository();
 
         try {
-            Verb verb = vr.findById(verbId);
+            Verb verb = vr.findById(verb_id);
             if (verb != null) {
                 return verb;
             }

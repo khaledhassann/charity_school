@@ -11,7 +11,7 @@ public class EventAdapter implements TargetAdapter {
     }
 
     @Override
-    public Long getTargetId() {
+    public Long gettarget_id() {
         return adaptee.getId();
     }
 
