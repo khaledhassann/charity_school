@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 import com.rungroup.web.mappers.GenericMapper;
 import com.rungroup.web.models.B;
 import com.rungroup.web.models.Volunteer;
-import com.rungroup.web.repositories.GenericRepository;
+import com.rungroup.web.repositories.CachingRepository;
 
-public class VolunteerRepository extends GenericRepository<Volunteer> {
+public class VolunteerRepository extends CachingRepository<Volunteer> {
 
     public VolunteerRepository() {
         super("Volunteer", new GenericMapper<Volunteer>(Volunteer.class));

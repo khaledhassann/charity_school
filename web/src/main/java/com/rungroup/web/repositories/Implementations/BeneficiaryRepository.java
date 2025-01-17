@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 import com.rungroup.web.mappers.GenericMapper;
 
 import com.rungroup.web.models.Beneficiary;
-import com.rungroup.web.repositories.GenericRepository;
+import com.rungroup.web.repositories.CachingRepository;
 
-public class BeneficiaryRepository extends GenericRepository<Beneficiary> {
+public class BeneficiaryRepository extends CachingRepository<Beneficiary> {
 
     public BeneficiaryRepository() {
         super("Beneficiary", new GenericMapper<Beneficiary>(Beneficiary.class));
@@ -22,7 +22,7 @@ public class BeneficiaryRepository extends GenericRepository<Beneficiary> {
     public Long insert (Beneficiary entity){
         try{
             Long Id = super.insert(entity);
-            
+
             entity.setId(Id);
             return Id;
         }catch(Exception e){

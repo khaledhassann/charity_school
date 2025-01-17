@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 import com.rungroup.web.mappers.GenericMapper;
 import com.rungroup.web.models.B;
 import com.rungroup.web.models.Event;
-import com.rungroup.web.repositories.GenericRepository;
+import com.rungroup.web.repositories.CachingRepository;
 
-public class EventRepository extends GenericRepository<Event> {
+public class EventRepository extends CachingRepository<Event> {
 
     public EventRepository() {
         super("Event", new GenericMapper<Event>(Event.class));

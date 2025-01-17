@@ -5,9 +5,9 @@
 // import com.rungroup.web.mappers.GenericMapper;
 
 // import com.rungroup.web.models.VerbDetails;
-// import com.rungroup.web.repositories.GenericRepository;
+// import com.rungroup.web.repositories.CachingRepository;
 
-// public class VerbDetailsRepository extends GenericRepository<VerbDetails> {
+// public class VerbDetailsRepository extends CachingRepository<VerbDetails> {
 
 //     public VerbDetailsRepository() {
 //         super("VerbDetails", new GenericMapper<VerbDetails>(VerbDetails.class));

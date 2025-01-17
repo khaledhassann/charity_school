@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public class GenericRepository<T>{
 
-    private final DatabaseConfig database;
-    private final String tableName;
-    private final GenericMapper<T> mapper;
+    protected final DatabaseConfig database;
+    protected final String tableName;
+    protected final GenericMapper<T> mapper;
 
     public GenericRepository(String tableName, GenericMapper<T> mapper) {
         this.database = DatabaseConfig.getInstance();

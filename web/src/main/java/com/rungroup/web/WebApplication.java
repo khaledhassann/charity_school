@@ -88,7 +88,12 @@ public class WebApplication {
         // System.out.println("Updated at: " + b2.getUpdated_at());
         // System.out.println("B_SPECIFIC: " + b2.getB_SPECIFIC());
         // System.out.println("Skills: " + b2.getSkills());
-
+        // BeneficiaryRepository br = new BeneficiaryRepository();
+        // Beneficiary b1 = new Beneficiary();
+        // b1.setEmail("7a7a");
+        // br.insert(b1);
+        // br.findAll();
+        // br.findAll();
 
     }
 
