@@ -1,6 +1,8 @@
 package com.rungroup.models;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,6 +14,7 @@ public class Donation {
     private LocalDateTime date;
     // private Payment payment; 
     private String payment;
+    private List<Donation> donations = new ArrayList<>();
 
     public Donation(Long id, double amount, Long userId, LocalDateTime date, String payment) {
         this.id = id;
@@ -62,6 +65,10 @@ public class Donation {
     }
 
     public boolean processDonation() {
+        return true;
+    }
+
+    public boolean refundDonation(){
         return true;
     }
 

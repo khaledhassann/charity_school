@@ -2,6 +2,12 @@ package com.rungroup.controllers;
 
 import com.rungroup.models.Donation;
 import com.rungroup.models.Donor;
+import com.rungroup.models.PayPalPayment;
+import com.rungroup.models.Payment;
+import com.rungroup.utils.DonateCommand;
+import com.rungroup.utils.PaymentStrategy;
+import com.rungroup.models.BankTransferPayment;
+import com.rungroup.models.CreditCardPayment;
 import com.rungroup.models.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,37 +40,85 @@ public class DonorController {
         return "donation";
     }
 
-    @PostMapping("/donate")
-    public String makeDonation(
-            @RequestParam("amount") double amount,
-            @RequestParam("payment_method") String paymentMethod,
-            Model model
-    ) {
-        this.donor = (Donor) CurrentUser.getUser();
+   @PostMapping("/donate")
+public String makeDonation(
+        @RequestParam("amount") double amount,
+        @RequestParam("payment_method") String paymentMethod,
+        @RequestParam(value = "cc_number", required = false) String ccNumber,
+        @RequestParam(value = "cc_holderName", required = false) String ccHolderName,
+        @RequestParam(value = "cc_expiration", required = false) String ccExpiration,
+        @RequestParam(value = "cc_cvv", required = false) String ccCVV,
+        @RequestParam(value = "paypal_email", required = false) String paypalEmail,
+        @RequestParam(value = "paypal_pass", required = false) String paypalPassword,
+        @RequestParam(value = "bank_account", required = false) String bankAccount,
+        @RequestParam(value = "bank_name", required = false) String bankName,
+        Model model
+) {
+    this.donor = (Donor) CurrentUser.getUser();
 
-        // Create a new donation
+    // Determine the payment strategy based on the selected method
+    PaymentStrategy paymentStrategy = null;
+    switch (paymentMethod) {
+        case "credit-card":
+            paymentStrategy = new CreditCardPayment(ccNumber, ccHolderName, ccExpiration, ccCVV);
+            break;
+        case "paypal":
+            paymentStrategy = new PayPalPayment(paypalEmail, paypalPassword);
+            break;
+        case "bank-transfer":
+            paymentStrategy = new BankTransferPayment(bankAccount, bankName);
+            break;
+        default:
+            model.addAttribute("message", "Invalid payment method selected.");
+            return "donation";
+    }
+
+    // // Create a new donation
+    // lastDonation = new Donation(
+    //         (long) (donations.size() + 1),
+    //         amount,
+    //         donor.getId(),
+    //         LocalDateTime.now(),
+    //         paymentMethod
+    // );
+
+    // Use the strategy in the donation
+    Payment payment = new Payment(paymentStrategy);
+    // payment.setPaymentStrategy(paymentStrategy);
+
+    if (payment.pay(amount)) {
+        // Process the donation using the command pattern
+        // DonateCommand donateCommand = new DonateCommand(lastDonation);
+        // donor.setCommand(donateCommand);
+            // Create a new donation
         lastDonation = new Donation(
-                (long) (donations.size() + 1),
-                amount,
-                donor.getId(),
-                LocalDateTime.now(),
-                paymentMethod
-        );
-
-        donations.add(lastDonation);
+            (long) (donations.size() + 1),
+            amount,
+            donor.getId(),
+            LocalDateTime.now(),
+            paymentMethod
+    );
         donor.makeDonation(lastDonation);
+        donations.add(lastDonation);
 
         model.addAttribute("message", "Donation successful!");
         model.addAttribute("lastDonation", lastDonation);
+        System.out.println("donation"+lastDonation);
         return "redirect:/successfulDonation";
+    } else {
+        model.addAttribute("message", "Payment failed. Please try again.");
+        return "donation";
     }
+}
 
     @GetMapping("/successfulDonation")
     public String showSuccessPage(Model model) {
         if (lastDonation != null) {
             System.out.println("--------last donation amount: "+lastDonation.getAmount());
             System.out.println("--------last donation payment: "+lastDonation.getPayment());
-            System.out.println("--------last donation amount: "+lastDonation.getFormattedDate());
+            System.out.println("--------last donation date: "+lastDonation.getFormattedDate());
+            model.addAttribute("lastDonation", lastDonation);
+
         return "successfulDonation";}
         else
         return "donation";
@@ -80,6 +134,8 @@ public class DonorController {
         } else {
             model.addAttribute("message", "No donation available for refund.");
         }
+        this.donor = (Donor) CurrentUser.getUser();
+         donor.undoDonation(lastDonation);
 
         return "redirect:/donate";
     }

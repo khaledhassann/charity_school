@@ -2,9 +2,12 @@ package com.rungroup.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rungroup.utils.Command;
+
 public class Donor extends User {
     private String preferred_type;
     private List<Donation> donationHistory;
+    private Command command;
 
     public Donor(Long id, String name, String email, String password,String preferred_type) {
         super(id, name, email, password);
@@ -24,10 +27,19 @@ public class Donor extends User {
     public String getRole() {
         return "Donor";
     }
-
-    public boolean makeDonation(Donation donation) {
-        return true;
+     
+    public void setCommand(Command command) {
+    this.command = command;
     }
+    public boolean makeDonation(Donation donation) {
+            // command.execute();
+            return true;
+    }
+
+    public void undoDonation(Donation donation) {
+            command.undo();
+        
+}
 
     public List<Donation> viewDonationHistory() {
         return new ArrayList<>(donationHistory);
@@ -42,4 +54,5 @@ public class Donor extends User {
         }
         return true; 
     }
+
 }
