@@ -23,7 +23,9 @@ public class TeachDetailsRepository extends GenericRepository<TeachDetails> {
         try {
             Long Id = super.insert(entity);
             entity.setId(Id);
-            return 1L;
+            entity.setCreated_at(LocalDateTime.now());
+
+            return Id;
         } catch (Exception e) {
             System.out.println(e);
             return -1L;

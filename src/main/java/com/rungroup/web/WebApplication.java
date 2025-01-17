@@ -38,85 +38,83 @@ public class WebApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WebApplication.class, args);
 
-		// // Creating the verbs in the database (TEACH, PARTICIPATE, REGISTER)
-		// VerbRepository verbRepository = new VerbRepository();
-		// Verb teachVerb = new Verb("Teaching");
-		// verbRepository.insert(teachVerb);
-		// Verb participateVerb = new Verb("Participating");
-		// verbRepository.insert(participateVerb);
-		// Verb registerVerb = new Verb("Registering");
-		// verbRepository.insert(registerVerb);
+		// Creating the verbs in the database (TEACH, PARTICIPATE, REGISTER)
+		VerbRepository verbRepository = new VerbRepository();
+		Verb teachVerb = new Verb("Teaching");
+		verbRepository.insert(teachVerb);
+		Verb participateVerb = new Verb("Participating");
+		verbRepository.insert(participateVerb);
+		Verb registerVerb = new Verb("Registering");
+		verbRepository.insert(registerVerb);
 
-		// // Creating the verb doers (2 different volunteers, 1 beneficiary)
-		// VolunteerRepository vr = new VolunteerRepository();
-		// Volunteer volunteer1 = new Volunteer("Khaled", "khaled@email", "pass123");
-		// vr.insert(volunteer1);
-		// Volunteer volunteer2 = new Volunteer("Adham", "ahmed@email", "pass123");
-		// vr.insert(volunteer2);
-		// BeneficiaryRepository br = new BeneficiaryRepository();
-		// Beneficiary beneficiary1 = new Beneficiary("Omar", "beneficiary1@email",
-		// "pass123");
-		// br.insert(beneficiary1);
+		// Creating the verb doers (2 different volunteers, 1 beneficiary)
+		VolunteerRepository vr = new VolunteerRepository();
+		Volunteer volunteer1 = new Volunteer("Khaled", "khaled@email", "pass123");
+		vr.insert(volunteer1);
+		Volunteer volunteer2 = new Volunteer("Adham", "ahmed@email", "pass123");
+		vr.insert(volunteer2);
+		BeneficiaryRepository br = new BeneficiaryRepository();
+		Beneficiary beneficiary1 = new Beneficiary("Omar", "beneficiary1@email",
+				"pass123");
+		br.insert(beneficiary1);
 
-		// // Creating the targets (1 course and 1 event)
-		// CourseRepository cr = new CourseRepository();
-		// Course course1 = new Course("Math", "This is a maths course", "", 3, 1, 0.5);
-		// cr.insert(course1);
+		// Creating the targets (1 course and 1 event)
+		CourseRepository cr = new CourseRepository();
+		Course course1 = new Course("Math", "This is a maths course", "", 3, 1, 0.5);
+		cr.insert(course1);
 		EventRepository er = new EventRepository();
 		Event event1 = new Event("DJ your own concert", "We are going to organize a DJ events for our beneficiaries",
 				"",
 				LocalDateTime.now(), "Sigma66");
 		er.insert(event1);
 
-		// // Create a TeachDetails instance
-		// TeachDetails teachDetails = (TeachDetails)
-		// VerbDetailsFactory.createVerbDetails(teachVerb.getId(),
-		// volunteer1.getId(),
-		// "volunteer", course1.getId(),
-		// "course", new HashMap<String, Object>() {
-		// {
-		// put("hours_taught", 12L);
-		// }
-		// });
+		// Create a TeachDetails instance
+		TeachDetails teachDetails = (TeachDetails) VerbDetailsFactory.createVerbDetails(teachVerb.getId(),
+				volunteer1.getId(),
+				"volunteer", course1.getId(),
+				"course", new HashMap<String, Object>() {
+					{
+						put("hours_taught", 12L);
+					}
+				});
 
-		// // Create a TeachDetails instance
-		// ParticipateDetails participateDetails = (ParticipateDetails)
-		// VerbDetailsFactory.createVerbDetails(
-		// participateVerb.getId(),
-		// volunteer2.getId(),
-		// "volunteer", event1.getId(),
-		// "event", new HashMap<String, Object>() {
-		// {
-		// put("role", "Usher");
-		// }
-		// });
+		// Create a TeachDetails instance
+		ParticipateDetails participateDetails = (ParticipateDetails) VerbDetailsFactory.createVerbDetails(
+				participateVerb.getId(),
+				volunteer2.getId(),
+				"volunteer", event1.getId(),
+				"event", new HashMap<String, Object>() {
+					{
+						put("role", "Usher");
+					}
+				});
 
-		// // Create a TeachDetails instance
-		// RegisterDetails registerDetails = (RegisterDetails)
-		// VerbDetailsFactory.createVerbDetails(registerVerb.getId(),
-		// beneficiary1.getId(),
-		// "beneficiary", course1.getId(),
-		// "course", new HashMap<String, Object>() {
-		// {
-		// put("status", "pending");
-		// }
-		// });
+		// Create a TeachDetails instance
+		RegisterDetails registerDetails = (RegisterDetails) VerbDetailsFactory.createVerbDetails(registerVerb.getId(),
+				beneficiary1.getId(),
+				"beneficiary", course1.getId(),
+				"course", new HashMap<String, Object>() {
+					{
+						put("status", "pending");
+					}
+				});
 
-		// TeachDetailsRepository tdr = new TeachDetailsRepository();
-		// tdr.insert(teachDetails);
-		// ParticipateDetailsRepository pdr = new ParticipateDetailsRepository();
-		// pdr.insert(participateDetails);
-		// RegisterDetailsRepository rdr = new RegisterDetailsRepository();
-		// rdr.insert(registerDetails);
+		TeachDetailsRepository tdr = new TeachDetailsRepository();
+		tdr.insert(teachDetails);
+		ParticipateDetailsRepository pdr = new ParticipateDetailsRepository();
+		pdr.insert(participateDetails);
+		RegisterDetailsRepository rdr = new RegisterDetailsRepository();
+		rdr.insert(registerDetails);
 
-		// // Test getInteractionDetails method
-		// System.out.println(teachDetails.getInteractionDetails());
-		// // Test getInteractionDetails method
-		// System.out.println(participateDetails.getInteractionDetails());
-		// // Test getInteractionDetails method
-		// System.out.println(registerDetails.getInteractionDetails());
+		// Test getInteractionDetails method
+		System.out.println(teachDetails.getInteractionDetails());
+		// Test getInteractionDetails method
+		System.out.println(participateDetails.getInteractionDetails());
+		// Test getInteractionDetails method
+		System.out.println(registerDetails.getInteractionDetails());
 
-		Twitter twitter = new Twitter("Twitter campaign", "Twitter", "Upcoming", LocalDateTime.now(), event1.getId());
+		Twitter twitter = new Twitter("Twitter campaign", "Twitter", "Upcoming",
+				LocalDateTime.now(), event1.getId());
 		TwitterRepository twitterRepository = new TwitterRepository();
 		twitterRepository.insert(twitter);
 		System.out.println(twitter.getDecorated_ad());

@@ -23,7 +23,8 @@ public class FacebookRepository extends GenericRepository<Facebook> {
         try {
             Long Id = super.insert(entity);
             entity.setId(Id);
-            return 1L;
+            entity.setCreated_at(LocalDateTime.now());
+            return Id;
         } catch (Exception e) {
             System.out.println(e);
             return -1L;

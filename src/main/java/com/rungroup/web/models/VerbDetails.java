@@ -27,6 +27,7 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder
 @MappedSuperclass
 public abstract class VerbDetails {
@@ -127,5 +128,5 @@ public abstract class VerbDetails {
 
         throw new RuntimeException("Verb not found in the repository");
     }
-    
+
 }

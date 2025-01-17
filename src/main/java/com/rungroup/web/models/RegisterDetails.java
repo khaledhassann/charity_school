@@ -18,6 +18,7 @@ import lombok.experimental.SuperBuilder;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
+@NoArgsConstructor
 @Entity
 @Table(name = "register_details")
 public class RegisterDetails extends VerbDetails {
